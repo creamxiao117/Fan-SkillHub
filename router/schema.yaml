@@ -1,0 +1,70 @@
+# 路由表契约（router.yaml 唯一事实源的字段规范）
+# 校验失败则拒绝加载路由表，防止路由撒谎（误命中比没有更糟）。
+
+# ----- 顶层 -----
+# version: 路由表版本号，改动需自增
+# skills: 技能登记列表（每个技能一条记录，逐一对应 skills/ 下某个 skill.yaml）
+
+# ----- skill 记录字段 -----
+name:
+  type: string
+  required: true
+  desc: 技能唯一标识，必须与小写 slug 一致（如 github-star-distill）。跨槽位不得重复。
+
+slot:
+  type: enum
+  values: [shared, dedicated]
+  required: true
+  desc: 槽位。shared=共用库(跨域通用，promoted)；dedicated=专用库(按域隔离)。
+
+scope:
+  type: string
+  required: false
+  desc: 专用库的所属域（当 slot=dedicated 时必填，如 autocad、cad2020、memory-hub）。shared 可留空。
+
+invoke:
+  type: enum
+  values: [user, model]
+  required: true
+  desc: 触发轨。user=只由人触发/编排；model=可被模型自动触发/承载纪律。
+
+description_model:
+  type: string
+  required: true
+  desc: 给模型读的触发描述，写触发词与"何时自动用"，限定在模型触发轨使用。
+
+description_human:
+  type: string
+  required: false
+  desc: 给人读的摘要（卸载认知负担），user 触发轨使用。
+
+trigger:
+  type: array
+  items: string
+  required: true
+  desc: 触发词/短语列表，路由意图匹配用。
+
+forgot:
+  type: array
+  items: string
+  required: true
+  desc: 负路由边界（非空）。列出不适用/会误命中的情形，防止语义过命中。
+
+weight:
+  type: float
+  required: false
+  default: 1.0
+  desc: 基础命中级优先度；反触发降权在此基础上递减。
+
+# ----- 复杂度路由判据（全局，仅此处判定，不复制到每个技能） -----
+complexity:
+  type: object
+  required: true
+  fields:
+    files_threshold:
+      desc: 改动文件数 > 此值认为复杂(启用重审查/双轴)
+    cross_module:
+      desc: 是否跨模块视为复杂
+    public_behavior:
+      desc: 是否涉公开行为(API/持久化/权限)视为复杂
+  desc: 复杂度判定集中在路由一处，轻重分流；轻量任务走轻量路径，复杂任务走重方法。

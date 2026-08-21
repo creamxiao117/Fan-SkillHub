@@ -1,0 +1,33 @@
+# skill.yaml 元数据模板（每个技能一份，放 skills/<slot>/<name>/skill.yaml）
+# 与 router.yaml 中同 name 记录互为镜像；本文件偏"技能自身"，router.yaml 偏"路由决策"。
+
+name: <技能唯一标识，小写 slug，与 router.yaml 一致>
+version: 0.1.0        # 语义化版本；改动递增，避免同名不同内容无法区分
+slot: shared          # shared=共用库 | dedicated=专用库
+scope:                # slot=dedicated 时必填所属域（如 autocad、cad2020、memory-hub）；shared 留空
+tags:                 # 主题标签，供语义检索/索引
+  - <tag1>
+  - <tag2>
+status: reference     # reference=未亲测 | active=真实试用通过
+reuse_count: 0
+updated: YYYY-MM-DD
+
+# 执行证据门控（沿用记忆中枢"证据归因"：只让"归因到本技能且成功"的可复用发现回写/升级）
+evidence:
+  gate: required      # required=必须过证据门禁并入库 | optional | none
+  grade: pending      # pending=未判级 | strong=归因技能且成功 | weak=弱证据 | discard=不吸纳
+
+# 触发
+invoke: user          # user=只人触发 | model=可模型自动触发
+description_model:    # model 触发轨：写触发词与"何时自动用"
+  <给模型读的触发描述>
+description_human:    # user 触发轨：给人读的摘要
+  <给人读的摘要>
+
+trigger:              # 触发词/短语
+  - <触发词>
+forgot:               # 负路由边界（非空，防止语义过命中）
+  - <不适用情形>
+
+# 入口
+instructions: SKILL.md   # 技能本体，相对本 skill.yaml 所在目录

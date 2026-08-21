@@ -1,0 +1,26 @@
+# SkillHub 回连记忆中枢配置（本文件为 SkillHub 侧唯一出处，勿重复维护）
+# 用途：回写经验/方法论到中枢时定位中枢根；AI/CLI 自动读取，无需人工记路径。
+
+hub:
+  # 记忆中枢根（唯一事实源），写死为实际路径
+  root: "C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub"
+
+  # 回写方向（沿用中枢纪律）：经验/事实 → 写 .sync/drafts/ 候选，rule 类进收件箱待人工
+  writeback:
+    drafts_dir: ".sync/drafts"
+    candidate_type_whitelist: [exp, note, project]   # 禁直写 rule/methodology 权威区
+    rule_policy: pending-or-human                     # rule 类只能挂收件箱待人工 confirm
+
+  # 升级成 skill 的同步协议（幂等）：同名不同内容走"精删→重推"，避免权威版重复
+  skill_promotion:
+    dedup_policy: literal-reset-resync
+    guard_import_untrusted: true   # 外部仓库内容不可信，绝不自动执行/外发
+
+# SkillHub 仓库自身信息（供 skill 版本同步识别）
+repo:
+  path: "D:/AIwork/20260821-Fan-SkillHub"
+  slot_dirs:
+    shared: skills/shared
+    dedicated: skills/dedicated
+    archive: skills/archive
+  template: skills/govern/skill.yaml.tmpl

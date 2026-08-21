@@ -1,0 +1,153 @@
+"""路由器 JIT 命中逻辑测试（TDD）。
+
+覆盖:
+- load: 加载路由表
+- route: 意图 -> 命中技能集(只回摘要,不回全文)
+- 复杂度路由: complexity 判定
+- 反触发降权: reuse 累积后降权
+"""
+
+import pytest
+
+from router.tools.router import (
+    RouterError,
+    complexity_of,
+    load_router,
+    route,
+)
+
+ROUTER_FIXTURE = """\
+version: 1.0.0
+complexity:
+  files_threshold: 2
+  cross_module: true
+  public_behavior: true
+skills:
+  - name: github-star-distill
+    slot: shared
+    scope:
+    invoke: user
+    description_model: "用户给出 GitHub 仓库链接想借鉴/内化时触发"
+    description_human: "把 GitHub 项目内化为带边界的方法论"
+    trigger: [借鉴, 内化, distill github]
+    forgot: [只运行单条命令, 需自动装依赖]
+    weight: 1.0
+"""
+
+
+@pytest.fixture
+def router_path(tmp_path):
+    p = tmp_path / "router.yaml"
+    p.write_text(ROUTER_FIXTURE, encoding="utf-8")
+    return p
+
+
+def test_load_router_returns_rows(router_path):
+    """合法路由表可加载, 返回技能行列表"""
+    rows = load_router(router_path)
+    assert len(rows) == 1
+    assert rows[0]["name"] == "github-star-distill"
+    assert rows[0]["slot"] == "shared"
+
+
+def test_load_router_missing_file(tmp_path):
+    """文件不存在抛 RouterError"""
+    with pytest.raises(RouterError):
+        load_router(tmp_path / "nope.yaml")
+
+
+def test_load_router_invalid_yaml(tmp_path):
+    """非法 yaml 抛 RouterError 而非裸 YAMLError"""
+    p = tmp_path / "bad.yaml"
+    p.write_text("skills: [unclosed", encoding="utf-8")
+    with pytest.raises(RouterError):
+        load_router(p)
+
+
+def test_load_router_requires_forgot_nonempty(tmp_path):
+    """forgot 负路由边界必须非空(契约校验)"""
+    p = tmp_path / "r.yaml"
+    p.write_text(
+        """\
+version: 1.0.0
+complexity: {files_threshold: 2, cross_module: true, public_behavior: true}
+skills:
+  - name: s
+    slot: shared
+    invoke: model
+    trigger: [x]
+    forgot: []
+""",
+        encoding="utf-8",
+    )
+    with pytest.raises(RouterError):
+        load_router(p)
+
+
+def test_load_router_duplicate_name(tmp_path):
+    """同名技能重复登记抛 RouterError"""
+    p = tmp_path / "r.yaml"
+    p.write_text(
+        """\
+version: 1.0.0
+complexity: {files_threshold: 2, cross_module: true, public_behavior: true}
+skills:
+  - {name: s, slot: shared, invoke: model, trigger: [x], forgot: [y]}
+  - {name: s, slot: dedicated, scope: a, invoke: model, trigger: [x], forgot: [y]}
+""",
+        encoding="utf-8",
+    )
+    with pytest.raises(RouterError):
+        load_router(p)
+
+
+def test_route_hits_by_trigger(router_path):
+    """query 命中 trigger 词, 返回命中技能(含摘要)"""
+    hits = route(router_path, "想借鉴某个 GitHub 项目")
+    assert len(hits) == 1
+    assert hits[0]["name"] == "github-star-distill"
+    # 只回摘要, 不回全文
+    assert "description_human" in hits[0]
+    assert "body" not in hits[0]
+
+
+def test_route_no_hit_schema_forgot(router_path):
+    """query 命中 forgot 负路由边界 => 不命中(即使含 trigger 词)"""
+    hits = route(router_path, "借鉴项目, 但只需自动装依赖")
+    assert hits == []
+
+
+def test_route_empty_query(router_path):
+    """空 query 返回空命中"""
+    assert route(router_path, "   ") == []
+
+
+def test_route_hit_returns_scope_rules(router_path):
+    """命中项返回 slot/scope/invoke, 供调用方做 JIT 加载"""
+    hits = route(router_path, "内化")
+    assert hits[0]["slot"] == "shared"
+    assert hits[0]["invoke"] == "user"
+    assert hits[0]["scope"] is None
+
+
+def test_complexity_of_light():
+    """轻量改动(单个文件,不跨模块,无公开行为)判定为不复杂"""
+    c = complexity_of(files=1, cross_module=False, public_behavior=False)
+    assert c is False
+
+
+def test_complexity_of_heavy():
+    """命中任一判据 => 复杂"""
+    assert complexity_of(files=5, cross_module=False, public_behavior=False) is True
+    assert complexity_of(files=1, cross_module=True, public_behavior=False) is True
+    assert complexity_of(files=1, cross_module=False, public_behavior=True) is True
+
+
+def test_route_reuse_accumulates(router_path):
+    """命中携带可独立复用的元数据(不带全文), 复用计数由审计侧累积。
+
+    路由本身不读写全局状态, 保证纯函数可测; 反触发降权由事件侧 record 负责。
+    """
+    hits = route(router_path, "借鉴某个仓库的方法")
+    assert hits == route(router_path, "借鉴某个仓库的方法")  # 无副作用, 幂等
+    assert all({"name", "slot", "invoke"}.issubset(h.keys()) for h in hits)
