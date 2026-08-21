@@ -75,7 +75,7 @@ def route(path: str | Path, query: str) -> list[dict[str, Any]]:
     """意图 -> 命中技能集(JIT 命中注入)。
 
     只返回命中技能的轻量摘要(HIT_KEYS), 不含全文, 由调用方按需再取本体。
-    纯函数、幂等; 复用计数/反触发降权由事件侧 record_usage 负责, 不在此副作用。
+    纯函数、幂等; 成败反馈-weight 更新由事件侧 record_outcome 负责, 不在此副作用。
     """
     q = query.strip()
     if not q:
