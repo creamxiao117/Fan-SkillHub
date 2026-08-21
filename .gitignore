@@ -8,3 +8,6 @@ __pycache__/
 # 编辑器
 .idea/
 .vscode/
+
+# 检查报告生成物
+work/
