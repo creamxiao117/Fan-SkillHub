@@ -43,12 +43,14 @@ trigger:
   items: string
   required: true
   desc: 触发词/短语列表，路由意图匹配用。
+  note_granularity: 用短 token 词/短语（如 rule 类型、登记 INDEX），勿用含空格的整句短语（如 跨库登记 INDEX）——匹配为子串判定，整句易因真实 query 词序变动/中间插词而失配，短 token 对自然语言更鲁棒（实测踩坑见 experience/skillhub-skill-registration-forgot）。
 
 forgot:
   type: array
   items: string
   required: true
-  desc: 负路由边界（非空）。列出不适用/会误命中的情形，防止语义过命中。
+  desc: 负路由边界（非空）。列出不适用/会误命中的情形，防止语义过命中；命中边界即便含 trigger 词也放弃。
+  note_granularity: 同 trigger：用短 token 词（如 rule 类型、push 到远程）；不要在词里拼整句，否则真实 query 子串匹配不到 forgot → 负边界失效。
 
 weight:
   type: float

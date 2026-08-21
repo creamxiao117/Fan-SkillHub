@@ -11,7 +11,7 @@ complexity:
   public_behavior: true   # 是否涉公开行为(API/持久化/权限)视为复杂
 
 skills:
-  # ---- 示例：共用库（shared) ---- 单写法参考
+  # ---- 共用库（shared）：通用、跨域可复用，promoted ----
   - name: github-star-distill
     slot: shared
     scope:
@@ -28,4 +28,44 @@ skills:
       - 需要自动安装仓库依赖或执行仓库内脚本(需人工批准)
     weight: 1.0
 
-  # 示例再未来新增技能时在此追加登记；保持 slot/shared/dedicated 分布。
+  # 经验卡提升：把 SkillHub 实证/踩坑回写中枢草稿→ingest 提升→INDEX 登记，闭合回写链路
+  - name: memory-hub-card-promotion
+    slot: shared
+    scope:
+    invoke: model
+    description_model: "当需要把本次执行产生的经验/踩坑/结论回写记忆中枢，并完成 ingest 提升、INDEX 登记、跨库 git 提交时触发"
+    description_human: "经验卡回写→提升→登记→跨库提交 四步闭环，回连中枢保持一致"
+    trigger:
+      - 回写中枢
+      - 中枢草稿
+      - 提升经验卡
+      - 经验卡升级
+      - 登记 INDEX
+      - ingest
+    forgot:
+      - rule 类型
+      - 直接改 rule
+      - rule 卡
+      - 自动执行中枢权威区外的脚本
+    weight: 1.0
+
+  # ---- 专用库（dedicated）：按域隔离，本技能归 memory-hub 域 ----
+  - name: cross-repo-index-commit
+    slot: dedicated
+    scope: memory-hub
+    invoke: user
+    description_model: "当需要在中枢/其他独立 git 仓库执行 INDEX 登记、跨库改文件并 git 提交，而 Edit/Write 工具被限制在当前工作目录时触发"
+    description_human: "跨独立仓库用命令行等效(读文件+替换+git add/commit)维护 INDEX 并保持一致性"
+    trigger:
+      - 跨仓库提交
+      - 跨库登记
+      - 跨库提交
+      - 中枢 INDEX
+      - INDEX 补登记
+      - 独立仓库改文件
+      - 跨库改文件
+    forgot:
+      - 工作目录内可 Edit
+      - push 到远程
+      - 改写全局 git config
+    weight: 1.0

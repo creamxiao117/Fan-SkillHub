@@ -1,0 +1,42 @@
+# skill.yaml —— memory-hub-card-promotion（共用库）
+# 元数据与 router.yaml 中同名记录互为镜像；本体见同目录 SKILL.md
+name: memory-hub-card-promotion
+version: 0.1.0
+slot: shared
+scope:
+tags:
+  - memory-hub
+  - writeback
+  - ingest
+  - promotion
+  - workflow
+status: reference
+reuse_count: 0
+updated: 2026-08-21
+
+evidence:
+  gate: required
+  grade: pending
+
+invoke: model
+description_model: "当需要把本次执行产生的经验/踩坑/结论回写记忆中枢，并完成 ingest 提升、INDEX 登记、跨库 git 提交时触发"
+description_human: "经验卡回写→提升→登记→跨库提交 四步闭环，回连中枢保持一致"
+
+trigger:
+  - 回写中枢
+  - 中枢草稿
+  - 提升经验卡
+  - 经验卡升级
+  - 登记 INDEX
+  - ingest
+forgot:
+  - rule 类型
+  - 直接改 rule
+  - rule 卡
+  - 自动执行中枢权威区外的其他脚本
+
+instructions: SKILL.md
+references:            # 溯源：本技能对应中枢中的方法学依据/本项目沉淀卡
+  - projects/improve-ingest-dedup-threshold   # 方案A(chat_fn=chat)已落地
+  - experience/skillhub-e2e-run-audit
+  - cards/card-promotion-workflow

@@ -7,6 +7,8 @@
 - 反触发降权: reuse 累积后降权
 """
 
+from pathlib import Path
+
 import pytest
 
 from router.tools.router import (
@@ -213,3 +215,35 @@ def test_route_sort_stable_equal_weight(router_two_path):
     """同权重时保持 yaml 声明顺序(稳定排序)"""
     hits = route(router_two_path, "借鉴")
     assert [h["name"] for h in hits] == ["distill-a", "distill-b"]
+
+
+# ---- 真实路由表驱动：新登记的技能与 forgot 反触发 ----
+REAL_ROUTER = Path(__file__).resolve().parents[2] / "router" / "router.yaml"
+
+
+def test_real_router_loads_and_contract_clean():
+    """真实 router.yaml 契约校验通过(load_router 不抛错), 且含 3 个登记技能"""
+    rows = load_router(REAL_ROUTER)
+    names = {r["name"] for r in rows}
+    assert {"github-star-distill", "memory-hub-card-promotion", "cross-repo-index-commit"} <= names
+
+
+def test_real_route_hits_memory_hub_promotion():
+    """真实路由表: '回写中枢' 命中 memory-hub-card-promotion(回写链路技能)"""
+    hits = route(REAL_ROUTER, "要把这次经验回写中枢并提升")
+    names = [h["name"] for h in hits]
+    assert "memory-hub-card-promotion" in names
+
+
+def test_real_route_hits_dedicated_by_scope_query():
+    """真实路由表: '跨库登记中枢 INDEX' 命中专用技能 cross-repo-index-commit"""
+    hits = route(REAL_ROUTER, "需要跨库登记中枢 INDEX 并提交")
+    assert hits and hits[0]["name"] == "cross-repo-index-commit"
+    assert hits[0]["slot"] == "dedicated"
+    assert hits[0]["scope"] == "memory-hub"
+
+
+def test_real_route_forgot_blocks_promotion_via_rule():
+    """真实路由表: 意图含 forgot 边界(改 rule 卡) => memory-hub-card-promotion 不命中"""
+    hits = route(REAL_ROUTER, "回写中枢但需要直接改动 rule 类型的门禁卡")
+    assert "memory-hub-card-promotion" not in [h["name"] for h in hits]
