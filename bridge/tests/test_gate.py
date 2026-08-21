@@ -19,12 +19,14 @@ def test_apply_strong_counts_success(tmp_path):
     assert st.recorded is True
 
 
-def test_apply_weak_not_success(tmp_path):
-    """weak -> 记入失败侧, 绝不记为成功"""
+def test_apply_weak_records_neutral(tmp_path):
+    """weak(弱证据) -> 计入 neutral 侧, 不改变权重绝不记为成功"""
     st = apply_outcome(tmp_path, "s", Attribution({"skill": 2}, GRADE_WEAK))
     assert st.recommended_success is False
     assert st.recorded is True
-    assert st.side == "failure"
+    assert st.side == "neutral"
+    # neutral 只是弱证据, 不拖低权重
+    assert st.grade == GRADE_WEAK
 
 
 def test_apply_discard_skips(tmp_path):

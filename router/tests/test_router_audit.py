@@ -16,14 +16,19 @@ from router.tools.router_audit import (
 )
 
 
-def _seed(root, entries: list[tuple[str, bool]]):
-    """直接写入已累积的成败记录: [(name, success), ...]"""
+def _seed(root, entries: list[tuple[str, bool | None]]):
+    """直接写入已累积的成败记录: [(name, success|None), ...]."""
     p = usage_log_path(root)
     p.parent.mkdir(parents=True, exist_ok=True)
     with open(p, "a", encoding="utf-8") as f:
         f.writelines(
             json.dumps(
-                {"outcome": "success" if ok else "failure", "name": name},
+                {
+                    "outcome": "success"
+                    if ok is True
+                    else ("failure" if ok is False else "neutral"),
+                    "name": name,
+                },
                 ensure_ascii=False,
             )
             + "\n"
@@ -52,12 +57,39 @@ def test_record_outcome_writes_failure(tmp_path):
     assert rec["outcome"] == "failure"
 
 
+def test_record_outcome_writes_neutral(tmp_path):
+    """record_outcome(success=None) 落一行 neutral 日志(弱证据, 中性)"""
+    p = record_outcome(tmp_path, "s", success=None)
+    rec = json.loads(p.read_text(encoding="utf-8").strip())
+    assert rec["outcome"] == "neutral"
+
+
+def test_load_outcomes_aggregates_three_state(tmp_path):
+    """load_outcomes 聚合三态(含 neutral)"""
+    _seed(tmp_path, [("a", True), ("a", False), ("a", None), ("a", True)])
+    out = load_outcomes(tmp_path)
+    assert out["a"] == {"success": 2, "failure": 1, "neutral": 1}
+
+
+def test_effective_weight_ignores_neutral_only(tmp_path):
+    """只见 neutral(无成功失败) → 权重不降, 保持中立先验(弱证据不动权重)"""
+    _seed(tmp_path, [("s", None), ("s", None), ("s", None)])
+    assert effective_weight(tmp_path, "s") == 1.0
+
+
+def test_effective_weight_neutral_does_not_change_signal(tmp_path):
+    """成功+中性 vs 纯成功: 中性不放大也不稀释信号, 权重一致"""
+    _seed(tmp_path, [("a", True), ("a", True), ("a", None)])
+    _seed(tmp_path, [("b", True), ("b", True)])
+    assert effective_weight(tmp_path, "a") == effective_weight(tmp_path, "b")
+
+
 def test_load_outcomes_aggregates(tmp_path):
-    """load_outcomes 汇总为 {name: {"success": n, "failure": n}}"""
+    """load_outcomes 汇总为 {name: {"success": n, "failure": n, "neutral": n}}"""
     _seed(tmp_path, [("a", True), ("a", True), ("a", False), ("b", False)])
     out = load_outcomes(tmp_path)
-    assert out["a"] == {"success": 2, "failure": 1}
-    assert out["b"] == {"success": 0, "failure": 1}
+    assert out["a"] == {"success": 2, "failure": 1, "neutral": 0}
+    assert out["b"] == {"success": 0, "failure": 1, "neutral": 0}
 
 
 def test_load_outcomes_missing(tmp_path):

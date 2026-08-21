@@ -35,22 +35,25 @@ def _ts() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def record_outcome(root: str | Path, name: str, *, success: bool) -> Path:
-    """记录一次成果事件(success=True/False), 参数以关键字形式确保语义清晰。
+def record_outcome(root: str | Path, name: str, *, success: bool | None) -> Path:
+    """记录一次成果事件, 三态: success=True → success / False → failure / None → neutral.
 
+    参数以关键字形式确保语义清晰。neutral 表示弱证据(未验证), 不改变权重。
     写入失败静默(D4 best-effort), 不阻断路由业务。
     """
+    if success is True:
+        outcome = "success"
+    elif success is False:
+        outcome = "failure"
+    else:
+        outcome = "neutral"
     p = usage_log_path(root)
     p.parent.mkdir(parents=True, exist_ok=True)
     try:
         with open(p, "a", encoding="utf-8") as f:
             f.write(
                 json.dumps(
-                    {
-                        "outcome": "success" if success else "failure",
-                        "name": name,
-                        "ts": _ts(),
-                    },
+                    {"outcome": outcome, "name": name, "ts": _ts()},
                     ensure_ascii=False,
                 )
                 + "\n"
@@ -61,9 +64,9 @@ def record_outcome(root: str | Path, name: str, *, success: bool) -> Path:
 
 
 def load_outcomes(root: str | Path) -> dict[str, dict[str, int]]:
-    """聚合各技能成功/失败次数。
+    """聚合各技能成功/neutral/失败次数。
 
-    返回 {name: {"success": n, "failure": n}}; 无日志返回空 dict.
+    返回 {name: {"success": n, "failure": n, "neutral": n}}; 无日志返回空 dict.
     """
     p = usage_log_path(root)
     result: dict[str, dict[str, int]] = {}
@@ -79,19 +82,20 @@ def load_outcomes(root: str | Path) -> dict[str, dict[str, int]]:
             continue
         name = rec.get("name") if isinstance(rec, dict) else None
         outcome = rec.get("outcome") if isinstance(rec, dict) else None
-        if not name or outcome not in ("success", "failure"):
+        if not name or outcome not in ("success", "failure", "neutral"):
             continue
-        agg = result.setdefault(name, {"success": 0, "failure": 0})
+        agg = result.setdefault(name, {"success": 0, "failure": 0, "neutral": 0})
         agg[outcome] += 1
     return result
 
 
 def effective_weight(root: str | Path, name: str, base_weight: float = 1.0) -> float:
-    """按贝叶斯成功率计算有效权重。
+    """按贝叶斯成功率计算有效权重(neutral 弱证据不改变权重)。
 
     未见历史 → 原权重(中立先验); 否则
         base * (success + PRIOR) / (success + failure + PRIOR + ALPHA)
-    成功率越高权重越高, 失败多被降权; 有 FLOOR 下界防永久禁用。
+    成功率越高权重越高, 失败多被降权; neutral 不计入分子分母(弱证据不动权重);
+    有 FLOOR 下界防永久禁用。
     """
     agg = load_outcomes(root).get(name)
     if agg is None:
