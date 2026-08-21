@@ -71,21 +71,34 @@ def _match(row: dict[str, Any], query: str) -> str:
     return "none"
 
 
-def route(path: str | Path, query: str) -> list[dict[str, Any]]:
-    """意图 -> 命中技能集(JIT 命中注入)。
+def route(
+    path: str | Path, query: str, *, root: str | Path | None = None
+) -> list[dict[str, Any]]:
+    """意图 -> 命中技能集(JIT 命中注入), 按权重降序返回。
 
     只返回命中技能的轻量摘要(HIT_KEYS), 不含全文, 由调用方按需再取本体。
-    纯函数、幂等; 成败反馈-weight 更新由事件侧 record_outcome 负责, 不在此副作用。
+    排序规则:
+    - 未提供 root(审计根): 按 yaml 基础 weight 降序, 高权重靠前。
+    - 提供 root: 按 effective_weight(贝叶斯成败反馈)降序, 失败率高的技能排后。
+    同权重保持 yaml 声明顺序(稳定排序); 纯函数无副作用, 成败反馈由事件侧负责。
     """
     q = query.strip()
     if not q:
         return []
+    from .router_audit import effective_weight
+
     hits: list[dict[str, Any]] = []
     for row in load_router(path):
         if _match(row, q) != "hit":
             continue
         hit = {k: row.get(k) for k in HIT_KEYS}
+        base = float(row.get("weight", 1.0))
+        if root is not None:
+            hit["weight"] = effective_weight(root, hit["name"], base_weight=base)
+        else:
+            hit["weight"] = base
         hits.append(hit)
+    hits.sort(key=lambda h: h["weight"], reverse=True)
     return hits
 
 

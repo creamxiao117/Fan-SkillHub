@@ -15,6 +15,7 @@ from router.tools.router import (
     load_router,
     route,
 )
+from router.tools.router_audit import record_outcome
 
 ROUTER_FIXTURE = """\
 version: 1.0.0
@@ -151,3 +152,64 @@ def test_route_reuse_accumulates(router_path):
     hits = route(router_path, "借鉴某个仓库的方法")
     assert hits == route(router_path, "借鉴某个仓库的方法")  # 无副作用, 幂等
     assert all({"name", "slot", "invoke"}.issubset(h.keys()) for h in hits)
+
+
+ROUTER_TWO_FIXTURE = """\
+version: 1.0.0
+complexity: {files_threshold: 2, cross_module: true, public_behavior: true}
+skills:
+  - name: distill-a
+    slot: shared
+    invoke: user
+    description_human: "技能A"
+    trigger: [借鉴]
+    forgot: [仅跑命令]
+    weight: 1.0
+  - name: distill-b
+    slot: shared
+    invoke: user
+    description_human: "技能B"
+    trigger: [借鉴]
+    forgot: [仅跑命令]
+    weight: 1.0
+"""
+
+
+@pytest.fixture
+def router_two_path(tmp_path):
+    p = tmp_path / "router.yaml"
+    p.write_text(ROUTER_TWO_FIXTURE, encoding="utf-8")
+    return p
+
+
+def test_route_sorts_by_yaml_weight_when_no_audit(router_two_path):
+    """未提供审计 root 时按 yaml weight 降序排列(高权重靠前)"""
+    # 临时把 A 权重调高, 直接重写文件(断言稳定)
+    p = router_two_path
+    p.write_text(
+        ROUTER_TWO_FIXTURE.replace(
+            "    weight: 1.0\n  - name: distill-b",
+            "    weight: 9.0\n  - name: distill-b",
+            1,
+        ),
+        encoding="utf-8",
+    )
+    hits = route(router_two_path, "借鉴")
+    assert hits[0]["name"] == "distill-a"
+
+
+def test_route_sorts_by_effective_weight_with_audit(router_two_path, tmp_path):
+    """提供审计 root 时, 失败率高的技能排后, 成功率高的靠前"""
+    # 造审计: A 全部失败(权重低), B 全部成功(权重高)
+    for _ in range(5):
+        record_outcome(tmp_path, "distill-a", success=False)
+        record_outcome(tmp_path, "distill-b", success=True)
+    hits = route(router_two_path, "借鉴", root=tmp_path)
+    names = [h["name"] for h in hits]
+    assert names == ["distill-b", "distill-a"]
+
+
+def test_route_sort_stable_equal_weight(router_two_path):
+    """同权重时保持 yaml 声明顺序(稳定排序)"""
+    hits = route(router_two_path, "借鉴")
+    assert [h["name"] for h in hits] == ["distill-a", "distill-b"]
