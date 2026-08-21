@@ -18,9 +18,9 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
-# 贝叶斯先验计数(平滑项, 避免小样本被极端率碾压)
-SUCCESS_PRIOR = 1  # 参与成功侧平滑
-ALPHA = 2  # 分母追加: 相当于 (success+prior)/(success+failure+prior+alpha)
+# 贝叶斯先验: 以"中性(未验证)=base"为参照, posterior 相对 0.5 的倍率驱动权重
+NEUTRAL_SUCCESS_RATE = 0.5  # 先验成功率(中性参照点), 对应 weight=base
+PRIOR_COUNT = 2  # 伪计数(平滑项, 控制收缩强度, 防小样本被极端率碾压)
 # 权重下限, 防止失败技能被永久禁用
 FLOOR = 0.05
 LOG_NAME = "usage.jsonl"
@@ -92,10 +92,13 @@ def load_outcomes(root: str | Path) -> dict[str, dict[str, int]]:
 def effective_weight(root: str | Path, name: str, base_weight: float = 1.0) -> float:
     """按贝叶斯成功率计算有效权重(neutral 弱证据不改变权重)。
 
-    未见历史 → 原权重(中立先验); 否则
-        base * (success + PRIOR) / (success + failure + PRIOR + ALPHA)
-    成功率越高权重越高, 失败多被降权; neutral 不计入分子分母(弱证据不动权重);
-    有 FLOOR 下界防永久禁用。
+    以"中性=base"为参照点, 用 Beta 后事率 relative 到 0.5 的倍率缩放:
+        no data / 全 neutral → base(不动权重)
+        成功 → 上浮 > base; 失败 → 降权 < base; 两者混合按事后率折中
+        posterior = (success + P·0.5) / (success + failure + P)
+        weight    = base * posterior / NEUTRAL_SUCCESS_RATE
+    成功技能从"从未验证"的 base 上浮而非下压, 失败多被降权;
+    有 FLOOR 下界防永久禁用。纯函数, 便于单测。
     """
     agg = load_outcomes(root).get(name)
     if agg is None:
@@ -104,6 +107,10 @@ def effective_weight(root: str | Path, name: str, base_weight: float = 1.0) -> f
     failure = agg["failure"]
     total = success + failure
     if total == 0:
+        # 只有 neutral(弱证据): 不改变权重, 保持 base
         return base_weight
-    w = base_weight * (success + SUCCESS_PRIOR) / (total + SUCCESS_PRIOR + ALPHA)
+    posterior = (
+        success + PRIOR_COUNT * NEUTRAL_SUCCESS_RATE
+    ) / (total + PRIOR_COUNT)
+    w = base_weight * posterior / NEUTRAL_SUCCESS_RATE
     return max(w, FLOOR)

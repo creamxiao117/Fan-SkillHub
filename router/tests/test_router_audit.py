@@ -115,11 +115,11 @@ def test_effective_weight_lower_for_high_failure(tmp_path):
 
 
 def test_effective_weight_consistent_with_prior(tmp_path):
-    """纯净成功率(全部成功)权重趋于 1/(先验) 稳定值; 全部失败则更低"""
+    """纯净全成功 → 事后率相对中性(0.5)上浮, 权重应高于基准 base(1.0)"""
     _seed(tmp_path, [("all-ok", True), ("all-ok", True), ("all-ok", True)])
     w = effective_weight(tmp_path, "all-ok")
-    # 先验参与: 成功倾向 +, 权重应不低于基线的明显折扣值
-    assert 0.0 < w <= 1.0
+    # 中性(未验证)=base=1.0; 全成功应上浮而非被先验下压
+    assert w > 1.0
 
 
 def test_effective_weight_never_zero(tmp_path):
