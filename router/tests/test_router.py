@@ -225,7 +225,11 @@ def test_real_router_loads_and_contract_clean():
     """真实 router.yaml 契约校验通过(load_router 不抛错), 且含 3 个登记技能"""
     rows = load_router(REAL_ROUTER)
     names = {r["name"] for r in rows}
-    assert {"github-star-distill", "memory-hub-card-promotion", "cross-repo-index-commit"} <= names
+    assert {
+        "github-star-distill",
+        "memory-hub-card-promotion",
+        "cross-repo-index-commit",
+    } <= names
 
 
 def test_real_route_hits_memory_hub_promotion():

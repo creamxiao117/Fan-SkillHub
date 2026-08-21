@@ -109,8 +109,6 @@ def effective_weight(root: str | Path, name: str, base_weight: float = 1.0) -> f
     if total == 0:
         # 只有 neutral(弱证据): 不改变权重, 保持 base
         return base_weight
-    posterior = (
-        success + PRIOR_COUNT * NEUTRAL_SUCCESS_RATE
-    ) / (total + PRIOR_COUNT)
+    posterior = (success + PRIOR_COUNT * NEUTRAL_SUCCESS_RATE) / (total + PRIOR_COUNT)
     w = base_weight * posterior / NEUTRAL_SUCCESS_RATE
     return max(w, FLOOR)

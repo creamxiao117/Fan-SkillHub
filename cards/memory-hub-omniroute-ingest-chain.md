@@ -16,7 +16,7 @@ reuse_count: 1
 
 ## 链路全景（实证）
 
-```
+```text
 SkillHub 技能路由/成败反馈
    │  writeback_card()
    ▼

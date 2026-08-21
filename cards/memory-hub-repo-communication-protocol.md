@@ -26,7 +26,7 @@ reuse_count: 1
 ## 2. 交接物与位置
 
 | 交接物 | 存放位置 | 写方 | 读方 |
-|--------|---------|------|------|
+| -------- | -------- | ---- | ---- |
 | 草稿卡 `*.md` | 中枢 `.sync/drafts/<platform>_draft/` **根目录** | SkillHub `writeback_card()` | 中枢 `ingest` |
 | 权威区卡 | 中枢 `experience/ projects/ methodology/ ...` | 中枢 `ingest` promote | SkillHub `skill_promotion` 读源 |
 | 冲突/待人工 | 中枢 `.sync/conflicts/`、`.sync/pending/` | 中枢 `decide()` review | 人工 confirm |
@@ -41,7 +41,7 @@ reuse_count: 1
 
 ## 4. ingest 提升判定链
 
-```
+```text
 草稿 → 向量预过滤 candidates()（cosine ≥ 0.55）→ 命中候选?
    ├─ 无候选 → create → 直接 promoted
    └─ 有候选 → LLM decide(chat)

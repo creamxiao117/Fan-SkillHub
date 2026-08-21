@@ -56,6 +56,7 @@ description: "把 SkillHub 实证/踩坑回写记忆中枢草稿→ingest 提升
 ## LLM 网关接线（供提升链路，可选）
 
 接入在线 LLM 网关（如 omniRoute Docker `127.0.0.1:20128`）：
+
 - 改中枢 `engine.config.yaml`：`gateway_url`（自动拼 `/v1/chat/completions`）+ `default_model`。
 - `provider_keys.yaml` 写 key；操作前显式 `"stream": false`（网关默认流式，须关）。
 

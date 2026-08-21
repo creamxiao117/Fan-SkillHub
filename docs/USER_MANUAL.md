@@ -23,7 +23,7 @@ SkillHub 是一个本地技能库与路由系统，配合统一记忆中枢（Ag
 
 ## 3. 目录结构
 
-```
+```text
 router/
   router.yaml           # 路由表（唯一事实源）
   schema.yaml           # 路由表字段契约
@@ -107,7 +107,7 @@ python -m pytest router bridge -q
 ## 7. 常见问题
 
 | 现象 | 原因 | 处理 |
-|---|---|---|
+| ---- | ---- | ---- |
 | `writeback_card` 抛 `ValueError` | 卡型不在 `candidate_type_whitelist` | rule/methodology 不走自动回写，走中枢 pending/人工 |
 | 命中结果顺序与预期不符 | 未传 `root`（按 yaml weight）或审计中失败率高 | 传 `root` 并确认 `record_outcome` 记录准确 |
 | 新建技能无法命中 | `router.yaml` 未登记或 `trigger`/`forgot` 缺失 | 按 `schema.yaml` 补全字段 |

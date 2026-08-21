@@ -24,14 +24,19 @@ description: "在中枢/其他独立 git 仓库执行 INDEX 登记、跨库改�
 ## 工作流
 
 1. **定位锚点**：`git log --oneline -3 -- <file>` / `Select-String -Path INDEX.md -Pattern <slug>` 找插入点。
+
 2. **读改（命令行使）**：
+
    ```powershell
    $lines = [IO.File]::ReadAllLines($p)         # 全量读
    # 定位锚点行 index → 插入/替换
    [IO.File]::WriteAllLines($p, $out, (New-Object Text.UTF8Encoding($true)))
    ```
+
 3. **校验**：`Get-Content $p | Select-String <new>` 确认新行已落。
+
 4. **提交**：
+
    ```powershell
    git add <file>
    git commit -m @'
