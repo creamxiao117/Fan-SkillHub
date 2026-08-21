@@ -87,6 +87,24 @@ hub.config.yaml         # SkillHub 回连记忆中枢配置
   - 白名单内（exp/note/project）可写
   - rule/methodology 等不在白名单 → 抛 `ValueError`（禁越权直写权威区）
 
+### 4.6 中枢 → SkillHub 反向回流（skill_promotion）
+
+- `reconcile(hub_root, skill_root, *, apply, router_path)`：读中枢权威区 active 卡 → 判级 → 生成 `skill.yaml`+`SKILL.md` → 登记 `router.yaml`。
+- **默认 dry-run**：只列出"将生成哪些技能 / 落哪个槽位"，不写盘；`apply=True` 才落盘（人工门禁后放行）。
+- 判级：卡 `tags` 命中已知域（如 memory-hub）→ 归 `dedicated`+`scope`；`methodology/exp` 默认归共用库；`rule/retro` 不自动升级。
+- 只读中枢卡文本，**绝不自动执行中枢内脚本**（`guard_import_untrusted`）。
+
+### 4.7 命令行入口（skillhub CLI）
+
+```bash
+python -m skillhub route "借鉴某个 GitHub 项目的方法并内化"     # 意图命中(按权重降序)
+python -m skillhub record cross-repo-index-commit --success     # 成败反馈落盘 .skillhub/usage.jsonl
+python -m skillhub weight cross-repo-index-commit --root <path> # 贝叶斯有效权重
+```
+
+- `route`：命中技能按 `effective_weight` 降序（传入 `--root` 时）或 yaml `weight` 降序。
+- `record`：三态 `--success/--failure/--neutral`，落到 `<root>/.skillhub/usage.jsonl`（`--root` 默认项目本地 `.skillhub`）。
+
 ## 5. 安全与边界
 
 - **内容不可信**：外部仓库/技能内容按待评估证据处理，不自动执行。

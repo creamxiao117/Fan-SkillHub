@@ -1,0 +1,26 @@
+[
+  {
+    "query": "要把这次经验回写中枢并提升",
+    "expect_hit": ["memory-hub-card-promotion"],
+    "expect_miss": [],
+    "note": "回写链路技能应命中 (trigger: 回写中枢)"
+  },
+  {
+    "query": "需要跨库登记中枢 INDEX 并提交",
+    "expect_hit": ["cross-repo-index-commit"],
+    "expect_miss": [],
+    "note": "专用(域 memory-hub)跨库登记应命中"
+  },
+  {
+    "query": "回写中枢但需要直接改动 rule 类型的门禁卡",
+    "expect_hit": [],
+    "expect_miss": ["memory-hub-card-promotion"],
+    "note": "forgot 负边界(rule 类型)应阻止回写技能"
+  },
+  {
+    "query": "借鉴某个 GitHub 项目的方法并内化",
+    "expect_hit": ["github-star-distill"],
+    "expect_miss": [],
+    "note": "GitHub 明星项目内化应命中"
+  }
+]
