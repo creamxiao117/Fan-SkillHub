@@ -21,17 +21,21 @@ from pathlib import Path
 import yaml
 
 # 中枢权威区目录 → 相对名称(供扫描); 对应卡 frontmatter 的 type 字段
-CARD_TYPE_DIRS = ("experience", "methodology", "projects")
+CARD_TYPE_DIRS = ("experience", "methodology", "projects", "blueprints")
 # 卡型 → 默认槽位; methodology(可跨域复用) 与 exp(经验) 都归共用库
+# blueprint(架构范式) 归共用库, 但升级需 reuse_count>=1 防 reference 级误升
 TYPE_DEFAULT_SLOT = {
     "methodology": "shared",
     "exp": "shared",
     "note": "shared",
     "project": "shared",
     "longterm": "shared",
+    "blueprint": "shared",
     "rule": "archive",  # rule 不自动提为技能(需人工门禁)
     "retro": "archive",
 }
+# blueprint 升级门禁: status=active 且 reuse_count≥1 才升级
+BLUEPRINT_MIN_REUSE = 1
 # 已知专用域: tags 命中任一项 → 判为 dedicated 并取该域为 scope
 KNOWN_DOMAINS = ("memory-hub", "autocad", "cad", "cad2020")
 
@@ -58,6 +62,8 @@ class CardInfo:
     source: Path
     slot: str = "shared"
     scope: str = ""
+    reuse_count: int = 0
+    hub_status: str = "active"
 
     def to_dict(self) -> dict:
         return {
@@ -67,6 +73,8 @@ class CardInfo:
             "tags": self.tags,
             "slot": self.slot,
             "scope": self.scope,
+            "reuse_count": self.reuse_count,
+            "hub_status": self.hub_status,
             "source": str(self.source),
         }
 
@@ -115,7 +123,9 @@ def scan_hub_cards(
 ) -> list[CardInfo]:
     """扫描中枢权威区 active 卡, 产出可迁移候选(仅读, 不写盘)。
 
-    只收 frontmatter type ∈ 卡型目录 且 status=active 的卡; 其余跳过。
+    过滤规则:
+    - 只收 frontmatter type ∈ 卡型目录 且 status=active 的卡
+    - blueprint 额外门禁: reuse_count≥BLUEPRINT_MIN_REUSE (避免 reference 级范式直接升技能)
     """
     root = Path(hub_root)
     cards: list[CardInfo] = []
@@ -128,12 +138,19 @@ def scan_hub_cards(
             card_type = str(fm.get("type", ""))
             if card_type not in TYPE_DEFAULT_SLOT:
                 continue  # 只处理目录对应的已知卡型
-            if str(fm.get("status", "")).lower() != "active":
+            status = str(fm.get("status", "")).lower()
+            if status != "active":
                 continue  # 只升级已验证(active)卡
+            # blueprint 额外门禁: reuse_count≥1
+            if card_type == "blueprint":
+                rc = int(fm.get("reuse_count", 0) or 0)
+                if rc < BLUEPRINT_MIN_REUSE:
+                    continue
             title = (body.splitlines() or ["(无标题)"])[0].lstrip("# ").strip()
             slug = _safe_slug(str(fm.get("name") or title or f.stem))
             tags = [str(t).strip() for t in fm.get("tags", []) if str(t).strip()]
             slot_info = _evaluate_slot(card_type, tags)
+            reuse_count = int(fm.get("reuse_count", 0) or 0)
             cards.append(
                 CardInfo(
                     slug=slug,
@@ -142,6 +159,8 @@ def scan_hub_cards(
                     tags=tags,
                     body=body,
                     source=f,
+                    reuse_count=reuse_count,
+                    hub_status=status,
                     **slot_info,
                 )
             )
@@ -153,17 +172,61 @@ def _extract_headings(body: str) -> list[str]:
     return [ln.lstrip("# ").strip() for ln in body.splitlines() if ln.startswith("## ")]
 
 
+# 从中枢 methodology 卡提取的 SKILL 撰写检查清单（authoring best practices）
+# 来源: build-iterated-agentic-loop / improve-claude-md-important-if /
+#       design-control-loop / show-me-visuals
+AUTHORING_CHECKLIST = {
+    "build_iterated": [
+        "scope 明确可改/只读边界",
+        "validation 命令必须在提交前通过",
+        "每 loop 限 1 个 open PR（PR bounding）",
+        "agent-memory 携带两轮间稳定反馈",
+        "skill/prompt/memory 单一来源, 不重复",
+    ],
+    "improve_claude": [
+        "基础上下文裸放, 条件规则用 <important if> 包裹",
+        "触发词窄而具体, 禁止宽泛条件",
+        "Less is more: 删 linter 管辖/代码片段/含糊指令",
+        "保留所有命令表",
+    ],
+    "design_control_loop": [
+        "五要素完整: SetPoint→Sensor→Controller→Actuator→Disturbance",
+        "传感器可稳定测量客观属性",
+        "组件先本地跑通再接 CI",
+        "人留在 loop 上(/iterate 评论反馈)",
+    ],
+    "show_me": [
+        "按内容选最小视图: 逻辑→伪代码/控制流→调用树/UI→组件树",
+        "视觉紧贴支撑短文本",
+        "只保留回答问题所需信息",
+    ],
+}
+
+
 def render_skill_yaml(card: CardInfo) -> str:
-    """渲染一张 skill.yaml(元数据), 对齐 skills/govern/skill.yaml.tmpl 契约。"""
+    """渲染一张 skill.yaml(元数据), 对齐 skills/govern/skill.yaml.tmpl 契约。
+
+    含 verification 字段(对齐中枢 T0→T1→active 链路),
+    blueprint 卡额外标注 blueprint 证据等级。
+    """
+    is_blueprint = card.card_type == "blueprint"
+    # verification: 对齐中枢卡的验证状态; 新升级默认 reference, 待真机试用转 active
+    verification = {
+        "status": "reference",
+        "t1_record": "",
+        "reuse_count": card.reuse_count,
+        "last_verified": "",
+    }
     fm = {
         "name": card.slug,
         "version": "0.1.0",
         "slot": card.slot,
         "scope": card.scope,
-        "status": "reference",  # 升级为技能, 真实试用后才转 active
+        "status": "reference",
         "reuse_count": 0,
         "updated": _today_iso(),
         "evidence": {"gate": "required", "grade": "pending"},
+        "verification": verification,
         "invoke": "user",
         "description_model": card.title,
         "description_human": card.title,
@@ -172,6 +235,9 @@ def render_skill_yaml(card: CardInfo) -> str:
         "instructions": SKILL_MD_NAME,
         "references": [str(card.source).replace("\\", "/")],
     }
+    if is_blueprint:
+        fm["blueprint_source"] = card.source.name
+        fm["blueprint_level"] = "T0 静态验证"
     return (
         "# skill.yaml —— " + card.slug + "（" + card.slot + "库）\n"
         "# 由中枢卡升级生成: "
@@ -182,7 +248,10 @@ def render_skill_yaml(card: CardInfo) -> str:
 
 
 def render_skill_md(card: CardInfo) -> str:
-    """渲染一张 SKILL.md(本体骨架), 引用原卡 + 提炼边界/适用。"""
+    """渲染一张 SKILL.md(本体骨架), 引用原卡 + 提炼边界/适用。
+
+    blueprint 卡额外输出架构模式与可落地路径; 所有卡输出 authoring 检查清单。
+    """
     headings = _extract_headings(card.body)
     sections = (
         "\n".join(f"- {h}" for h in headings) if headings else "（原卡无二级标题）"
@@ -199,6 +268,37 @@ def render_skill_md(card: CardInfo) -> str:
         if neg
         else "- 遵循原卡倒置边界;接管前先做 T1 真实试用"
     )
+    is_blueprint = card.card_type == "blueprint"
+
+    # authoring 检查清单
+    authoring_blocks = []
+    for key, items in AUTHORING_CHECKLIST.items():
+        label = {
+            "build_iterated": "Agentic Loop 设计",
+            "improve_claude": "指令文件结构",
+            "design_control_loop": "控制论闭环",
+            "show_me": "视图选择",
+        }.get(key, key)
+        authoring_blocks.append(f"**{label}**:")
+        authoring_blocks.append("\n".join(f"  - {i}" for i in items))
+    authoring_block = "\n".join(authoring_blocks)
+
+    # blueprint 专属章节
+    blueprint_section = ""
+    if is_blueprint:
+        blueprint_section = f"""
+
+## 架构模式（Blueprint 专属）
+
+- **源**: {card.source}
+- **证据等级**: T0 静态验证
+- **复用次数**: {card.reuse_count}
+
+## 可落地路径
+
+- 路径 A: 参考架构模式, 选定关键组件在本项目最小化落地
+- 路径 B: 先跑 T1 真机验证, 确认可执行性后再展开"""
+
     return f"""---
 name: "{card.slug}"
 description: "{card.title}(由中枢 {card.card_type} 卡升级, 源: {card.source.name})"
@@ -218,10 +318,15 @@ description: "{card.title}(由中枢 {card.card_type} 卡升级, 源: {card.sour
 ## 核心边界（先读, 违反即停）
 
 {neg_block}
+{blueprint_section}
 
 ## 原卡结构（沉淀的骨架）
 
 {sections}
+
+## Authoring 检查清单（撰写/维护本技能时对照）
+
+{authoring_block}
 
 ## 关联
 

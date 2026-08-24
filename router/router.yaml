@@ -1,71 +1,210 @@
-# 路由表（唯一事实源）—— JIT 命中注入 + 反触发降权 + 复杂度路由
-# 契约见 router/schema.yaml。skill 增删必须同步本表，否则路由撒谎（误命中比没有更糟）。
-
-version: 1.0.0
-
-# 复杂度路由判据：集中在路由一处判定，不复制到每个技能。
-# 命中其一=复杂(启用重审查/双轴)，均否则轻量(单轴/免审查)。
+version: 1.1.0
 complexity:
-  files_threshold: 2      # 改动文件数 > 2 视为复杂
-  cross_module: true      # 是否跨模块视为复杂
-  public_behavior: true   # 是否涉公开行为(API/持久化/权限)视为复杂
-
+  files_threshold: 2
+  cross_module: true
+  public_behavior: true
 skills:
-  # ---- 共用库（shared）：通用、跨域可复用，promoted ----
-  - name: github-star-distill
-    slot: shared
-    scope:
-    invoke: user
-    description_model: "用户给出 GitHub 仓库链接，表示想借鉴/参考/提炼/内化该项目的思路、设计或经验时触发"
-    description_human: "把 GitHub 明星项目内化为带适用边界的可复用经验/方法论，沉淀到记忆中枢"
-    trigger:
-      - 借鉴
-      - 参考 GitHub 项目
-      - 内化 / 导入 / 投入
-      - distill github repo
-    forgot:
-      - 只是运行某个 GitHub 仓库的单条命令(非提炼沉淀)
-      - 需要自动安装仓库依赖或执行仓库内脚本(需人工批准)
-    weight: 1.0
-
-  # 经验卡提升：把 SkillHub 实证/踩坑回写中枢草稿→ingest 提升→INDEX 登记，闭合回写链路
-  - name: memory-hub-card-promotion
-    slot: shared
-    scope:
-    invoke: model
-    description_model: "当需要把本次执行产生的经验/踩坑/结论回写记忆中枢，并完成 ingest 提升、INDEX 登记、跨库 git 提交时触发"
-    description_human: "经验卡回写→提升→登记→跨库提交 四步闭环，回连中枢保持一致"
-    trigger:
-      - 回写中枢
-      - 中枢草稿
-      - 提升经验卡
-      - 经验卡升级
-      - 登记 INDEX
-      - ingest
-    forgot:
-      - rule 类型
-      - 直接改 rule
-      - rule 卡
-      - 自动执行中枢权威区外的脚本
-    weight: 1.0
-
-  # ---- 专用库（dedicated）：按域隔离，本技能归 memory-hub 域 ----
-  - name: cross-repo-index-commit
-    slot: dedicated
-    scope: memory-hub
-    invoke: user
-    description_model: "当需要在中枢/其他独立 git 仓库执行 INDEX 登记、跨库改文件并 git 提交，而 Edit/Write 工具被限制在当前工作目录时触发"
-    description_human: "跨独立仓库用命令行等效(读文件+替换+git add/commit)维护 INDEX 并保持一致性"
-    trigger:
-      - 跨仓库提交
-      - 跨库登记
-      - 跨库提交
-      - 中枢 INDEX
-      - INDEX 补登记
-      - 独立仓库改文件
-      - 跨库改文件
-    forgot:
-      - 工作目录内可 Edit
-      - push 到远程
-      - 改写全局 git config
-    weight: 1.0
+- name: github-star-distill
+  slot: shared
+  scope: null
+  invoke: user
+  description_model: 用户给出 GitHub 仓库链接，表示想借鉴/参考/提炼/内化该项目的思路、设计或经验时触发
+  description_human: 把 GitHub 明星项目内化为带适用边界的可复用经验/方法论，沉淀到记忆中枢
+  trigger:
+  - 借鉴
+  - 参考 GitHub 项目
+  - 内化 / 导入 / 投入
+  - distill github repo
+  forgot:
+  - 只是运行某个 GitHub 仓库的单条命令(非提炼沉淀)
+  - 需要自动安装仓库依赖或执行仓库内脚本(需人工批准)
+  weight: 1.0
+  status: active
+- name: memory-hub-card-promotion
+  slot: shared
+  scope: null
+  invoke: model
+  description_model: 当需要把本次执行产生的经验/踩坑/结论回写记忆中枢，并完成 ingest 提升、INDEX 登记、跨库 git 提交时触发
+  description_human: 经验卡回写→提升→登记→跨库提交 四步闭环，回连中枢保持一致
+  trigger:
+  - 回写中枢
+  - 中枢草稿
+  - 提升经验卡
+  - 经验卡升级
+  - 登记 INDEX
+  - ingest
+  forgot:
+  - rule 类型
+  - 直接改 rule
+  - rule 卡
+  - 自动执行中枢权威区外的脚本
+  weight: 1.0
+  status: active
+- name: cross-repo-index-commit
+  slot: dedicated
+  scope: memory-hub
+  invoke: user
+  description_model: 当需要在中枢/其他独立 git 仓库执行 INDEX 登记、跨库改文件并 git 提交，而 Edit/Write 工具被限制在当前工作目录时触发
+  description_human: 跨独立仓库用命令行等效(读文件+替换+git add/commit)维护 INDEX 并保持一致性
+  trigger:
+  - 跨仓库提交
+  - 跨库登记
+  - 跨库提交
+  - 中枢 INDEX
+  - INDEX 补登记
+  - 独立仓库改文件
+  - 跨库改文件
+  forgot:
+  - 工作目录内可 Edit
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: superpowers
+  slot: shared
+  scope: null
+  invoke: model
+  description_model: 当需要开发方法论辅助时自动触发：头脑风暴、TDD、代码评审、调试策略、Git worktree 管理、分支管理等通用开发场景
+  description_human: 13 个核心开发方法论技能合集：brainstorming/TDD/调试/计划/代码评审/Git worktree 等，通用开发场景自动命中
+  trigger:
+  - 头脑风暴
+  - brainstorming
+  - TDD
+  - 测试驱动
+  - 代码评审
+  - code review
+  - 调试
+  - debugging
+  - 写计划
+  - planning
+  - Git worktree
+  - 分支管理
+  forgot:
+  - 纯知识问答
+  - 不需要工具的简单解释
+  weight: 0.8
+- name: seedance
+  slot: shared
+  scope: null
+  invoke: user
+  description_model: 仅当用户明确要求生成视频时触发
+  description_human: AI 视频生成插件，支持从文本提示生成 MP4 视频
+  trigger:
+  - 生成视频
+  - generate video
+  - AI 视频
+  - seedance
+  forgot:
+  - 不需要视频生成的场景
+  weight: 0.5
+- name: seedream
+  slot: shared
+  scope: null
+  invoke: user
+  description_model: 仅当用户明确要求生成图片时触发
+  description_human: AI 图片生成插件，从文本提示生成图片
+  trigger:
+  - 生成图片
+  - generate image
+  - AI 画图
+  - seedream
+  forgot:
+  - 不需要图片生成的场景
+  weight: 0.5
+- name: all-in-one-media-notes
+  slot: shared
+  scope: null
+  invoke: user
+  description_model: 仅当用户要求音频/视频总结、转写、笔记时触发
+  description_human: 音视频转笔记：音频/视频转文字+要点提炼+结构化笔记生成
+  trigger:
+  - 音频总结
+  - 视频总结
+  - 转写
+  - transcription
+  - 音视频笔记
+  - media notes
+  forgot:
+  - 不需要媒体处理的场景
+  weight: 0.6
+- name: browser-bridge
+  slot: shared
+  scope: null
+  invoke: model
+  description_model: 当需要操作浏览器/网页爬取/网页测试时触发
+  description_human: 浏览器自动化桥接插件（v1.0.3），支持 AI 驱动的浏览器自动化
+  trigger:
+  - 浏览器
+  - browser
+  - 网页爬取
+  - scraping
+  - 网页测试
+  - web testing
+  forgot:
+  - 不需要浏览器的场景
+  weight: 0.8
+- name: computer-use
+  slot: shared
+  scope: null
+  invoke: model
+  description_model: 当需要操作桌面窗口、CAD 死锁处理、模态对话框、快捷键注入时触发
+  description_human: 桌面操作插件：让 AI 直接操作电脑，跨应用自动化任务
+  trigger:
+  - 控制电脑
+  - 桌面操作
+  - CAD 死锁
+  - 窗口控制
+  - 快捷键
+  forgot:
+  - 不需要桌面操作的场景
+  weight: 0.7
+- name: personal-workbench
+  slot: shared
+  scope: null
+  invoke: user
+  description_model: 仅当用户明确要查日程/任务/笔记时触发
+  description_human: 个人工作台：日程/任务/笔记管理的单文件应用
+  trigger:
+  - 日程
+  - schedule
+  - 任务
+  - task
+  - 笔记
+  - notes
+  - 工作台
+  forgot:
+  - 协作场景
+  - 飞书任务等已由 lark 技能覆盖
+  weight: 0.5
+- name: multica
+  slot: shared
+  scope: null
+  invoke: user
+  description_model: 仅当用户点名 Multica 平台操作时触发
+  description_human: Multica 多技能合集：autopilot/agents/projects/squads/mentioning/runtimes/onboarding/issue
+    等 8 个子技能
+  trigger:
+  - multica
+  - autopilot
+  - agent 管理
+  - squad
+  - 项目资源
+  - runtime
+  forgot:
+  - 不需要 Multica 平台操作的场景
+  weight: 0.5
+- name: hub-inventory-baseline-audit
+  slot: shared
+  scope: govern
+  path: skills/shared/govern/hub-inventory-baseline-audit/
+  status: active
+  invoke: user
+  description_model: "SkillHub 与中枢跨库一致性审计: 检查 INDEX/retro/query.log 对齐"
+  description_human: 跨库一致性审计
+  trigger:
+  - 一致性审计
+  - baseline audit
+  - 跨库检查
+  forgot:
+  - 单仓库独立检查
+  - 不需要跨库比对的场景
+  weight: 0.5

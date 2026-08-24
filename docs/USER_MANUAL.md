@@ -91,10 +91,14 @@ hub.config.yaml         # SkillHub 回连记忆中枢配置
 
 - `reconcile(hub_root, skill_root, *, apply, router_path)`：读中枢权威区 active 卡 → 判级 → 生成 `skill.yaml`+`SKILL.md` → 登记 `router.yaml`。
 - **默认 dry-run**：只列出"将生成哪些技能 / 落哪个槽位"，不写盘；`apply=True` 才落盘（人工门禁后放行）。
-- 判级：卡 `tags` 命中已知域（如 memory-hub）→ 归 `dedicated`+`scope`；`methodology/exp` 默认归共用库；`rule/retro` 不自动升级。
+- 判级：卡 `tags` 命中已知域（如 memory-hub）→ 归 `dedicated`+`scope`；`methodology/exp/blueprint` 默认归共用库；`rule/retro` 不自动升级。
+- **Blueprint 升级门禁**：`blueprint` 卡额外要求 `reuse_count≥1` 才升级为技能（避免把 reference 级范式直接变成技能）。
 - 只读中枢卡文本，**绝不自动执行中枢内脚本**（`guard_import_untrusted`）。
+- 生成的 `SKILL.md` 自动注入 **Authoring 检查清单**（4 维度 16 条原则，来自中枢 4 张 methodology 卡）。
 
 ### 4.7 命令行入口（skillhub CLI）
+
+#### 基础三命令
 
 ```bash
 python -m skillhub route "借鉴某个 GitHub 项目的方法并内化"     # 意图命中(按权重降序)
@@ -104,6 +108,39 @@ python -m skillhub weight cross-repo-index-commit --root <path> # 贝叶斯有�
 
 - `route`：命中技能按 `effective_weight` 降序（传入 `--root` 时）或 yaml `weight` 降序。
 - `record`：三态 `--success/--failure/--neutral`，落到 `<root>/.skillhub/usage.jsonl`（`--root` 默认项目本地 `.skillhub`）。
+
+#### 验证生命周期四命令
+
+```bash
+python -m skillhub sync-verification                           # 从 usage.jsonl 聚合 reuse_count 回写 skill.yaml
+python -m skillhub promote <name> --status active              # 手动设置验证状态
+python -m skillhub audit                                       # 扫描 authoring 检查清单覆盖率
+python -m skillhub new <name> --slot shared                    # 创建新技能骨架(含 authoring 清单)
+```
+
+- `sync-verification`：聚合 `usage.jsonl` 中每个技能的 success+failure 次数 → 回写到对应 `skill.yaml` 的 `verification.reuse_count` 和 `verification.last_verified`。
+- `promote`：手动将技能从 `reference` → `active`（或反向 `--status reference` / `--status deprecated`），同步更新顶层 `status` 和 `verification.status`。
+- `audit`：扫描所有 `SKILL.md`，检查 4 大维度 authoring 检查清单（Agentic Loop 设计 / 指令文件结构 / 控制论闭环 / 视图选择）的覆盖率，输出缺失清单。
+- `new`：创建新技能目录，自动生成含完整 authoring 检查清单的 `SKILL.md` 和 `skill.yaml`，省去手动搭骨架。
+
+### 4.8 技能验证生命周期（verification schema）
+
+每个 `skill.yaml` 新增 `verification` 字段，对齐中枢卡的 T0→T1→active 验证链路：
+
+```yaml
+verification:
+  status: reference     # reference=静态验证 | active=T1真机通过 | deprecated=已废弃
+  t1_record: ""         # T1 真机记录摘要（手动填写或由 promote 自动写入）
+  reuse_count: 0        # 从 usage.jsonl 聚合的真实复用次数（由 sync-verification 自动更新）
+  last_verified: ""     # 最后验证日期 YYYY-MM-DD
+```
+
+生命周期流转：
+
+1. **新建**：`status=reference`，`reuse_count=0`，等待真实试用。
+2. **sync-verification** 后：`reuse_count` 从 `usage.jsonl` 聚合，若 `≥3` 可建议 `promote`。
+3. **promote** 后：`status=active`，`t1_record` 填充真机记录，技能进入正式可用状态。
+4. **废弃**：`promote --status deprecated`，技能不再推荐路由命中。
 
 ## 5. 安全与边界
 
@@ -117,10 +154,10 @@ python -m skillhub weight cross-repo-index-commit --root <path> # 贝叶斯有�
 运行全部测试：
 
 ```bash
-python -m pytest router bridge -q
+python -m pytest -q
 ```
 
-当前覆盖：路由加载/JIT/排序、贝叶斯权重三态、生命周期判据、证据归因、阶段化门禁、配置解析、草稿卡生成。
+当前覆盖：路由加载/JIT/排序、贝叶斯权重三态、生命周期判据、证据归因、阶段化门禁、配置解析、草稿卡生成、Blueprint 卡接入与门禁、CLI 全部 7 个子命令。
 
 ## 7. 常见问题
 
@@ -129,3 +166,6 @@ python -m pytest router bridge -q
 | `writeback_card` 抛 `ValueError` | 卡型不在 `candidate_type_whitelist` | rule/methodology 不走自动回写，走中枢 pending/人工 |
 | 命中结果顺序与预期不符 | 未传 `root`（按 yaml weight）或审计中失败率高 | 传 `root` 并确认 `record_outcome` 记录准确 |
 | 新建技能无法命中 | `router.yaml` 未登记或 `trigger`/`forgot` 缺失 | 按 `schema.yaml` 补全字段 |
+| blueprint 卡未被提升为技能 | `reuse_count<1`（reference 级范式） | 在中枢补 T1 记录使 `reuse_count≥1`，重跑 `reconcile` |
+| skill.yaml 的 `verification.reuse_count` 始终为 0 | 未跑 `sync-verification` | 先 `record` 成败事件，再跑 `sync-verification` 聚合 |
+| audit 报告所有技能缺 authoring 清单 | 存量技能在新特性之前创建，未注入清单 | 对存量技能手动补充清单或 `new` 重建后迁移内容 |

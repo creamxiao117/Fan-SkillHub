@@ -1,0 +1,32 @@
+---
+name: hub-inventory-baseline-audit
+description: agentmemoryhub
+tags:
+- agentmemoryhub
+- inventory
+- audit
+- baseline
+- safety
+source_type: rule
+source_card: hub-inventory-baseline-audit
+---
+
+# agentmemoryhub
+
+> 来源卡片：hub-inventory-baseline-audit（rule）
+
+## 核心内容
+
+对记忆中枢做**定期完整清单存档**，作为「是否丢失/被误删记录」的对照基线。既有 git 历史不足以快速排查删除情况（历史中的删除多为移动/去重治理，难一眼识别真删），每次实时生成一份含「全部文件路径清单 + 全局统计 + git 工作区状态 + 最近提交」的纯文本存档最稳妥。
+
+**执行触发**：每次对中枢做批量增删/迁移/去重/合并等结构性操作后，或用户担忧「记录是否被删/少了」时，重新生成一份存档；建议至少每周一次作为巡检例行项。
+
+**存档生成命令**（PowerShell，输出到 `.sync\state\`，文件名带日期）：
+
+```powershell
+$hub="<AgentMemoryHub 根>"
+$out="$hub\.sync\state\hub-inventory-$(Get-Date -Format 'yyyyMMdd').txt"
+# A. 全局统计：文件总数 / md 数 / md 大小 / 总大小
+# B. 顶层目录 md 数分布（跳过 .git）
+# C. 完整 md 相对路径清单（全量, Sort by FullName）
+# D. git ...

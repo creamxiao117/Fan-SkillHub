@@ -12,6 +12,17 @@ status: reference     # reference=未亲测 | active=真实试用通过
 reuse_count: 0
 updated: YYYY-MM-DD
 
+# 验证生命周期（对齐中枢卡 T0→T1→active 链路）
+verification:
+  status: reference     # reference=静态验证 | active=T1真机通过 | deprecated=已废弃
+  t1_record: ""         # T1 真机记录摘要（手动填写或由 sync-verification 自动写入）
+  reuse_count: 0        # 从 usage.jsonl 聚合的真实复用次数
+  last_verified: ""     # 最后验证日期 YYYY-MM-DD
+
+# blueprint 专属字段（仅 blueprint 类型技能填写）
+# blueprint_source: ""   # 源蓝图卡名
+# blueprint_level: ""   # T0 静态验证 / T1 真机验证
+
 # 执行证据门控（沿用记忆中枢"证据归因"：只让"归因到本技能且成功"的可复用发现回写/升级）
 evidence:
   gate: required      # required=必须过证据门禁并入库 | optional | none

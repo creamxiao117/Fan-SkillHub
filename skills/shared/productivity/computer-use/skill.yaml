@@ -1,0 +1,37 @@
+# skill.yaml —— computer-use（共用库 / productivity）
+# 元数据与 router.yaml 中同名记录互为镜像；本体见 SKILL.md
+name: computer-use
+version: 0.1.0
+slot: shared
+scope:
+tags:
+  - computer-use
+  - desktop
+  - automation
+  - gui
+  - window-control
+status: reference
+reuse_count: 0
+updated: 2026-08-24
+
+evidence:
+  gate: required
+  grade: pending
+
+invoke: model
+description_model: "当需要操作桌面窗口、CAD 死锁处理、模态对话框、快捷键注入时触发"
+description_human: "桌面操作插件：让 AI 直接操作电脑，跨应用自动化任务"
+
+trigger:
+  - 控制电脑
+  - 桌面操作
+  - CAD 死锁
+  - 窗口控制
+  - 快捷键
+  - press_key
+  - click
+forgot:
+  - 不需要桌面操作的场景
+
+instructions: SKILL.md
+references: []

@@ -1,0 +1,33 @@
+# skill.yaml —— seedream（共用库 / productivity）
+# 元数据与 router.yaml 中同名记录互为镜像；本体见 SKILL.md
+name: seedream
+version: 0.1.0
+slot: shared
+scope:
+tags:
+  - seedream
+  - image-generation
+  - ai-image
+  - media
+status: reference
+reuse_count: 0
+updated: 2026-08-24
+
+evidence:
+  gate: required
+  grade: pending
+
+invoke: user
+description_model: "仅当用户明确要求生成图片时触发"
+description_human: "AI 图片生成插件，从文本提示生成图片"
+
+trigger:
+  - 生成图片
+  - generate image
+  - AI 画图
+  - seedream
+forgot:
+  - 不需要图片生成的场景
+
+instructions: SKILL.md
+references: []

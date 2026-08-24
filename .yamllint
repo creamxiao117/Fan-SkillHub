@@ -4,3 +4,9 @@ rules:
   document-start: disable
   line-length:
     max: 200
+  indentation:
+    spaces: consistent
+    indent-sequences: consistent
+  new-line-at-end-of-file: enable
+  new-lines:
+    type: unix

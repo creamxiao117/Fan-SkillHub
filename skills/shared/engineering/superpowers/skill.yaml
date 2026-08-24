@@ -1,0 +1,48 @@
+# skill.yaml —— superpowers（共用库 / engineering）
+# 元数据与 router.yaml 中同名记录互为镜像；本体见 SKILL.md
+name: superpowers
+version: 0.1.0
+slot: shared
+scope:
+tags:
+  - superpowers
+  - engineering
+  - methodology
+  - brainstorming
+  - tdd
+  - planning
+  - debugging
+  - code-review
+status: reference
+reuse_count: 0
+updated: 2026-08-24
+
+evidence:
+  gate: required
+  grade: pending
+
+invoke: model
+description_model: "当需要开发方法论辅助时自动触发：头脑风暴、TDD、代码评审、调试策略、Git worktree 管理、分支管理等通用开发场景"
+description_human: "13 个核心开发方法论技能合集：brainstorming/TDD/调试/计划/代码评审/Git worktree 等，通用开发场景自动命中"
+
+trigger:
+  - 头脑风暴
+  - brainstorming
+  - TDD
+  - 测试驱动
+  - 代码评审
+  - code review
+  - 调试
+  - debugging
+  - 写计划
+  - planning
+  - Git worktree
+  - 分支管理
+forgot:
+  - 纯知识问答
+  - 不需要工具的简单解释
+
+instructions: SKILL.md
+references:
+  - methodology/improve-claude-md-important-if.md
+  - methodology/build-iterated-agentic-loop.md
