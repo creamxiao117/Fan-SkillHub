@@ -1,37 +1,43 @@
 # skill.yaml —— all-in-one-media-notes（共用库 / productivity）
 # 元数据与 router.yaml 中同名记录互为镜像；本体见 SKILL.md
+
 name: all-in-one-media-notes
 version: 0.1.0
 slot: shared
-scope:
+scope: null
 tags:
-  - media-notes
-  - audio
-  - video
-  - transcription
-  - notes
-  - summary
+- media-notes
+- audio
+- video
+- transcription
+- notes
+- summary
 status: reference
 reuse_count: 0
 updated: 2026-08-24
-
 evidence:
   gate: required
   grade: pending
-
 invoke: user
-description_model: "仅当用户要求音频/视频总结、转写、笔记时触发"
-description_human: "音视频转笔记：音频/视频转文字+要点提炼+结构化笔记生成"
-
+description_model: 仅当用户要求音频/视频总结、转写、笔记时触发
+description_human: 音视频转笔记：音频/视频转文字+要点提炼+结构化笔记生成
 trigger:
-  - 音频总结
-  - 视频总结
-  - 转写
-  - transcription
-  - 音视频笔记
-  - media notes
+- 音频总结
+- 视频总结
+- 转写
+- transcription
+- 音视频笔记
+- media notes
 forgot:
-  - 不需要媒体处理的场景
-
+- 不需要媒体处理的场景
 instructions: SKILL.md
+source: ''
+card_type: external
 references: []
+source_hash: ''
+capabilities:
+- code_generation
+- data_processing
+- document_writing
+- integration
+auto_capped: '2026-08-25'

@@ -1,6 +1,7 @@
 ---
 name: "superpowers"
-description: "superpowers 插件提供的 13 个开发方法论技能合集：brainstorming、test-driven-development、writing-plans、debugging、code-review、git-worktree 等，通用开发场景自动命中。"
+description: superpowers 插件提供的 13 个开发方法论技能合集：brainstorming、test-driven-development、writing-plans、debugging、code-review、git-worktree 等，通用开发场景自动命中。 适用场景：头脑风暴、brainstorming、TDD。勿用于：纯知识问答、不需要工具的简单解释。
+...
 ---
 
 # Superpowers（开发方法论合集）

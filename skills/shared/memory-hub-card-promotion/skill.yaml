@@ -1,3 +1,5 @@
+
+
 name: memory-hub-card-promotion
 version: 0.1.0
 slot: shared
@@ -10,7 +12,7 @@ tags:
 - workflow
 status: active
 reuse_count: 1
-updated: '2026-08-24'
+updated: '2026-08-25'
 evidence:
   gate: required
   grade: pending
@@ -30,7 +32,18 @@ forgot:
 - rule 卡
 - 自动执行中枢权威区外的其他脚本
 instructions: SKILL.md
+source: methodology/memory-hub-card-promotion.md
+card_type: methodology
 references:
-- projects/improve-ingest-dedup-threshold
-- experience/skillhub-e2e-run-audit
-- cards/card-promotion-workflow
+- methodology/memory-hub-card-promotion.md
+- experience/skillhub-e2e-run-audit.md
+source_hash: 099819d5ffc7
+capabilities:
+- architecture_design
+- automation
+- code_generation
+- data_processing
+- document_writing
+- system_deployment
+- testing_validation
+auto_capped: '2026-08-25'

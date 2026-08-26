@@ -1,36 +1,45 @@
 # skill.yaml —— multica（共用库 / govern）
 # 元数据与 router.yaml 中同名记录互为镜像；本体见 SKILL.md
+
+
 name: multica
 version: 0.1.0
 slot: shared
-scope:
+scope: null
 tags:
-  - multica
-  - project-management
-  - agent
-  - workflow
-  - autopilot
+- multica
+- project-management
+- agent
+- workflow
+- autopilot
 status: reference
-reuse_count: 0
+reuse_count: 1
 updated: 2026-08-24
-
 evidence:
   gate: required
   grade: pending
-
 invoke: user
-description_model: "仅当用户点名 Multica 平台操作时触发"
-description_human: "Multica 多技能合集：autopilot/agents/projects/squads/mentioning/runtimes/onboarding/issue 等 8 个子技能"
-
+description_model: 仅当用户点名 Multica 平台操作时触发
+description_human: Multica 多技能合集：autopilot/agents/projects/squads/mentioning/runtimes/onboarding/issue
+  等 8 个子技能
 trigger:
-  - multica
-  - autopilot
-  - agent 管理
-  - squad
-  - 项目资源
-  - runtime
+- multica
+- autopilot
+- agent 管理
+- squad
+- 项目资源
+- runtime
 forgot:
-  - 不需要 Multica 平台操作的场景
-
+- 不需要 Multica 平台操作的场景
 instructions: SKILL.md
+source: ''
+card_type: external
 references: []
+source_hash: ''
+last_used: '2026-08-25T00:59:00+00:00'
+capabilities:
+- automation
+- debugging
+- integration
+- system_deployment
+auto_capped: '2026-08-25'

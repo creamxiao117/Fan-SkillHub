@@ -1,6 +1,7 @@
 ---
 name: "seedance"
-description: "Seedance AI 视频生成插件，从文本提示生成视频。支持多镜头叙事、图片/视频参考、自定义分辨率和时长。"
+description: Seedance AI 视频生成插件，从文本提示生成视频。支持多镜头叙事、图片/视频参考、自定义分辨率和时长。 适用场景：生成视频、generate video、AI 视频。勿用于：不需要视频生成的场景。
+...
 ---
 
 # Seedance（AI 视频生成）

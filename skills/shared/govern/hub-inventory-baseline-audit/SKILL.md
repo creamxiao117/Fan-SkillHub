@@ -1,6 +1,6 @@
 ---
 name: hub-inventory-baseline-audit
-description: agentmemoryhub
+description: 'agentmemoryhub Use when: 一致性审计, baseline audit, 跨库检查. ; NOT for 单仓库独立检查, 不需要跨库比对的场景.'
 tags:
 - agentmemoryhub
 - inventory

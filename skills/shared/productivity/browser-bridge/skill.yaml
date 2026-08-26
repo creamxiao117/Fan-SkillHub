@@ -1,37 +1,45 @@
 # skill.yaml —— browser-bridge（共用库 / productivity）
 # 元数据与 router.yaml 中同名记录互为镜像；本体见 SKILL.md
+
 name: browser-bridge
 version: 0.1.0
 slot: shared
-scope:
+scope: null
 tags:
-  - browser
-  - automation
-  - web-testing
-  - scraping
-  - bridge
+- browser
+- automation
+- web-testing
+- scraping
+- bridge
 status: reference
 reuse_count: 0
 updated: 2026-08-24
-
 evidence:
   gate: required
   grade: pending
-
 invoke: model
-description_model: "当需要操作浏览器/网页爬取/网页测试时触发"
-description_human: "浏览器自动化桥接插件（v1.0.3），支持 AI 驱动的浏览器自动化"
-
+description_model: 当需要操作浏览器/网页爬取/网页测试时触发
+description_human: 浏览器自动化桥接插件（v1.0.3），支持 AI 驱动的浏览器自动化
 trigger:
-  - 浏览器
-  - browser
-  - 网页爬取
-  - scraping
-  - 网页测试
-  - web testing
-  - 自动化
+- 浏览器
+- browser
+- 网页爬取
+- scraping
+- 网页测试
+- web testing
+- 自动化
 forgot:
-  - 不需要浏览器的场景
-
+- 不需要浏览器的场景
 instructions: SKILL.md
+source: ''
+card_type: external
 references: []
+source_hash: ''
+capabilities:
+- automation
+- code_generation
+- data_processing
+- document_writing
+- integration
+- testing_validation
+auto_capped: '2026-08-25'

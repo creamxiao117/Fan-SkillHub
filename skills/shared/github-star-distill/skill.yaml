@@ -1,3 +1,6 @@
+
+
+
 name: github-star-distill
 version: 0.1.0
 slot: shared
@@ -9,7 +12,7 @@ tags:
 - memory-hub
 status: active
 reuse_count: 1
-updated: '2026-08-24'
+updated: '2026-08-25'
 evidence:
   gate: required
   grade: pending
@@ -25,6 +28,18 @@ forgot:
 - 只是运行某个 GitHub 仓库的单条命令(非提炼沉淀)
 - 需要自动安装仓库依赖或执行仓库内脚本(需人工批准)
 instructions: SKILL.md
+source: methodology/github-star-distill.md
+card_type: methodology
 references:
-- methodology/memory-hub-card-promotion
-- rules/memory-hub-query-first
+- methodology/github-star-distill.md
+- rules/memory-hub-query-first.md
+source_hash: 093c589dd490
+capabilities:
+- architecture_design
+- automation
+- code_generation
+- data_processing
+- document_writing
+- system_deployment
+- testing_validation
+auto_capped: '2026-08-25'

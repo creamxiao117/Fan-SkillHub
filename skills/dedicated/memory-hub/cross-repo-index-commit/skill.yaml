@@ -1,41 +1,51 @@
 # skill.yaml —— cross-repo-index-commit（专用库，memory-hub 域）
 # 元数据与 router.yaml 中同名记录互为镜像；本体见同目录 SKILL.md
+
+
+
+
 name: cross-repo-index-commit
 version: 0.1.0
 slot: dedicated
 scope: memory-hub
 tags:
-  - memory-hub
-  - cross-repo
-  - git
-  - index
-  - cli
+- memory-hub
+- cross-repo
+- git
+- index
+- cli
 status: reference
-reuse_count: 0
-updated: 2026-08-21
-
+reuse_count: 2
+updated: '2026-08-25'
 evidence:
   gate: required
   grade: pending
-
 invoke: user
-description_model: "当需要在中枢/其他独立 git 仓库执行 INDEX 登记、跨库改文件并 git 提交，而 Edit/Write 工具被限制在当前工作目录时触发"
-description_human: "跨独立仓库用命令行等效(读文件+替换+git add/commit)维护 INDEX 并保持一致性"
-
+description_model: 当需要在中枢/其他独立 git 仓库执行 INDEX 登记、跨库改文件并 git 提交，而 Edit/Write 工具被限制在当前工作目录时触发
+description_human: 跨独立仓库用命令行等效(读文件+替换+git add/commit)维护 INDEX 并保持一致性
 trigger:
-  - 跨仓库提交
-  - 跨库登记
-  - 跨库提交
-  - 中枢 INDEX
-  - INDEX 补登记
-  - 独立仓库改文件
-  - 跨库改文件
+- 跨仓库提交
+- 跨库登记
+- 跨库提交
+- 中枢 INDEX
+- INDEX 补登记
+- 独立仓库改文件
+- 跨库改文件
 forgot:
-  - 工作目录内可 Edit
-  - push 到远程
-  - 改写全局 git config
-
+- 工作目录内可 Edit
+- push 到远程
+- 改写全局 git config
 instructions: SKILL.md
-references:          # 溯源
-  - experience/cross-repo-index-commit
-  - cards/memory-hub-repo-communication-protocol
+source: experience/cross-repo-index-commit.md
+card_type: experience
+references:
+- experience/cross-repo-index-commit.md
+source_hash: 4be0bcdccbf1
+capabilities:
+- automation
+- code_generation
+- debugging
+- document_writing
+- system_deployment
+auto_capped: '2026-08-25'
+last_used: '2026-08-25T01:26:12+00:00'

@@ -1,6 +1,7 @@
 ---
 name: "multica"
-description: "Multica 多技能合集：autopilot、agents、projects、squads、mentioning、runtimes、onboarding、issue 等 8 个子技能，覆盖 Multica 平台全生命周期操作。"
+description: Multica 多技能合集：autopilot、agents、projects、squads、mentioning、runtimes、onboarding、issue 等 8 个子技能，覆盖 Multica 平台全生命周期操作。 适用场景：multica、autopilot、agent 管理。勿用于：不需要 Multica 平台操作的场景。
+...
 ---
 
 # Multica（多技能合集）

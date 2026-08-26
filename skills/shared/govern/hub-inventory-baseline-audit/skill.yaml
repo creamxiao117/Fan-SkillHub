@@ -1,3 +1,7 @@
+
+
+
+
 name: hub-inventory-baseline-audit
 version: 0.1.0
 slot: shared
@@ -10,8 +14,8 @@ tags:
 - safety
 - rule
 status: active
-reuse_count: 1
-updated: '2026-08-24'
+reuse_count: 2
+updated: '2026-08-25'
 evidence:
   source_type: rule
   source_card: hub-inventory-baseline-audit
@@ -48,5 +52,15 @@ instructions: '对记忆中枢做**定期完整清单存档**，作为「是否�
   # C. 完整 md 相对路径清单（全量, Sort by FullName）
 
   # D. git sta'
+source: rules/hub-inventory-baseline-audit.md
+card_type: rule
 references:
-- hub://rule/hub-inventory-baseline-audit
+- rules/hub-inventory-baseline-audit.md
+source_hash: f4f452d57709
+last_used: '2026-08-25T01:00:18+00:00'
+capabilities:
+- automation
+- code_generation
+- data_processing
+- debugging
+auto_capped: '2026-08-25'
