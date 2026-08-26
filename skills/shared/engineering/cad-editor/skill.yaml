@@ -1,0 +1,10 @@
+name: cad-editor
+version: 0.1.0
+slot: shared
+scope: ''
+tags:
+- engineering
+- cad-editor
+status: reference
+reuse_count: 0
+updated: '2026-08-26'

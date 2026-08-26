@@ -1,0 +1,10 @@
+name: context-engineering-v1
+version: 0.1.0
+slot: shared
+scope: ''
+tags:
+- engineering
+- context-engineering-v1
+status: reference
+reuse_count: 0
+updated: '2026-08-26'

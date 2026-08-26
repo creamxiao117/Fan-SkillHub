@@ -1,6 +1,7 @@
 ---
 name: "memory-hub-card-promotion"
-description: 把 SkillHub 实证/踩坑回写记忆中枢草稿→ingest 提升→INDEX 登记→跨库 git 提交，闭合回写链路并保持两侧一致性。 适用场景：回写中枢、中枢草稿、提升经验卡。勿用于：rule 类型、直接改 rule。
+description: 把 SkillHub 实证/踩坑回写记忆中枢草稿→ingest 提升→INDEX 登记→跨库 git 提交，闭合回写链路并保持两侧一致性 适用场景：回写中枢、中枢草稿、提升经验卡。勿用于：rule 类型、直接改 rule。
+...
 ...
 ---
 

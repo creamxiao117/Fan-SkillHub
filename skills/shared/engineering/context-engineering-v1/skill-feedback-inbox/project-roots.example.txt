@@ -1,0 +1,4 @@
+# Example project roots
+
+D:\AIwork\ProjectA
+D:\AIwork\ProjectB

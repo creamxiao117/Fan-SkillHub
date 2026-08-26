@@ -1,0 +1,4 @@
+interface:
+  display_name: "Context Engineering V1"
+  short_description: "Bootstrap and run a lightweight AI collaboration skeleton"
+  default_prompt: "Use the Context Engineering V1 skill to bootstrap or refine this project into a lightweight, iterative AI collaboration skeleton."

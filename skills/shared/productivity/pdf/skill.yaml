@@ -1,0 +1,10 @@
+name: pdf
+version: 0.1.0
+slot: shared
+scope: ''
+tags:
+- productivity
+- pdf
+status: reference
+reuse_count: 0
+updated: '2026-08-26'

@@ -187,8 +187,7 @@ skills:
   scope: multica
   invoke: user
   description_model: 仅当用户点名 Multica 平台操作时触发
-  description_human: Multica 多技能合集：autopilot/agents/projects/squads/mentioning/runtimes/onboarding/issue
-    等 8 个子技能
+  description_human: Multica 多技能合集：autopilot/agents/projects/squads/mentioning/runtimes/onboarding/issue 等 8 个子技能
   trigger:
   - multica
   - autopilot
@@ -425,3 +424,45 @@ skills:
   trigger:
   - vercel-react-best-practices
   forgot: []
+- name: excel-author
+  slot: shared
+  scope: productivity
+  invoke: model
+  description_model: 可审计财务工作簿 headless 构建（openpyxl）
+  description_human: openpyxl 构建可审计 Excel 工作簿
+  trigger:
+  - Excel
+  - 工作簿
+  - openpyxl
+  forgot:
+  - 读csv用pandas即可
+  weight: 1.0
+  status: active
+- name: diagram-design
+  slot: shared
+  scope: creative
+  invoke: model
+  description_model: 品牌化架构图/IT 现状图/流程图设计
+  description_human: 品牌化图表设计
+  trigger:
+  - 架构图
+  - 流程图
+  - 品牌图
+  forgot:
+  - 简单mermaid即可的场景
+  weight: 1.0
+  status: active
+- name: context-engineering-v1
+  slot: shared
+  scope: engineering
+  invoke: user
+  description_model: 上下文工程骨架引导/精炼（Fan 工作流）
+  description_human: context-engineering 骨架工作流
+  trigger:
+  - 上下文工程
+  - context skeleton
+  - CLAUDE.md骨架
+  forgot:
+  - 一般prompt提问
+  weight: 1.0
+  status: active

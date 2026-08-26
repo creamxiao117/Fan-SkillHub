@@ -1,6 +1,7 @@
 ---
 name: "cross-repo-index-commit"
-description: 在中枢/其他独立 git 仓库执行 INDEX 登记、跨库改文件并 git 提交，用命令行等效绕开 IDE 工具目录限制，保两侧一致性。 适用场景：跨仓库提交、跨库登记、跨库提交。勿用于：工作目录内可 Edit、push 到远程。
+description: 在中枢/其他独立 git 仓库执行 INDEX 登记、跨库改文件并 git 提交，用命令行等效绕开 IDE 工具目录限制，保两侧一致性 适用场景：跨仓库提交、跨库登记、跨库提交。勿用于：工作目录内可 Edit、push 到远程。
+...
 ...
 ---
 
