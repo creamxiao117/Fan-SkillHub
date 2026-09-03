@@ -290,6 +290,8 @@ def _cmd_reconcile(args: argparse.Namespace) -> None:
         scope_filter=getattr(args, "scope", None),
         batch_size=getattr(args, "batch_size", 0) or 0,
         batch_index=getattr(args, "batch_index", 0) or 0,
+        save_path=(getattr(args, "save_candidates", "") or None),
+        load_path=(getattr(args, "load_candidates", "") or None),
     )
 
     if not actions:
@@ -419,6 +421,16 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         default=0,
         help="分批索引(从 0 开始), 配合 --batch-size 使用",
+    )
+    p_reconcile.add_argument(
+        "--save-candidates",
+        default="",
+        help="dry-run 时把候选集存 JSON, 后续 --load-candidates 可复用 (避免反复扫描中枢)",
+    )
+    p_reconcile.add_argument(
+        "--load-candidates",
+        default="",
+        help="跳过中枢 scan/filter, 直接从 JSON 缓存读候选集 (之前 --save-candidates 生成的)",
     )
     p_reconcile.set_defaults(func=_cmd_reconcile)
 

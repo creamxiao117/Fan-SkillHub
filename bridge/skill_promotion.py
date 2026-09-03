@@ -14,7 +14,9 @@
 
 from __future__ import annotations
 
+import json
 import re
+import shutil
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -231,11 +233,18 @@ AUTHORING_CHECKLIST = {
 }
 
 
-def render_skill_yaml(card: CardInfo) -> str:
+def render_skill_yaml(
+    card: CardInfo,
+    *,
+    batch_meta: dict | None = None,  # ③ __reconcile_batch__ 元数据
+) -> str:
     """渲染一张 skill.yaml(元数据), 对齐 skills/govern/skill.yaml.tmpl 契约。
 
     含 verification 字段(对齐中枢 T0→T1→active 链路),
     blueprint 卡额外标注 blueprint 证据等级。
+
+    batch_meta: reconcile 批次元数据, 写入 __reconcile_batch__ 双下划线字段
+    (系统 metadata, 用户不编辑)。含 batch_size / batch_index / total_batches / total_candidates。
     """
     is_blueprint = card.card_type == "blueprint"
     # verification: 对齐中枢卡的验证状态; 新升级默认 reference, 待真机试用转 active
@@ -266,6 +275,9 @@ def render_skill_yaml(card: CardInfo) -> str:
     if is_blueprint:
         fm["blueprint_source"] = card.source.name
         fm["blueprint_level"] = "T0 静态验证"
+    # ③ __reconcile_batch__: 双下划线前缀 = 系统 metadata, 用户不编辑
+    if batch_meta:
+        fm["__reconcile_batch__"] = batch_meta
     return (
         "# skill.yaml —— " + card.slug + "（" + card.slot + "库）\n"
         "# 由中枢卡升级生成: "
@@ -425,6 +437,8 @@ def reconcile(
     scope_filter: str | None = None,  # 只处理指定 scope(逗号多值, 支持空 scope 用 '<empty>' 匹配)
     batch_size: int = 0,  # 分批大小, 0 表示不分批
     batch_index: int = 0,  # 分批索引, 从 0 开始
+    save_path: str | Path | None = None,  # ① dry-run 候选集存 JSON (后续 --load-candidates 可复用)
+    load_path: str | Path | None = None,  # ① 跳过中枢扫描/筛选, 直接从 JSON 读候选集
 ) -> list[dict]:
     """反向回流编排: 扫描 → 判级 → (apply) 生成技能文件 + 登记 router。
 
@@ -437,11 +451,20 @@ def reconcile(
     分批: batch_size>0 时, 候选卡分批处理, batch_index 指定第几批。
     用于 175 张候选卡分批 reconcile, 避免 --apply 范围过大。
 
-    中枢 INDEX.md 补充: 自动尝试读 INDEX.md 补充 description/反触发摘要。
+    候选集缓存 (①):
+      - save_path: dry-run 时把候选卡元信息存 JSON, 后续 --load-candidates 可复用。
+        避免 175 张分 18 批 apply 时反复扫描中枢。
+      - load_path: 跳过中枢 scan/filter/enrich, 直接从 JSON 读候选卡元信息并重建 CardInfo。
+
+    批量元数据 (③): 每张生成的 skill.yaml 写入 __reconcile_batch__ 字段,
+    标记该技能来自哪个 reconcile 批次 (batch_size / batch_index / 总数)。
+
+    原子 apply 与失败回滚 (④): 每张卡 apply 时先备份 router.yaml → 写 router → 写技能文件;
+    若中途异常, 自动回滚 router 并删除半成品技能目录, 不留下脏状态。
     """
     config_path = Path(__file__).parent.parent / "hub.config.yaml"
     base = Path(skill_root)
-    router = router_path or config_path.parent / "router" / "router.yaml"
+    router = Path(router_path) if router_path else config_path.parent / "router" / "router.yaml"
 
     # 解析筛选参数
     type_filters = _parse_scope_filter(card_type_filter)
@@ -449,31 +472,47 @@ def reconcile(
     slug_filters = _parse_scope_filter(slug_filter)
     scope_filters = _parse_scope_filter(scope_filter)
 
-    all_cards = scan_hub_cards(hub_root)
-    # 应用筛选(四层 AND)
-    if type_filters or status_filters or slug_filters or scope_filters:
-        all_cards = [
-            c
-            for c in all_cards
-            if (not type_filters or c.card_type in type_filters)
-            and (not status_filters or c.hub_status in status_filters)
-            and (not slug_filters or c.slug in slug_filters)
-            and (
-                not scope_filters
-                or (c.scope or "<empty>") in scope_filters
-            )
-        ]
+    # ① load_path: 跳过中枢 scan/filter/enrich, 直接从 JSON 读 CardInfo
+    if load_path:
+        all_cards = _load_candidate_cards(load_path, hub_root)
+    else:
+        all_cards = scan_hub_cards(hub_root)
+        # 应用筛选(四层 AND)
+        if type_filters or status_filters or slug_filters or scope_filters:
+            all_cards = [
+                c
+                for c in all_cards
+                if (not type_filters or c.card_type in type_filters)
+                and (not status_filters or c.hub_status in status_filters)
+                and (not slug_filters or c.slug in slug_filters)
+                and (
+                    not scope_filters
+                    or (c.scope or "<empty>") in scope_filters
+                )
+            ]
+        # G3: 尝试读 INDEX.md 补充卡 description/反触发摘要
+        hub = Path(hub_root)
+        index_path = hub / "INDEX.md"
+        if index_path.is_file():
+            _enrich_from_index(all_cards, index_path)
 
-    # G3: 尝试读 INDEX.md 补充卡 description/反触发摘要
-    hub = Path(hub_root)
-    index_path = hub / "INDEX.md"
-    if index_path.is_file():
-        _enrich_from_index(all_cards, index_path)
+    # ① save_path: 在分批之前落盘完整候选集 JSON (供后续 load_path 复用)
+    if save_path:
+        _save_candidate_cards(all_cards, save_path, hub_root)
 
     # 分批
-    if batch_size > 0 and len(all_cards) > batch_size:
+    total_count = len(all_cards)  # 分批前总数, 写入 __reconcile_batch__.total
+    if batch_size > 0 and total_count > batch_size:
         start = batch_index * batch_size
         all_cards = all_cards[start : start + batch_size]
+
+    # ③ 计算本批次元数据 (即使不分批也给统一格式)
+    batch_meta = {
+        "batch_size": batch_size if batch_size > 0 else total_count,
+        "batch_index": batch_index if batch_size > 0 else 0,
+        "total_batches": ((total_count + batch_size - 1) // batch_size) if batch_size > 0 else 1,
+        "total_candidates": total_count,
+    }
     actions: list[dict] = []
     if not apply:
         for card in all_cards:
@@ -495,6 +534,10 @@ def reconcile(
                 }
             )
         return actions
+
+    # pending_registrations: 先在内存累积, 循环结束一次性写 router
+    # (保证 router 原子性; 单卡失败时 router 完全不受影响)
+    pending_registrations: list[CardInfo] = []
 
     for card in all_cards:
         if card.scope:
@@ -531,7 +574,7 @@ def reconcile(
 
         if skill_exists and not router_exists:
             # 补登记 router, 不覆盖已有技能文件
-            _register_router(router, card)
+            pending_registrations.append(card)
             actions.append(
                 {
                     "slug": card.slug,
@@ -542,21 +585,56 @@ def reconcile(
             )
             continue
 
-        # 正常: 两者都不存在 → 全量生成
-        dest_dir.mkdir(parents=True, exist_ok=True)
-        (dest_dir / SKILL_YAML_NAME).write_text(
-            render_skill_yaml(card), encoding="utf-8"
-        )
-        (dest_dir / SKILL_MD_NAME).write_text(render_skill_md(card), encoding="utf-8")
-        _register_router(router, card)
-        actions.append(
-            {
-                "slug": card.slug,
-                "action": "apply",
-                "target": str(dest_dir),
-                "reason": "生成技能 + 登记 router",
-            }
-        )
+        # 正常: 两者都不存在 → 全量生成 (try/except 保证失败时半成品被清理)
+        try:
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            (dest_dir / SKILL_YAML_NAME).write_text(
+                render_skill_yaml(card, batch_meta=batch_meta), encoding="utf-8"
+            )
+            (dest_dir / SKILL_MD_NAME).write_text(
+                render_skill_md(card), encoding="utf-8"
+            )
+            pending_registrations.append(card)
+            actions.append(
+                {
+                    "slug": card.slug,
+                    "action": "apply",
+                    "target": str(dest_dir),
+                    "reason": "生成技能 + 登记 router",
+                }
+            )
+        except Exception as exc:  # noqa: BLE001 — 单卡失败不应中断整批
+            # ④ 失败回滚: 删除半成品技能目录 (router 还没写, 不用回滚)
+            _cleanup_dir(dest_dir)
+            actions.append(
+                {
+                    "slug": card.slug,
+                    "action": "failed",
+                    "target": str(dest_dir),
+                    "reason": f"✗ 生成失败已清理: {type(exc).__name__}: {exc}",
+                }
+            )
+            # 继续处理下一张卡, 不中断
+
+    # 循环结束: 一次性把 pending_registrations 写 router (原子性保证)
+    if pending_registrations:
+        router_backup = _maybe_backup_router(router)
+        try:
+            for card in pending_registrations:
+                _register_router(router, card)
+        except Exception as exc:  # noqa: BLE001 — 写 router 失败不应该让已成功的卡作废
+            _restore_router(router, router_backup)
+            actions.append(
+                {
+                    "slug": "(batch)",
+                    "action": "failed",
+                    "target": str(router),
+                    "reason": f"✗ router 批量登记失败已回滚: {type(exc).__name__}: {exc}",
+                }
+            )
+        finally:
+            _cleanup_router_backup(router_backup)
+
     return actions
 
 
@@ -578,7 +656,11 @@ def _register_router(router_path: str | Path, card: CardInfo) -> bool:
     触发/反触发从卡 title 与 GENERIC_FORGOT 派生, 与生成 skill.yaml 保持一致。
     """
     p = Path(router_path)
-    data = yaml.safe_load(p.read_text(encoding="utf-8"))
+    p.parent.mkdir(parents=True, exist_ok=True)
+    if not p.is_file():
+        data = {}
+    else:
+        data = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
     skills = data.setdefault("skills", [])
     if any(s.get("name") == card.slug for s in skills):
         return False
@@ -600,3 +682,113 @@ def _register_router(router_path: str | Path, card: CardInfo) -> bool:
         encoding="utf-8",
     )
     return True
+
+
+# ─── ① 候选集 JSON 缓存 ──────────────────────────────────────────────
+
+def _save_candidate_cards(cards: list[CardInfo], path: str | Path, hub_root: str | Path) -> None:
+    """把 reconcile 候选集落盘为 JSON, 供后续 --load-candidates 复用。
+
+    只存元数据 (slug/type/slot/scope/source 等), 不存 body 正文 (load 时从 source 重读)。
+    同时写入 hub_root 以便 load 时做跨平台路径修正。
+    """
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    data = {
+        "_meta": {
+            "hub_root": str(Path(hub_root)),
+            "count": len(cards),
+            "saved_at": _today_iso(),
+        },
+        "cards": [c.to_dict() for c in cards],
+    }
+    p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _load_candidate_cards(path: str | Path, hub_root: str | Path) -> list[CardInfo]:
+    """从 JSON 重建候选卡列表。跳过中枢 scan/filter/enrich, 直接读缓存。
+
+    source 路径按 hub_root 重算 (跨平台/绝对路径差异下仍能找到真实文件)。
+    body 从 source 文件重读 (不在 JSON 里存正文, 避免文件过大)。
+    """
+    p = Path(path)
+    if not p.is_file():
+        raise FileNotFoundError(f"候选集缓存不存在: {p}")
+    data = json.loads(p.read_text(encoding="utf-8"))
+    cached_hub = Path(data.get("_meta", {}).get("hub_root", hub_root))
+    cards: list[CardInfo] = []
+    for entry in data.get("cards", []):
+        # source 路径: 优先尝试原始路径, 不存在则用 hub_root + 相对路径
+        source = Path(entry["source"])
+        if not source.is_file():
+            try:
+                rel = source.relative_to(cached_hub)
+                source = Path(hub_root) / rel
+            except ValueError:
+                source = Path(hub_root) / source.name
+        if not source.is_file():
+            continue  # 源文件丢了 → 跳过这张卡
+        # 重读 body (不在 JSON 里存正文)
+        raw = source.read_text(encoding="utf-8", errors="replace")
+        _, body = _parse_frontmatter(raw)
+        cards.append(
+            CardInfo(
+                slug=entry["slug"],
+                title=entry["title"],
+                card_type=entry["card_type"],
+                tags=list(entry.get("tags", [])),
+                body=body,
+                source=source,
+                slot=entry.get("slot", "shared"),
+                scope=entry.get("scope", ""),
+                reuse_count=entry.get("reuse_count", 0),
+                hub_status=entry.get("hub_status", "active"),
+                anti_trigger=list(entry.get("anti_trigger", []) or []),
+            )
+        )
+    return cards
+
+
+# ─── ④ 失败回滚辅助 ──────────────────────────────────────────────
+
+def _cleanup_dir(path: str | Path) -> None:
+    """递归删除半成品技能目录 (失败回滚用)。静默吞掉不存在。"""
+
+    p = Path(path)
+    if not p.exists():
+        return
+    # 如果是单个文件, 只删文件; 如果是目录, 整树删
+    if p.is_file():
+        p.unlink(missing_ok=True)
+    elif p.is_dir():
+        shutil.rmtree(p, ignore_errors=True)
+
+
+def _maybe_backup_router(router_path: str | Path) -> Path | None:
+    """router.yaml 存在时备份到 <router>.bak, 不存在返回 None (新文件不用备份)。"""
+    p = Path(router_path)
+    if not p.is_file():
+        return None
+    bak = p.with_suffix(p.suffix + ".bak")
+    bak.write_bytes(p.read_bytes())
+    return bak
+
+
+def _restore_router(router_path: str | Path, backup: Path | None) -> None:
+    """从备份恢复 router.yaml。backup=None 表示原文件不存在, 直接不恢复。"""
+    if backup is None:
+        return  # 原本就没有 router.yaml, 什么都不用做
+    p = Path(router_path)
+    backup_path = Path(backup)
+    if backup_path.is_file():
+        backup_path.replace(p)
+
+
+def _cleanup_router_backup(backup: Path | None) -> None:
+    """清理 router 备份文件 (reconcile 结束后调用)。"""
+    if backup is None:
+        return
+    try:
+        Path(backup).unlink(missing_ok=True)
+    except OSError:
+        pass

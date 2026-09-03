@@ -1,6 +1,6 @@
 ---
 name: excel-author
-description: 'Build auditable financial workbooks headless via openpyxl. Use when: Excel, 工作簿, openpyxl. ; NOT for 读csv用pandas即可.'
+description: 'Build auditable financial workbooks headless via openpyxl Use when: Excel, 工作簿, openpyxl. ; NOT for 读csv用pandas即可.'
 version: 1.0.0
 author: Anthropic (adapted by Nous Research)
 license: Apache-2.0

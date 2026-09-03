@@ -357,3 +357,136 @@ def test_router_has_name_exists_and_missing(tmp_path: Path) -> None:
     bad = tmp_path / "bad.yaml"
     bad.write_text("::::not valid yaml::::", encoding="utf-8")
     assert sp._router_has_name(bad, "anything") is False
+
+
+# ─── 建议 ①③④ 新增功能测试 ──────────────────────────────────────
+
+def test_save_and_load_candidates_roundtrip(tmp_path: Path) -> None:
+    """① save_path → load_path 闭环: 候选集落盘 JSON 后能读回, slug 一致。"""
+    hub = _make_hub(tmp_path)
+    skill_root = tmp_path / "skills"
+    cache = tmp_path / "candidates.json"
+
+    # save
+    acts = sp.reconcile(hub, skill_root, apply=False, save_path=cache)
+    assert cache.is_file()
+    import json
+
+    data = json.loads(cache.read_text(encoding="utf-8"))
+    assert data["_meta"]["count"] == len(acts)
+    assert data["_meta"]["hub_root"]  # 记录了 hub_root
+
+    # load 另一个 skill_root (验证完全绕开中枢扫描)
+    skill_root2 = tmp_path / "skills2"
+    acts2 = sp.reconcile(hub, skill_root2, apply=False, load_path=cache)
+    # slug 列表应完全一致
+    assert sorted(a["slug"] for a in acts) == sorted(a["slug"] for a in acts2)
+
+
+def test_load_candidates_file_not_found(tmp_path: Path) -> None:
+    """① load_path 指向不存在的文件 → 清晰报错, 不崩溃。"""
+    hub = _make_hub(tmp_path)
+    skill_root = tmp_path / "skills"
+    missing = tmp_path / "no-such-cache.json"
+    import pytest
+
+    with pytest.raises(FileNotFoundError, match=r"候选集缓存不存在"):
+        sp.reconcile(hub, skill_root, apply=False, load_path=missing)
+
+
+def test_batch_meta_in_skill_yaml(tmp_path: Path) -> None:
+    """③ __reconcile_batch__ 元数据正确写入 skill.yaml。"""
+    hub = _make_hub(tmp_path)
+    skill_root = tmp_path / "skills"
+    router = _make_router(tmp_path)
+
+    # 分批 apply: 先算一下 _make_hub 里有几张卡 (reuse-writeback active + inactive reference)
+    acts = sp.reconcile(hub, skill_root, apply=True, router_path=router, batch_size=10, batch_index=0)
+    apply_acts = [a for a in acts if a["action"] in ("apply", "patch-router")]
+    assert apply_acts, "应有卡被 apply"
+
+    # 取第一张 apply 的 skill.yaml 检查 batch_meta
+    dest = Path(apply_acts[0]["target"])
+    data = yaml.safe_load((dest / "skill.yaml").read_text(encoding="utf-8"))
+    assert "__reconcile_batch__" in data
+    bm = data["__reconcile_batch__"]
+    assert bm["batch_size"] == 10
+    assert bm["batch_index"] == 0
+    assert bm["total_candidates"] >= bm["batch_index"]  # 不分批时 total_candidates==batch_size
+
+
+def test_apply_single_card_failure_cleansup(tmp_path: Path, monkeypatch) -> None:
+    """④ 单卡 apply 失败时: 半成品目录被清理 + 不影响其他卡 + router 不被写坏。"""
+    hub = tmp_path / "hub"
+    exp = hub / "experience"
+    exp.mkdir(parents=True)
+    # 3 张 active exp 卡, 中间那张会被 mock 写炸
+    for i in range(3):
+        (exp / f"card-{i}.md").write_text(
+            f"---\ntype: exp\nname: card-{i}\ntags: []\nstatus: active\n---\n\n卡正文 {i}",
+            encoding="utf-8",
+        )
+    skill_root = tmp_path / "skills"
+    router = _make_router(tmp_path)
+
+    # mock render_skill_yaml 在 card-1 上抛异常
+    original_render = sp.render_skill_yaml
+    def _mock_render(card, *, batch_meta=None):
+        if card.slug == "card-1":
+            raise RuntimeError("模拟写 skill.yaml 失败")
+        return original_render(card, batch_meta=batch_meta)
+    monkeypatch.setattr(sp, "render_skill_yaml", _mock_render)
+
+    acts = sp.reconcile(hub, skill_root, apply=True, router_path=router)
+
+    # 检查: card-0 apply 成功, card-1 failed, card-2 apply 成功
+    by_action = {a["slug"]: a["action"] for a in acts}
+    assert by_action["card-0"] == "apply"
+    assert by_action["card-1"] == "failed"
+    assert "生成失败已清理" in next(a["reason"] for a in acts if a["slug"] == "card-1")
+    assert by_action["card-2"] == "apply"
+
+    # 关键: card-1 目录必须被清理 (半成品不留下)
+    card1_dir = skill_root / "shared" / "card-1"
+    assert not card1_dir.exists()
+
+    # router 应该只登记成功的 2 张 (card-0, card-2)
+    rd = yaml.safe_load(router.read_text(encoding="utf-8"))
+    registered = {s["name"] for s in rd.get("skills", [])}
+    assert registered == {"card-0", "card-2"}
+
+
+def test_apply_router_write_failure_rollback(tmp_path: Path, monkeypatch) -> None:
+    """④ router 批量登记失败时: 自动回滚 router + actions 含 failed 汇总条目。"""
+    hub = tmp_path / "hub"
+    exp = hub / "experience"
+    exp.mkdir(parents=True)
+    for i in range(2):
+        (exp / f"card-{i}.md").write_text(
+            f"---\ntype: exp\nname: card-{i}\ntags: []\nstatus: active\n---\n\n卡正文 {i}",
+            encoding="utf-8",
+        )
+    skill_root = tmp_path / "skills"
+    # 先造一个已有条目的 router
+    router = _make_router(tmp_path, names=["pre-existing"])
+
+    # mock _register_router 第二次调用炸 (登记 card-1 时炸)
+    original_reg = sp._register_router
+    call_count = [0]
+    def _mock_reg(p, c):
+        call_count[0] += 1
+        if call_count[0] >= 2:
+            raise OSError("模拟 router.yaml 写权限被拒")
+        return original_reg(p, c)
+    monkeypatch.setattr(sp, "_register_router", _mock_reg)
+
+    acts = sp.reconcile(hub, skill_root, apply=True, router_path=router)
+
+    # 最终 router 应被回滚到只有 pre-existing (card-0 刚写进去又被回滚)
+    rd = yaml.safe_load(router.read_text(encoding="utf-8"))
+    assert {s["name"] for s in rd.get("skills", [])} == {"pre-existing"}
+
+    # 至少有一条 failed 条目 (batch 级)
+    failed_actions = [a for a in acts if a["action"] == "failed"]
+    assert len(failed_actions) >= 1
+    assert "router" in failed_actions[0]["reason"].lower()
