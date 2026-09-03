@@ -11,7 +11,7 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 3
+  reuse_count: 2
   last_verified: '2026-09-03'
 invoke: user
 description_model: Agent 技能仓库治理类项目 · 技术路径蓝图

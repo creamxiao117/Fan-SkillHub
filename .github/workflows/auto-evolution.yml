@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pull-requests: write
 
 jobs:
@@ -21,64 +21,76 @@ jobs:
           python-version: "3.12"
 
       - name: Install deps
-        run: pip install pyyaml pytest
+        run: pip install pyyaml pytest pynacl
 
-      # 中枢仓库 clone (私有仓库需要 secrets.HUB_PAT; 无 secrets 时跳过, 不影响本地命令)
+      # 中枢仓库 clone — step 内 bash 判断, 绕过 workflow 校验对 secrets.HUB_PAT 的限制
       - name: Clone AgentMemoryHub
-        if: ${{ secrets.HUB_PAT != '' }}
         env:
-          HUB_PAT: __HUB_PAT__
+          HUB_PAT: ${{ secrets.HUB_PAT }}
         run: |
-          git clone https://x-access-token:${HUB_PAT}@github.com/creamxiao117/AgentMemoryHub.git .hub
+          if [ -n "${HUB_PAT}" ]; then
+            git clone --depth 1 "https://x-access-token:${HUB_PAT}@github.com/creamxiao117/AgentMemoryHub.git" .hub
+            echo "AgentMemoryHub clone OK"
+          else
+            echo "HUB_PAT 为空, 跳过中枢 clone, 不执行 reconcile / push-to-hub / hub commit"
+          fi
 
-      - name: Migrate (回填缺失字段)
+      - name: Migrate (回填 verification / slot / __reconcile_batch__ 缺失字段)
         run: python -m skillhub migrate
         continue-on-error: true
 
-      # ① reconcile blueprint 卡 — 开启 --apply, 每批 5 张
-      #    每天最多 apply 5 张, 防止一次性生成过多
-      - name: Reconcile blueprints (apply, batch=5)
-        if: ${{ secrets.HUB_PAT != '' }}
+      # ① reconcile blueprint 卡 — apply, 每天 5 张
+      - name: Reconcile blueprints (apply batch=5)
         run: |
-          python -m skillhub reconcile \
-            --hub-root .hub \
-            --card-type blueprint \
-            --apply \
-            --batch-size 5 \
-            --batch-index 0
+          if [ -d .hub ]; then
+            python -m skillhub reconcile \
+              --hub-root .hub \
+              --card-type blueprint \
+              --apply \
+              --batch-size 5 \
+              --batch-index 0
+          else
+            echo "skip: no .hub"
+          fi
         continue-on-error: true
 
-      - name: Sync verification (双源回填)
+      - name: Sync verification (双源: usage.jsonl 优先 → 回落中枢卡 frontmatter)
         run: |
           HUB_FLAG=""
           if [ -d .hub ]; then HUB_FLAG="--hub-root .hub"; fi
           python -m skillhub sync-verification $HUB_FLAG
         continue-on-error: true
 
-      # ② promote-auto — 正式开启 (安全网: reuse_count>=3 + t1 非静态检查 才晋级)
-      - name: Promote auto (正式)
+      # ② promote-auto — 安全网: reuse_count≥3 + t1_record 有真实试用, 才会晋级
+      - name: Promote auto (正式开启)
         run: python -m skillhub promote-auto --threshold 3
         continue-on-error: true
 
-      # ③ SkillHub -> 中枢 反向同步
-      #    SkillHub 里 promote 到 active 的技能 → 回写中枢卡的 status/reuse_count/anti_trigger
-      - name: Push to hub (反向同步)
-        if: ${{ secrets.HUB_PAT != '' }}
-        run: python -m skillhub push-to-hub --hub-root .hub
+      # ③ SkillHub → 中枢反向同步 (SkillHub promote 到 active 写回中枢卡 status / reuse_count)
+      - name: Push to hub (反向同步 dry-run 默认)
+        run: |
+          if [ -d .hub ]; then
+            python -m skillhub push-to-hub --hub-root .hub
+          else
+            echo "skip: no .hub"
+          fi
         continue-on-error: true
 
       - name: Hub git commit & push
-        if: ${{ secrets.HUB_PAT != '' }}
+        env:
+          HUB_PAT: ${{ secrets.HUB_PAT }}
         run: |
+          if [ ! -d .hub ]; then echo "skip: no .hub"; exit 0; fi
           cd .hub
           git config user.email "skillhub-bot@users.noreply.github.com"
           git config user.name "skillhub-bot"
+          git remote set-url origin "https://x-access-token:${HUB_PAT}@github.com/creamxiao117/AgentMemoryHub.git"
           git add -A
           if git diff --cached --quiet; then
             echo "No hub changes, skip commit"
           else
             git commit -m "chore: sync from SkillHub auto-evolution"
-            git push origin HEAD
+            git push origin HEAD || echo "hub push skipped (branch protection?)"
           fi
         continue-on-error: true
 
@@ -86,12 +98,13 @@ jobs:
         run: python -m pytest -q
         continue-on-error: true
 
+      # 自动提 PR 到 auto-evolution 分支 (SkillHub 侧改动)
       - name: Create PR if changed
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: auto-evolution sync"
-          title: "SkillHub auto-evolution"
+          commit-message: "chore(auto-evolution): sync from daily run"
+          title: "chore: SkillHub auto-evolution"
           branch: auto-evolution
           add-paths: |
             skills/**/*.yaml

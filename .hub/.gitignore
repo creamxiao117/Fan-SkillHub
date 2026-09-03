@@ -1,0 +1,6 @@
+# Key 与同步器内部状态不提交
+provider_keys.yaml
+.sync/state/
+.sync/locks/
+# 第二层语义检索向量库（可增量重建，不进 git）
+.sync/vector.db

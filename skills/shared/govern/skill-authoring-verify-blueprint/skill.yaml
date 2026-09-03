@@ -11,7 +11,7 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 2
+  reuse_count: 1
   last_verified: '2026-09-03'
 invoke: user
 description_model: Skill 作者级验证门禁：纯标准库整树完整性校验范本

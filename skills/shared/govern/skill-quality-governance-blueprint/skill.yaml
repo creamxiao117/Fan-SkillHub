@@ -11,7 +11,7 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 4
+  reuse_count: 3
   last_verified: '2026-09-03'
 invoke: user
 description_model: 技能质量量化治理 × 路由打分增强 · 技术路径蓝图
