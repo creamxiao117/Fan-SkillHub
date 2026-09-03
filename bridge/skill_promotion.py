@@ -371,12 +371,14 @@ def reconcile(
     router_path: str | Path | None = None,
     card_type_filter: str | None = None,  # 只处理指定卡型(blueprint/methodology/exp/project)
     hub_status_filter: str | None = None,  # 只处理指定中枢状态(active/reference)
+    slug_filter: str | None = None,  # 只处理指定 slug(逗号多值, 精确匹配)
 ) -> list[dict]:
     """反向回流编排: 扫描 → 判级 → (apply) 生成技能文件 + 登记 router。
 
     返回动作清单(每项含 slug/action/目标路径); dry_run(default) 只列不写。
     幂等: 若技能目录存在或 router 已登记 → action=skip, 不重复生成。
-    筛选: card_type_filter / hub_status_filter 支持逗号分隔多值或 None(不筛)。
+    筛选: 三个 filter 参数均支持逗号分隔多值或 None(不筛)。
+    slug_filter 最高优先级(精确指定), 与其他 filter 可叠加。
     """
     config_path = Path(__file__).parent.parent / "hub.config.yaml"
     base = Path(skill_root)
@@ -392,14 +394,18 @@ def reconcile(
         if hub_status_filter
         else None
     )
+    slug_filters = (
+        {s.strip() for s in slug_filter.split(",") if s.strip()} if slug_filter else None
+    )
     all_cards = scan_hub_cards(hub_root)
     # 应用筛选
-    if type_filters or status_filters:
+    if type_filters or status_filters or slug_filters:
         all_cards = [
             c
             for c in all_cards
             if (not type_filters or c.card_type in type_filters)
             and (not status_filters or c.hub_status in status_filters)
+            and (not slug_filters or c.slug in slug_filters)
         ]
     actions: list[dict] = []
     if not apply:

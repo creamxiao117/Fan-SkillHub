@@ -286,6 +286,7 @@ def _cmd_reconcile(args: argparse.Namespace) -> None:
         router_path=args.router,
         card_type_filter=getattr(args, "card_type", None),
         hub_status_filter=getattr(args, "hub_status", None),
+        slug_filter=getattr(args, "slug", None),
     )
 
     if not actions:
@@ -393,6 +394,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--hub-status",
         default=None,
         help="只处理指定中枢状态(逗号多值), 如 active,reference",
+    )
+    p_reconcile.add_argument(
+        "--slug",
+        default=None,
+        help="精确指定 slug(逗号多值), 如 skill-governance-blueprint,skill-governance-playbook",
     )
     p_reconcile.set_defaults(func=_cmd_reconcile)
 
