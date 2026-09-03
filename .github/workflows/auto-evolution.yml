@@ -23,17 +23,15 @@ jobs:
       - name: "Install deps"
         run: pip install pyyaml pytest pynacl
 
-      # Step 1: 克隆中枢（私有仓库必须 token；step 内 bash 判断，绕过 GitHub workflow 校验时 secrets 不可用的问题）
+      # Step 1: 克隆中枢（私有仓库必须 token；continue-on-error 保证中枢失败不影响 SkillHub 侧命令）
       - name: "Clone AgentMemoryHub"
         env:
           HUB_PAT: ${{ secrets.HUB_PAT }}
         run: |
-          if [ -n "${HUB_PAT}" ]; then
-            git clone --depth 1 "https://x-access-token:${HUB_PAT}@github.com/creamxiao117/AgentMemoryHub.git" .hub
-            echo "AgentMemoryHub clone OK"
-          else
-            echo "HUB_PAT empty, skip hub clone"
-          fi
+          echo "HUB_PAT len=${#HUB_PAT}"
+          if [ -z "${HUB_PAT}" ]; then echo "secrets.HUB_PAT 为空"; exit 0; fi
+          git clone --depth 1 "https://x-access-token:${HUB_PAT}@github.com/creamxiao117/AgentMemoryHub.git" .hub
+        continue-on-error: true
 
       - name: "Migrate — 回填 verification/slot/__reconcile_batch__ 缺失字段"
         run: python -m skillhub migrate
