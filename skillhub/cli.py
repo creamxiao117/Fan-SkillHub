@@ -287,6 +287,9 @@ def _cmd_reconcile(args: argparse.Namespace) -> None:
         card_type_filter=getattr(args, "card_type", None),
         hub_status_filter=getattr(args, "hub_status", None),
         slug_filter=getattr(args, "slug", None),
+        scope_filter=getattr(args, "scope", None),
+        batch_size=getattr(args, "batch_size", 0) or 0,
+        batch_index=getattr(args, "batch_index", 0) or 0,
     )
 
     if not actions:
@@ -399,6 +402,23 @@ def build_parser() -> argparse.ArgumentParser:
         "--slug",
         default=None,
         help="精确指定 slug(逗号多值), 如 skill-governance-blueprint,skill-governance-playbook",
+    )
+    p_reconcile.add_argument(
+        "--scope",
+        default=None,
+        help="只处理指定 scope(逗号多值), 空 scope 用 <empty> 匹配, 如 govern,cad",
+    )
+    p_reconcile.add_argument(
+        "--batch-size",
+        type=int,
+        default=0,
+        help="分批大小, 0=不分批; 候选卡过多时用分批避免 --apply 范围过大",
+    )
+    p_reconcile.add_argument(
+        "--batch-index",
+        type=int,
+        default=0,
+        help="分批索引(从 0 开始), 配合 --batch-size 使用",
     )
     p_reconcile.set_defaults(func=_cmd_reconcile)
 

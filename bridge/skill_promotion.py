@@ -14,6 +14,7 @@
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -363,6 +364,55 @@ description: "{card.title}(由中枢 {card.card_type} 卡升级, 源: {card.sour
 """
 
 
+def _parse_scope_filter(text: str | None) -> set[str] | None:
+    """解析 scope 过滤参数, 支持逗号分隔多值; 空字符串视为不筛。"""
+    if not text:
+        return None
+    return {s.strip() for s in text.split(",") if s.strip()}
+
+
+_INDEX_LINE_RE = re.compile(r"^-\s+(\S+)\s+(.*)$")
+
+
+def _enrich_from_index(cards: list[CardInfo], index_path: Path) -> None:
+    """从中枢 INDEX.md 补充卡的 description/反触发摘要。
+
+    INDEX.md 每行格式: `- <slug>    <描述文字>`, 描述常以 "：" 分割。
+    对每张卡, 若 INDEX 有对应条目且描述比 frontmatter title 更丰富,
+    则用 INDEX 描述覆盖 title; 同时尝试从描述中提取关键词补充 tags。
+    仅修改 CardInfo.title / tags, 不改变卡其他属性。
+    """
+    try:
+        raw = index_path.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError):
+        return
+    index_map: dict[str, str] = {}
+    for ln in raw.splitlines():
+        m = _INDEX_LINE_RE.match(ln.strip())
+        if not m:
+            continue
+        slug, desc = m.group(1), m.group(2).strip()
+        if desc and slug not in index_map:
+            index_map[slug] = desc
+
+    for c in cards:
+        desc = index_map.get(c.slug)
+        if not desc:
+            continue
+        # INDEX 描述通常比 frontmatter title 更丰富(含来源/判级等上下文)
+        # 只在 title 过短时才覆盖(避免覆盖手工润色过的 title)
+        if len(c.title) < 20 or len(desc) > len(c.title) * 1.5:
+            c.title = desc.split("：")[0].split(":")[0].strip() or c.title
+        # 从 INDEX 描述补充关键词到 tags
+        keywords = [
+            kw
+            for kw in re.split(r"[,，/、\s]+", desc)
+            if len(kw) >= 3 and kw not in c.tags
+        ]
+        if keywords:
+            c.tags = list(dict.fromkeys(c.tags + keywords[:5]))
+
+
 def reconcile(
     hub_root: str | Path,
     skill_root: str | Path,
@@ -372,41 +422,58 @@ def reconcile(
     card_type_filter: str | None = None,  # 只处理指定卡型(blueprint/methodology/exp/project)
     hub_status_filter: str | None = None,  # 只处理指定中枢状态(active/reference)
     slug_filter: str | None = None,  # 只处理指定 slug(逗号多值, 精确匹配)
+    scope_filter: str | None = None,  # 只处理指定 scope(逗号多值, 支持空 scope 用 '<empty>' 匹配)
+    batch_size: int = 0,  # 分批大小, 0 表示不分批
+    batch_index: int = 0,  # 分批索引, 从 0 开始
 ) -> list[dict]:
     """反向回流编排: 扫描 → 判级 → (apply) 生成技能文件 + 登记 router。
 
     返回动作清单(每项含 slug/action/目标路径); dry_run(default) 只列不写。
     幂等: 若技能目录存在或 router 已登记 → action=skip, 不重复生成。
-    筛选: 三个 filter 参数均支持逗号分隔多值或 None(不筛)。
-    slug_filter 最高优先级(精确指定), 与其他 filter 可叠加。
+
+    筛选参数(card_type_filter / hub_status_filter / slug_filter / scope_filter)
+    均支持逗号分隔多值或 None(不筛), AND 叠加。
+
+    分批: batch_size>0 时, 候选卡分批处理, batch_index 指定第几批。
+    用于 175 张候选卡分批 reconcile, 避免 --apply 范围过大。
+
+    中枢 INDEX.md 补充: 自动尝试读 INDEX.md 补充 description/反触发摘要。
     """
     config_path = Path(__file__).parent.parent / "hub.config.yaml"
     base = Path(skill_root)
     router = router_path or config_path.parent / "router" / "router.yaml"
-    # 解析筛选参数(支持单值或逗号多值)
-    type_filters = (
-        {t.strip() for t in card_type_filter.split(",") if t.strip()}
-        if card_type_filter
-        else None
-    )
-    status_filters = (
-        {s.strip() for s in hub_status_filter.split(",") if s.strip()}
-        if hub_status_filter
-        else None
-    )
-    slug_filters = (
-        {s.strip() for s in slug_filter.split(",") if s.strip()} if slug_filter else None
-    )
+
+    # 解析筛选参数
+    type_filters = _parse_scope_filter(card_type_filter)
+    status_filters = _parse_scope_filter(hub_status_filter)
+    slug_filters = _parse_scope_filter(slug_filter)
+    scope_filters = _parse_scope_filter(scope_filter)
+
     all_cards = scan_hub_cards(hub_root)
-    # 应用筛选
-    if type_filters or status_filters or slug_filters:
+    # 应用筛选(四层 AND)
+    if type_filters or status_filters or slug_filters or scope_filters:
         all_cards = [
             c
             for c in all_cards
             if (not type_filters or c.card_type in type_filters)
             and (not status_filters or c.hub_status in status_filters)
             and (not slug_filters or c.slug in slug_filters)
+            and (
+                not scope_filters
+                or (c.scope or "<empty>") in scope_filters
+            )
         ]
+
+    # G3: 尝试读 INDEX.md 补充卡 description/反触发摘要
+    hub = Path(hub_root)
+    index_path = hub / "INDEX.md"
+    if index_path.is_file():
+        _enrich_from_index(all_cards, index_path)
+
+    # 分批
+    if batch_size > 0 and len(all_cards) > batch_size:
+        start = batch_index * batch_size
+        all_cards = all_cards[start : start + batch_size]
     actions: list[dict] = []
     if not apply:
         for card in all_cards:
@@ -434,16 +501,48 @@ def reconcile(
             dest_dir = base / card.slot / card.scope / card.slug
         else:
             dest_dir = base / card.slot / card.slug
-        if (dest_dir / SKILL_YAML_NAME).exists():
+
+        skill_exists = (dest_dir / SKILL_YAML_NAME).exists()
+        router_exists = _router_has_name(router, card.slug)
+
+        if skill_exists and router_exists:
+            # 完整已存在 → skip
             actions.append(
                 {
                     "slug": card.slug,
                     "action": "skip",
                     "target": str(dest_dir),
-                    "reason": "技能目录已存在",
+                    "reason": "技能目录 + router 均已存在",
                 }
             )
             continue
+
+        # G2: 技能目录/路由登记不一致 → 提示并补全 router 或 跳过生成
+        if not skill_exists and router_exists:
+            actions.append(
+                {
+                    "slug": card.slug,
+                    "action": "skip",
+                    "target": str(dest_dir),
+                    "reason": "⚠ router 已登记但技能目录不存在 — 可能之前 apply 被中断; 如需重建请先手动删除 router.yaml 条目",
+                }
+            )
+            continue
+
+        if skill_exists and not router_exists:
+            # 补登记 router, 不覆盖已有技能文件
+            _register_router(router, card)
+            actions.append(
+                {
+                    "slug": card.slug,
+                    "action": "patch-router",
+                    "target": str(dest_dir),
+                    "reason": "技能目录已存在但 router 缺失 — 补登记",
+                }
+            )
+            continue
+
+        # 正常: 两者都不存在 → 全量生成
         dest_dir.mkdir(parents=True, exist_ok=True)
         (dest_dir / SKILL_YAML_NAME).write_text(
             render_skill_yaml(card), encoding="utf-8"
@@ -459,6 +558,18 @@ def reconcile(
             }
         )
     return actions
+
+
+def _router_has_name(router_path: str | Path, slug: str) -> bool:
+    """检查 router.yaml 是否已登记指定 slug。"""
+    try:
+        p = Path(router_path)
+        if not p.is_file():
+            return False
+        data = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
+        return any(s.get("name") == slug for s in data.get("skills", []))
+    except (OSError, yaml.YAMLError):
+        return False
 
 
 def _register_router(router_path: str | Path, card: CardInfo) -> bool:
