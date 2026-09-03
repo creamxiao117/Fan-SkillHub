@@ -1,0 +1,37 @@
+name: skill-quality-governance-blueprint
+version: 0.1.0
+slot: shared
+scope: govern
+status: reference
+reuse_count: 0
+updated: '2026-09-03'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 4
+  last_verified: ''
+invoke: user
+description_model: 技能质量量化治理 × 路由打分增强 · 技术路径蓝图
+description_human: 技能质量量化治理 × 路由打分增强 · 技术路径蓝图
+trigger:
+- 技能质量量化治理 × 路由打分增强 · 技术路径蓝图
+- skill-governance
+- quality-metrics
+- anti-trigger
+- 反触发
+- token-compression
+- 压缩
+- 健康分
+- 技能质量治理
+- skill-routing
+forgot:
+- 安装
+- install
+- 答疑
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/blueprints/skill-quality-governance-blueprint.md
+directory: shared/govern/skill-quality-governance-blueprint

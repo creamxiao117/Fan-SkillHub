@@ -523,3 +523,85 @@ skills:
   - 一般prompt提问
   weight: 1.0
   status: active
+- name: skill-authoring-verify-blueprint
+  slot: shared
+  scope: govern
+  invoke: user
+  description_model: Skill 作者级验证门禁：纯标准库整树完整性校验范本
+  description_human: Skill 作者级验证门禁：纯标准库整树完整性校验范本
+  trigger:
+  - Skill 作者级验证门禁：纯标准库整树完整性校验范本
+  - skill-verification
+  - lint
+  - static-analysis
+  - skill-authoring
+  - integrity-check
+  - selectivity
+  - ast
+  - routing
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: skill-governance-blueprint
+  slot: shared
+  scope: govern
+  invoke: user
+  description_model: Agent 技能仓库治理类项目 · 技术路径蓝图
+  description_human: Agent 技能仓库治理类项目 · 技术路径蓝图
+  trigger:
+  - Agent 技能仓库治理类项目 · 技术路径蓝图
+  - skill-governance
+  - agent-workflow
+  - code-review
+  - shared-language
+  - tech-path
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: skill-governance-playbook
+  slot: shared
+  scope: govern
+  invoke: user
+  description_model: 技能治理操作手册（聚合导航）
+  description_human: 技能治理操作手册（聚合导航）
+  trigger:
+  - 技能治理操作手册（聚合导航）
+  - skill-governance
+  - playbook
+  - aggregate
+  - routing
+  - verification
+  - quality
+  - anti-trigger
+  forgot:
+  - 安装
+  - install
+  - 答疑
+  - 装插件
+  weight: 1.0
+- name: skill-quality-governance-blueprint
+  slot: shared
+  scope: govern
+  invoke: user
+  description_model: 技能质量量化治理 × 路由打分增强 · 技术路径蓝图
+  description_human: 技能质量量化治理 × 路由打分增强 · 技术路径蓝图
+  trigger:
+  - 技能质量量化治理 × 路由打分增强 · 技术路径蓝图
+  - skill-governance
+  - quality-metrics
+  - anti-trigger
+  - 反触发
+  - token-compression
+  - 压缩
+  - 健康分
+  - 技能质量治理
+  - skill-routing
+  forgot:
+  - 安装
+  - install
+  - 答疑
+  weight: 1.0

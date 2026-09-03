@@ -279,7 +279,14 @@ def _cmd_reconcile(args: argparse.Namespace) -> None:
         print("  检查 hub.config.yaml 中 hub.root 配置, 或传 --hub-root")
         raise SystemExit(1)
 
-    actions = reconcile(hub, args.skill_root, apply=args.apply, router_path=args.router)
+    actions = reconcile(
+        hub,
+        args.skill_root,
+        apply=args.apply,
+        router_path=args.router,
+        card_type_filter=getattr(args, "card_type", None),
+        hub_status_filter=getattr(args, "hub_status", None),
+    )
 
     if not actions:
         print("reconcile: 中枢无卡通过过滤, 无待升级候选")
@@ -377,6 +384,16 @@ def build_parser() -> argparse.ArgumentParser:
     p_reconcile.add_argument("--skill-root", default=str(SKILLS_ROOT))
     p_reconcile.add_argument("--router", default=str(_default_router()))
     p_reconcile.add_argument("--apply", action="store_true", help="真正写盘并登记 router.yaml(默认 dry-run)")
+    p_reconcile.add_argument(
+        "--card-type",
+        default=None,
+        help="只处理指定卡型(逗号多值), 如 blueprint,methodology,exp,project",
+    )
+    p_reconcile.add_argument(
+        "--hub-status",
+        default=None,
+        help="只处理指定中枢状态(逗号多值), 如 active,reference",
+    )
     p_reconcile.set_defaults(func=_cmd_reconcile)
 
     return parser

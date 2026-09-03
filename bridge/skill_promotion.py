@@ -65,6 +65,7 @@ class CardInfo:
     scope: str = ""
     reuse_count: int = 0
     hub_status: str = "active"
+    anti_trigger: list[str] = None  # 中枢 frontmatter 的反触发词, 用作 forgot
 
     def to_dict(self) -> dict:
         return {
@@ -76,6 +77,7 @@ class CardInfo:
             "scope": self.scope,
             "reuse_count": self.reuse_count,
             "hub_status": self.hub_status,
+            "anti_trigger": self.anti_trigger or [],
             "source": str(self.source),
         }
 
@@ -163,6 +165,10 @@ def scan_hub_cards(
             tags = [str(t).strip() for t in (fm.get("tags") or []) if str(t).strip()]
             slot_info = _evaluate_slot(card_type, tags)
             reuse_count = int(fm.get("reuse_count", 0) or 0)
+            # 中枢反触发词 → 用作 forgot; 没给时 fallback GENERIC_FORGOT
+            anti_trigger = [
+                str(a).strip() for a in (fm.get("anti_trigger") or []) if str(a).strip()
+            ] or list(GENERIC_FORGOT)
             cards.append(
                 CardInfo(
                     slug=slug,
@@ -173,6 +179,7 @@ def scan_hub_cards(
                     source=f,
                     reuse_count=reuse_count,
                     hub_status=status,
+                    anti_trigger=anti_trigger,
                     **slot_info,
                 )
             )
@@ -186,7 +193,7 @@ def _extract_headings(body: str) -> list[str]:
 
 # 从中枢 methodology 卡提取的 SKILL 撰写检查清单（authoring best practices）
 # 来源: build-iterated-agentic-loop / improve-claude-md-important-if /
-#       design-control-loop / show-me-visuals
+#       design-control-loop / show-me-visuals / t1-iterative-verification
 AUTHORING_CHECKLIST = {
     "build_iterated": [
         "scope 明确可改/只读边界",
@@ -211,6 +218,14 @@ AUTHORING_CHECKLIST = {
         "按内容选最小视图: 逻辑→伪代码/控制流→调用树/UI→组件树",
         "视觉紧贴支撑短文本",
         "只保留回答问题所需信息",
+    ],
+    "verify_loop": [
+        "静态 T0 通过(纯语法/结构断言, 零执行副作用)",
+        "T1 迭代验证: 真实场景最小 demo 跑通, 不是一次性定论",
+        "risk 分级执行: 低风险直接跑 / 中风险沙盒 / 高风险能沙盒先沙盒",
+        "结果回写 skill.yaml verification 字段(status/t1_record/reuse_count)",
+        "reference→active 需真跑通, 不是静态分析升级",
+        "archived 永远不入候选, 大版本更新或有未覆盖功能才重入",
     ],
 }
 
@@ -243,7 +258,7 @@ def render_skill_yaml(card: CardInfo) -> str:
         "description_model": card.title,
         "description_human": card.title,
         "trigger": [card.title.strip()] + card.tags,
-        "forgot": list(GENERIC_FORGOT),
+        "forgot": list(card.anti_trigger or GENERIC_FORGOT),
         "instructions": SKILL_MD_NAME,
         "references": [str(card.source).replace("\\", "/")],
     }
@@ -290,6 +305,7 @@ def render_skill_md(card: CardInfo) -> str:
             "improve_claude": "指令文件结构",
             "design_control_loop": "控制论闭环",
             "show_me": "视图选择",
+            "verify_loop": "验证闭环",
         }.get(key, key)
         authoring_blocks.append(f"**{label}**:")
         authoring_blocks.append("\n".join(f"  - {i}" for i in items))
@@ -353,18 +369,41 @@ def reconcile(
     *,
     apply: bool = False,
     router_path: str | Path | None = None,
+    card_type_filter: str | None = None,  # 只处理指定卡型(blueprint/methodology/exp/project)
+    hub_status_filter: str | None = None,  # 只处理指定中枢状态(active/reference)
 ) -> list[dict]:
     """反向回流编排: 扫描 → 判级 → (apply) 生成技能文件 + 登记 router。
 
     返回动作清单(每项含 slug/action/目标路径); dry_run(default) 只列不写。
     幂等: 若技能目录存在或 router 已登记 → action=skip, 不重复生成。
+    筛选: card_type_filter / hub_status_filter 支持逗号分隔多值或 None(不筛)。
     """
     config_path = Path(__file__).parent.parent / "hub.config.yaml"
     base = Path(skill_root)
     router = router_path or config_path.parent / "router" / "router.yaml"
+    # 解析筛选参数(支持单值或逗号多值)
+    type_filters = (
+        {t.strip() for t in card_type_filter.split(",") if t.strip()}
+        if card_type_filter
+        else None
+    )
+    status_filters = (
+        {s.strip() for s in hub_status_filter.split(",") if s.strip()}
+        if hub_status_filter
+        else None
+    )
+    all_cards = scan_hub_cards(hub_root)
+    # 应用筛选
+    if type_filters or status_filters:
+        all_cards = [
+            c
+            for c in all_cards
+            if (not type_filters or c.card_type in type_filters)
+            and (not status_filters or c.hub_status in status_filters)
+        ]
     actions: list[dict] = []
     if not apply:
-        for card in scan_hub_cards(hub_root):
+        for card in all_cards:
             dest_dir = (
                 base / card.slot / card.scope / card.slug
                 if card.scope
@@ -376,6 +415,7 @@ def reconcile(
                     "card_type": card.card_type,
                     "slot": card.slot,
                     "scope": card.scope,
+                    "hub_status": card.hub_status,
                     "action": "propose",
                     "target": str(dest_dir),
                     "source": str(card.source),
@@ -383,7 +423,7 @@ def reconcile(
             )
         return actions
 
-    for card in scan_hub_cards(hub_root):
+    for card in all_cards:
         if card.scope:
             dest_dir = base / card.slot / card.scope / card.slug
         else:
@@ -434,7 +474,7 @@ def _register_router(router_path: str | Path, card: CardInfo) -> bool:
             "description_model": card.title,
             "description_human": card.title,
             "trigger": [card.title.strip()] + card.tags,
-            "forgot": list(GENERIC_FORGOT),
+            "forgot": list(card.anti_trigger or GENERIC_FORGOT),
             "weight": 1.0,
         }
     )

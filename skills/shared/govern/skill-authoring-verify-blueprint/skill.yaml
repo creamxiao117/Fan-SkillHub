@@ -1,0 +1,38 @@
+name: skill-authoring-verify-blueprint
+version: 0.1.0
+slot: shared
+scope: govern
+status: reference
+reuse_count: 0
+updated: '2026-09-03'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 2
+  last_verified: ''
+invoke: user
+description_model: Skill 作者级验证门禁：纯标准库整树完整性校验范本
+description_human: Skill 作者级验证门禁：纯标准库整树完整性校验范本
+trigger:
+- Skill 作者级验证门禁：纯标准库整树完整性校验范本
+- skill-verification
+- lint
+- static-analysis
+- skill-authoring
+- integrity-check
+- selectivity
+- ast
+- routing
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/blueprints/skill-authoring-verify-blueprint.md
+blueprint_source: skill-authoring-verify-blueprint.md
+blueprint_level: T0 静态验证
+directory: shared/govern/skill-authoring-verify-blueprint
