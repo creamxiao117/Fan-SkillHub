@@ -1,0 +1,60 @@
+name: SkillHub Auto-Evolution
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  evolve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install pyyaml pytest
+
+      - name: Migrate (回填缺失字段)
+        run: python -m skillhub migrate
+        continue-on-error: true
+
+      - name: Reconcile blueprints (dry-run)
+        run: |
+          python -m skillhub reconcile \
+            --hub-root .hub \
+            --card-type blueprint \
+            --save-candidates .skillhub/candidates.json
+        continue-on-error: true
+
+      - name: Sync verification (双源回填)
+        run: python -m skillhub sync-verification --hub-root .hub
+        continue-on-error: true
+
+      - name: Promote auto (dry-run)
+        run: python -m skillhub promote-auto --dry-run
+        continue-on-error: true
+
+      - name: Run tests
+        run: python -m pytest -q
+        continue-on-error: true
+
+      - name: Create PR if changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: auto-evolution sync"
+          title: "SkillHub auto-evolution"
+          branch: auto-evolution
+          add-paths: |
+            skills/**/*.yaml
+            skills/**/*.md
+            router/router.yaml
