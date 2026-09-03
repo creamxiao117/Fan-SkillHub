@@ -530,6 +530,98 @@ def _cmd_promote_auto(args: argparse.Namespace) -> None:
 
     print(f"\npromote --auto: {promoted} promoted, {skipped} skipped  (threshold={threshold}, dry_run={args.dry_run})")
 
+
+# --- push-to-hub ---
+def _cmd_push_to_hub(args: argparse.Namespace) -> None:
+    """SkillHub → 中枢 反向同步: 把 SkillHub 里 promote 到 active 的技能回写到中枢卡。
+
+    更新中枢卡 frontmatter 的:
+      - status: 强制 active (如果 SkillHub 里该技能是 active)
+      - reuse_count: max(中枢现有, SkillHub verification.reuse_count)
+      - updated: 今天 YYYY-MM-DD
+      - anti_trigger: SkillHub 的 forgot 列表合并 (去重)
+
+    --dry-run 预览, 不污染中枢。
+    """
+    skill_root = Path(args.skill_root)
+    hub_root = Path(args.hub_root)
+    if not hub_root.is_dir():
+        print(f"push-to-hub: hub_root {hub_root} 不存在 -> 跳过")
+        sys.exit(0)
+
+    updated = 0
+    skipped = 0
+    for skill_yaml in sorted(skill_root.rglob("skill.yaml")):
+        data = yaml.safe_load(skill_yaml.read_text(encoding="utf-8")) or {}
+        name = data.get("name", "")
+        status = data.get("status", "")
+        v = data.get("verification", {}) or {}
+        v_status = v.get("status", "")
+        if status != "active" and v_status != "active":
+            skipped += 1
+            continue
+
+        hub_path = _find_hub_card(hub_root, data.get("references", []), name)
+        if not hub_path:
+            print(f"  [warn] {name}: 找不到对应中枢卡 -> 跳过")
+            skipped += 1
+            continue
+
+        raw = hub_path.read_text(encoding="utf-8")
+        parts = raw.split("---", 2)
+        if len(parts) < 3:
+            print(f"  [warn] {name}: frontmatter 格式错误 -> 跳过")
+            skipped += 1
+            continue
+        # parts[0] = (空或前导), parts[1] = frontmatter, parts[2] = body
+        fm = yaml.safe_load(parts[1]) or {}
+        body = parts[2]
+
+        # 合并策略: 只增不改删, 不覆盖中枢侧手动润色
+        new_reuse = v.get("reuse_count", 0) or data.get("reuse_count", 0) or 0
+        old_reuse = int(fm.get("reuse_count", 0) or 0)
+        fm["reuse_count"] = max(new_reuse, old_reuse)
+        fm["status"] = "active"
+        fm["updated"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+        hub_at = fm.get("anti_trigger", []) or []
+        skill_forgot = data.get("forgot", []) or []
+        merged_at = list(dict.fromkeys(list(hub_at) + [x for x in skill_forgot if isinstance(x, str)]))
+        if merged_at:
+            fm["anti_trigger"] = merged_at
+
+        new_fm_text = yaml.safe_dump(fm, allow_unicode=True, sort_keys=False)
+        new_raw = "---\n" + new_fm_text + "---" + body
+
+        if args.dry_run:
+            print(f"  [dry-run] {name}: {hub_path.name}")
+        else:
+            hub_path.write_text(new_raw, encoding="utf-8")
+            print(f"  [push] {name}: {hub_path.name} -> status=active, reuse_count={fm['reuse_count']}")
+        updated += 1
+
+    print(f"push-to-hub: {updated} hub cards updated, {skipped} skipped  (dry_run={args.dry_run})")
+
+
+def _find_hub_card(hub_root: Path, references: list, skill_name: str) -> Path | None:
+    """从 references 或 skill_name 定位中枢 .md 文件。"""
+    for ref in references or []:
+        ref_str = str(ref).replace("\\", "/")
+        idx = ref_str.find("AgentMemoryHub")
+        if idx >= 0:
+            rel = ref_str[idx + len("AgentMemoryHub") + 1:]
+            candidate = hub_root / rel
+            if candidate.is_file():
+                return candidate
+        candidate = Path(ref)
+        if candidate.is_file() and hub_root in candidate.parents:
+            return candidate
+    matches = list(hub_root.rglob(f"{skill_name}.md"))
+    if matches:
+        return matches[0]
+    return None
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="skillhub", description="SkillHub 路由/反馈/权重/验证/审核 CLI"
@@ -673,6 +765,17 @@ def build_parser() -> argparse.ArgumentParser:
     p_promote_auto.add_argument("--threshold", type=int, default=3)
     p_promote_auto.add_argument("--dry-run", action="store_true")
     p_promote_auto.set_defaults(func=_cmd_promote_auto)
+
+    # push-to-hub
+    p_push = sub.add_parser(
+        "push-to-hub",
+        help="SkillHub -> 中枢: active 技能回写中枢卡 status/reuse_count/anti_trigger",
+    )
+    p_push.add_argument("--skill-root", default=str(SKILLS_ROOT))
+    p_push.add_argument("--hub-root", required=True)
+    p_push.add_argument("--dry-run", action="store_true")
+    p_push.set_defaults(func=_cmd_push_to_hub)
+
 
     return parser
 
