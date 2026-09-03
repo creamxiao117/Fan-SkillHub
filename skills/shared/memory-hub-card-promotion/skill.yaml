@@ -1,5 +1,3 @@
-
-
 name: memory-hub-card-promotion
 version: 0.1.0
 slot: shared
@@ -47,3 +45,12 @@ capabilities:
 - system_deployment
 - testing_validation
 auto_capped: '2026-08-25'
+verification:
+  reuse_count: 2
+  last_verified: '2026-09-03'
+__reconcile_batch__:
+  migrated: true
+  from_references:
+  - methodology/memory-hub-card-promotion.md
+  - experience/skillhub-e2e-run-audit.md
+  migrated_at: '2026-09-03'

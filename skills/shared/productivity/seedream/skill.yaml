@@ -1,6 +1,3 @@
-# skill.yaml —— seedream（共用库 / productivity）
-# 元数据与 router.yaml 中同名记录互为镜像；本体见 SKILL.md
-
 name: seedream
 version: 0.1.0
 slot: shared
@@ -36,3 +33,8 @@ capabilities:
 - code_generation
 - integration
 auto_capped: '2026-08-25'
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''

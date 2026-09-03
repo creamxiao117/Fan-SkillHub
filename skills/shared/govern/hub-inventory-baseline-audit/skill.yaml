@@ -1,7 +1,3 @@
-
-
-
-
 name: hub-inventory-baseline-audit
 version: 0.1.0
 slot: shared
@@ -64,3 +60,11 @@ capabilities:
 - data_processing
 - debugging
 auto_capped: '2026-08-25'
+verification:
+  t1_record: 静态检查全部通过
+  last_verified: '2026-09-03'
+__reconcile_batch__:
+  migrated: true
+  from_references:
+  - rules/hub-inventory-baseline-audit.md
+  migrated_at: '2026-09-03'

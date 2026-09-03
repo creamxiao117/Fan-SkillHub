@@ -12,7 +12,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 2
-  last_verified: ''
+  last_verified: '2026-09-03'
 invoke: user
 description_model: Skill 作者级验证门禁：纯标准库整树完整性校验范本
 description_human: Skill 作者级验证门禁：纯标准库整树完整性校验范本
@@ -36,3 +36,8 @@ references:
 blueprint_source: skill-authoring-verify-blueprint.md
 blueprint_level: T0 静态验证
 directory: shared/govern/skill-authoring-verify-blueprint
+__reconcile_batch__:
+  migrated: true
+  from_references:
+  - C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/blueprints/skill-authoring-verify-blueprint.md
+  migrated_at: '2026-09-03'

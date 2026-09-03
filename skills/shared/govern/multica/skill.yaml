@@ -1,7 +1,3 @@
-# skill.yaml —— multica（共用库 / govern）
-# 元数据与 router.yaml 中同名记录互为镜像；本体见 SKILL.md
-
-
 name: multica
 version: 0.1.0
 slot: shared
@@ -43,3 +39,8 @@ capabilities:
 - integration
 - system_deployment
 auto_capped: '2026-08-25'
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''

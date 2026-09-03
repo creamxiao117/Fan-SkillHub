@@ -12,7 +12,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 4
-  last_verified: ''
+  last_verified: '2026-09-03'
 invoke: user
 description_model: 技能质量量化治理 × 路由打分增强 · 技术路径蓝图
 description_human: 技能质量量化治理 × 路由打分增强 · 技术路径蓝图
@@ -35,3 +35,8 @@ instructions: SKILL.md
 references:
 - C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/blueprints/skill-quality-governance-blueprint.md
 directory: shared/govern/skill-quality-governance-blueprint
+__reconcile_batch__:
+  migrated: true
+  from_references:
+  - C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/blueprints/skill-quality-governance-blueprint.md
+  migrated_at: '2026-09-03'

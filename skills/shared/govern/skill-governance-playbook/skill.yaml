@@ -12,7 +12,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 5
-  last_verified: ''
+  last_verified: '2026-09-03'
 invoke: user
 description_model: 技能治理操作手册（聚合导航）
 description_human: 技能治理操作手册（聚合导航）
@@ -36,3 +36,8 @@ references:
 blueprint_source: skill-governance-playbook.md
 blueprint_level: T0 静态验证
 directory: shared/govern/skill-governance-playbook
+__reconcile_batch__:
+  migrated: true
+  from_references:
+  - C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/blueprints/skill-governance-playbook.md
+  migrated_at: '2026-09-03'

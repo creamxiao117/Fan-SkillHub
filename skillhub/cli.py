@@ -118,27 +118,63 @@ def _cmd_weight(args: argparse.Namespace) -> None:
 
 # --- sync-verification ---
 def _cmd_sync_verification(args: argparse.Namespace) -> None:
-    """从 usage.jsonl 聚合 reuse_count, 回写到每个 skill.yaml 的 verification.reuse_count。"""
+    """双源同步 verification: usage.jsonl 优先, 回落中枢卡 frontmatter reuse_count.
+
+    数据源优先级:
+      1. usage.jsonl (真实调用记录, 需 skill 在 SKILL.md 里调用 skillhub record)
+      2. 中枢卡 frontmatter reuse_count (中枢侧自己维护的复用次数, 稳定可用)
+
+    两个数据源都为空时 → 不动 skill.yaml (保持 reuse_count 原值)。
+    """
     from router.tools.router_audit import load_outcomes
+
+    # 读中枢 cache (如果有) 或实时扫描中枢拿每张卡的 reuse_count
+    hub_reuse: dict[str, int] = {}
+    hub_path = Path(getattr(args, "hub_root", "") or "" if hasattr(args, "hub_root") else "")
+    if hub_path and hub_path.is_dir():
+        try:
+            from bridge.skill_promotion import scan_hub_cards
+            cards = scan_hub_cards(hub_path)
+            for c in cards:
+                hub_reuse[c.slug] = c.reuse_count
+        except Exception as exc:  # noqa: BLE001 — 中枢读失败不阻塞主流程
+            print(f"  (hub scan skipped: {exc})")
 
     outcomes = load_outcomes(args.root)
     updated = 0
+    source_stats = {"usage": 0, "hub": 0, "skip": 0}
     for skill_yaml in Path(args.skill_root).rglob("skill.yaml"):
-        data = yaml.safe_load(skill_yaml.read_text(encoding="utf-8"))
+        data = yaml.safe_load(skill_yaml.read_text(encoding="utf-8")) or {}
         name = data.get("name", "")
-        if not name or name not in outcomes:
+        if not name:
+            source_stats["skip"] += 1
             continue
-        total = outcomes[name].get("success", 0) + outcomes[name].get("failure", 0)
+
+        # 双源策略
+        usage_count = outcomes.get(name, {}).get("success", 0) + outcomes.get(name, {}).get("failure", 0)
+        hub_count = hub_reuse.get(name, 0)
+
+        if usage_count > 0:
+            final_count = usage_count
+            source = "usage"
+        elif hub_count > 0:
+            final_count = hub_count
+            source = "hub"
+        else:
+            source_stats["skip"] += 1
+            continue
+
         verification = data.setdefault("verification", {})
-        verification["reuse_count"] = total
+        verification["reuse_count"] = final_count
         verification["last_verified"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
         skill_yaml.write_text(
             yaml.safe_dump(data, allow_unicode=True, sort_keys=False),
             encoding="utf-8",
         )
         updated += 1
-        print(f"  updated {name}: reuse_count={total}")
-    print(f"sync-verification: {updated} skills updated")
+        source_stats[source] += 1
+        print(f"  [{source:4s}] {name}: reuse_count={final_count}")
+    print(f"\nsync-verification: {updated} updated  (usage={source_stats['usage']}, hub={source_stats['hub']}, skip={source_stats['skip']})")
 
 
 # --- promote ---
@@ -322,6 +358,178 @@ def _cmd_reconcile(args: argparse.Namespace) -> None:
         print("dry-run 模式(默认); 加 --apply 才真正写盘并登记 router.yaml")
 
 
+
+
+# --- migrate ---
+def _cmd_migrate(args: argparse.Namespace) -> None:
+    """回填旧技能缺失的 verification / __reconcile_batch__ / slot 等新字段。
+
+    不改变业务字段 (trigger/forgot/description), 只补系统元数据。
+    --dry-run 时只打印 diff 不写文件。
+    """
+    skill_root = Path(args.skill_root)
+    hub_cards: dict[str, dict] = {}
+    hub_path = getattr(args, "hub_root", "") or ""
+    if hub_path and Path(hub_path).is_dir():
+        try:
+            from bridge.skill_promotion import scan_hub_cards
+            for c in scan_hub_cards(hub_path):
+                hub_cards[c.slug] = c.to_dict()
+        except Exception as exc:  # noqa: BLE001
+            print(f"  (hub scan skipped: {exc})")
+
+    updated = 0
+    for skill_yaml in sorted(skill_root.rglob("skill.yaml")):
+        rel = str(skill_yaml.relative_to(skill_root.parent))
+        data = yaml.safe_load(skill_yaml.read_text(encoding="utf-8")) or {}
+        changed = False
+
+        # 1. verification (必须有)
+        if "verification" not in data:
+            card = hub_cards.get(data.get("name", ""), {})
+            data["verification"] = {
+                "status": "reference",
+                "t1_record": "",
+                "reuse_count": card.get("reuse_count", 0),
+                "last_verified": "",
+            }
+            changed = True
+            print(f"  [+verification] {rel}")
+
+        # 2. slot 补全 (旧技能可能没有显式 slot)
+        if not data.get("slot"):
+            parts = skill_yaml.relative_to(skill_root).parts
+            # skills/<slot>/<scope?>/<name>/skill.yaml
+            if len(parts) >= 2:
+                data["slot"] = parts[0]
+                changed = True
+                print(f"  [+slot={data['slot']}] {rel}")
+
+        # 3. __reconcile_batch__: 如果 references 指向中枢, 标记来源
+        if "__reconcile_batch__" not in data and data.get("references"):
+            refs = data["references"]
+            hub_refs = [r for r in refs if "AgentMemoryHub" in str(r) or hub_path in str(r)]
+            if hub_refs:
+                data["__reconcile_batch__"] = {
+                    "migrated": True,
+                    "from_references": hub_refs[:2],
+                    "migrated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                }
+                changed = True
+                print(f"  [+__reconcile_batch__] {rel}")
+
+        if changed:
+            if args.dry_run:
+                print("    (dry-run, 不写盘)")
+            else:
+                skill_yaml.write_text(
+                    yaml.safe_dump(data, allow_unicode=True, sort_keys=False),
+                    encoding="utf-8",
+                )
+                updated += 1
+
+    print(f"\nmigrate: {updated} skills updated  (dry_run={args.dry_run})")
+
+
+# --- verify ---
+def _cmd_verify(args: argparse.Namespace) -> None:
+    """对一个技能跑最小 T1 验证: 检查 SKILL.md 存在、skill.yaml 解析成功、路由可命中。
+
+    --demo 模式: 打印该技能的 trigger/forgot 清单, 供人工 review 后手动跑一次真实场景。
+    验证结果回写 skill.yaml verification.t1_record。
+    """
+    skill_root = Path(args.skill_root)
+    skill_yaml = next(skill_root.rglob(f"{args.name}/skill.yaml"), None)
+    if not skill_yaml:
+        print(f"verify: skill '{args.name}' not found")
+        sys.exit(1)
+
+    data = yaml.safe_load(skill_yaml.read_text(encoding="utf-8"))
+    md = skill_yaml.parent / "SKILL.md"
+    checks = {}
+
+    # Check 1: SKILL.md 存在
+    checks["skill_md_exists"] = md.is_file()
+    # Check 2: yaml 可解析 (上面已通过)
+    checks["yaml_parseable"] = True
+    # Check 3: trigger 非空
+    checks["trigger_nonempty"] = bool(data.get("trigger"))
+    # Check 4: forgot 非空
+    checks["forgot_nonempty"] = bool(data.get("forgot"))
+
+    all_pass = all(checks.values())
+    print(f"verify {args.name}:")
+    for k, v in checks.items():
+        mark = "✅" if v else "❌"
+        print(f"  {mark} {k}")
+
+    if args.demo:
+        print("\n—— 最小 T1 Demo 清单 ——")
+        print(f"  trigger: {data.get('trigger', [])}")
+        print(f"  forgot:  {data.get('forgot', [])}")
+        print(f"  slot:    {data.get('slot')}/{data.get('scope', '')}")
+        print("\n  请用真实场景跑一次, 然后执行:")
+        print(f"    skillhub promote {args.name} --status active --t1 '真实试用通过 1 次'")
+
+    # 回写 t1_record (如果检查全过且没手动覆盖)
+    verification = data.setdefault("verification", {})
+    new_record = args.t1_record or ("静态检查全部通过" if all_pass else "静态检查未全过")
+    if verification.get("t1_record") != new_record:
+        verification["t1_record"] = new_record
+        verification["last_verified"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        if not args.dry_run:
+            skill_yaml.write_text(
+                yaml.safe_dump(data, allow_unicode=True, sort_keys=False),
+                encoding="utf-8",
+            )
+
+    sys.exit(0 if all_pass else 1)
+
+
+# --- promote (扩展 --auto) ---
+def _cmd_promote_auto(args: argparse.Namespace) -> None:
+    """自动晋级: verification.reuse_count ≥ 阈值 且 t1_record 非空 → reference→active。
+
+    安全网: 复用 reuse_count≥3 + t1_record 已填 (不能是 "手动 promote" 那行)。
+    """
+    skill_root = Path(args.skill_root)
+    threshold = args.threshold or 3
+    promoted = 0
+    skipped = 0
+    for skill_yaml in sorted(skill_root.rglob("skill.yaml")):
+        data = yaml.safe_load(skill_yaml.read_text(encoding="utf-8")) or {}
+        name = data.get("name", "")
+        v = data.get("verification", {}) or {}
+        status = v.get("status", data.get("status", "reference"))
+        rc = v.get("reuse_count", 0)
+        t1 = v.get("t1_record", "")
+
+        if status != "reference":
+            skipped += 1
+            continue
+        if rc < threshold:
+            print(f"  skip {name}: reuse_count={rc} < {threshold}")
+            skipped += 1
+            continue
+        if not t1 or "手动 promote" in t1 or "静态检查" in t1:
+            print(f"  skip {name}: t1_record 无真实试用 ({t1[:30] if t1 else '(空)'})")
+            skipped += 1
+            continue
+
+        # 晋级
+        data["status"] = "active"
+        v["status"] = "active"
+        v["last_verified"] = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        if not args.dry_run:
+            skill_yaml.write_text(
+                yaml.safe_dump(data, allow_unicode=True, sort_keys=False),
+                encoding="utf-8",
+            )
+        print(f"  ✨ promote {name}: reuse_count={rc}, t1={t1[:40]}")
+        promoted += 1
+
+    print(f"\npromote --auto: {promoted} promoted, {skipped} skipped  (threshold={threshold}, dry_run={args.dry_run})")
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="skillhub", description="SkillHub 路由/反馈/权重/验证/审核 CLI"
@@ -353,10 +561,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_sync = sub.add_parser(
         "sync-verification",
-        help="从 usage.jsonl 聚合 reuse_count 回写到 skill.yaml verification 字段",
+        help="双源: usage.jsonl 优先, 回落中枢卡 reuse_count → 回写 skill.yaml verification",
     )
     p_sync.add_argument("--skill-root", default=str(SKILLS_ROOT))
     p_sync.add_argument("--root", default=str(_default_root()))
+    p_sync.add_argument("--hub-root", default="", help="中枢目录 (用于回落读取卡 frontmatter reuse_count)")
     p_sync.set_defaults(func=_cmd_sync_verification)
 
     p_promote = sub.add_parser("promote", help="手动设置技能验证状态(reference/active)")
@@ -433,6 +642,37 @@ def build_parser() -> argparse.ArgumentParser:
         help="跳过中枢 scan/filter, 直接从 JSON 缓存读候选集 (之前 --save-candidates 生成的)",
     )
     p_reconcile.set_defaults(func=_cmd_reconcile)
+    # migrate
+    p_migrate = sub.add_parser(
+        "migrate",
+        help="回填旧技能缺失的 verification / slot / __reconcile_batch__ 字段",
+    )
+    p_migrate.add_argument("--skill-root", default=str(SKILLS_ROOT))
+    p_migrate.add_argument("--hub-root", default="")
+    p_migrate.add_argument("--dry-run", action="store_true")
+    p_migrate.set_defaults(func=_cmd_migrate)
+
+    # verify
+    p_verify = sub.add_parser(
+        "verify",
+        help="对一个技能跑最小 T1 验证 (静态检查 + 回写 t1_record)",
+    )
+    p_verify.add_argument("name")
+    p_verify.add_argument("--skill-root", default=str(SKILLS_ROOT))
+    p_verify.add_argument("--demo", action="store_true")
+    p_verify.add_argument("--t1-record", default="")
+    p_verify.add_argument("--dry-run", action="store_true")
+    p_verify.set_defaults(func=_cmd_verify)
+
+    # promote-auto
+    p_promote_auto = sub.add_parser(
+        "promote-auto",
+        help="自动晋级: reuse_count >= 阈值 且 t1_record 有真实试用 -> reference->active",
+    )
+    p_promote_auto.add_argument("--skill-root", default=str(SKILLS_ROOT))
+    p_promote_auto.add_argument("--threshold", type=int, default=3)
+    p_promote_auto.add_argument("--dry-run", action="store_true")
+    p_promote_auto.set_defaults(func=_cmd_promote_auto)
 
     return parser
 

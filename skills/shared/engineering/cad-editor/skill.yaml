@@ -8,3 +8,8 @@ tags:
 status: reference
 reuse_count: 0
 updated: '2026-08-26'
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''

@@ -1,9 +1,3 @@
-# skill.yaml —— cross-repo-index-commit（专用库，memory-hub 域）
-# 元数据与 router.yaml 中同名记录互为镜像；本体见同目录 SKILL.md
-
-
-
-
 name: cross-repo-index-commit
 version: 0.1.0
 slot: dedicated
@@ -49,3 +43,11 @@ capabilities:
 - system_deployment
 auto_capped: '2026-08-25'
 last_used: '2026-08-25T01:26:12+00:00'
+verification:
+  reuse_count: 2
+  last_verified: '2026-09-03'
+__reconcile_batch__:
+  migrated: true
+  from_references:
+  - experience/cross-repo-index-commit.md
+  migrated_at: '2026-09-03'
