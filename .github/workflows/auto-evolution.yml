@@ -98,9 +98,19 @@ jobs:
         run: python -m pytest -q
         continue-on-error: true
 
-      # 自动提 PR 到 auto-evolution 分支（SkillHub 侧改动等待人工 review）
+      # 调试：看看当前工作树有什么改动，便于判断 PR 步骤为啥失败
+      - name: "Debug: git diff status"
+        run: |
+          echo "--- git status --short ---"
+          git status --short || true
+          echo "--- files changed (skills/router): ---"
+          (git diff --name-only HEAD; git ls-files --others --exclude-standard) | grep -E '^(skills|router)/' || echo "no changes in skills/ or router/"
+        continue-on-error: true
+
+      # 自动提 PR 到 auto-evolution 分支；无变更或失败不影响整个 run
       - name: "Create PR if SkillHub changed"
         uses: peter-evans/create-pull-request@v6
+        continue-on-error: true
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "chore(auto-evolution): daily sync"
