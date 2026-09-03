@@ -34,7 +34,8 @@ TYPE_DEFAULT_SLOT = {
     "rule": "archive",  # rule 不自动提为技能(需人工门禁)
     "retro": "archive",
 }
-# blueprint 升级门禁: status=active 且 reuse_count≥1 才升级
+# blueprint 升级门禁: reuse_count≥1 (已选型/复用过); status 不要求 active
+# 因为中枢 blueprint 目录语义是"新项目立项选型范式", reference 是设计预期
 BLUEPRINT_MIN_REUSE = 1
 # 已知专用域: tags 命中任一项 → 判为 dedicated 并取该域为 scope
 KNOWN_DOMAINS = ("memory-hub", "autocad", "cad", "cad2020")
@@ -121,11 +122,13 @@ def scan_hub_cards(
     hub_root: str | Path,
     card_type_dirs: tuple[str, ...] = CARD_TYPE_DIRS,
 ) -> list[CardInfo]:
-    """扫描中枢权威区 active 卡, 产出可迁移候选(仅读, 不写盘)。
+    """扫描中枢权威区卡, 产出可迁移候选(仅读, 不写盘)。
 
     过滤规则:
-    - 只收 frontmatter type ∈ 卡型目录 且 status=active 的卡
-    - blueprint 额外门禁: reuse_count≥BLUEPRINT_MIN_REUSE (避免 reference 级范式直接升技能)
+    - 只收 frontmatter type ∈ TYPE_DEFAULT_SLOT 的卡
+    - 非 blueprint 卡要求 status=active(已验证)
+    - blueprint 卡不要求 active(中枢 blueprint 目录=选型范式,
+      reference 是设计预期), 但要求 reuse_count≥BLUEPRINT_MIN_REUSE
     """
     root = Path(hub_root)
     cards: list[CardInfo] = []
@@ -139,16 +142,25 @@ def scan_hub_cards(
             if card_type not in TYPE_DEFAULT_SLOT:
                 continue  # 只处理目录对应的已知卡型
             status = str(fm.get("status", "")).lower()
-            if status != "active":
-                continue  # 只升级已验证(active)卡
-            # blueprint 额外门禁: reuse_count≥1
+            # blueprint 语义不同: 中枢 blueprint 目录 = "新项目立项选型范式"
+            # status=reference 是设计预期(选型参考≠已验证技能), 不过滤
+            if card_type != "blueprint" and status != "active":
+                continue
+            # blueprint 门禁: reuse_count≥1 (已选型/复用过至少一次)
             if card_type == "blueprint":
                 rc = int(fm.get("reuse_count", 0) or 0)
                 if rc < BLUEPRINT_MIN_REUSE:
                     continue
-            title = (body.splitlines() or ["(无标题)"])[0].lstrip("# ").strip()
-            slug = _safe_slug(str(fm.get("name") or title or f.stem))
-            tags = [str(t).strip() for t in fm.get("tags", []) if str(t).strip()]
+            # title 提取: 跳过中枢 blueprint 卡的通用首行(提炼自/来源:等)
+            title = "(无标题)"
+            for ln in body.splitlines():
+                stripped = ln.lstrip("# ").strip()
+                if len(stripped) >= 6 and not stripped.startswith(("提炼自", "来源:", "来源 ", "出处")):
+                    title = stripped
+                    break
+            # slug 优先级: fm.name → f.stem(英文文件名) → title(中文描述)
+            slug = _safe_slug(str(fm.get("name") or f.stem or title))
+            tags = [str(t).strip() for t in (fm.get("tags") or []) if str(t).strip()]
             slot_info = _evaluate_slot(card_type, tags)
             reuse_count = int(fm.get("reuse_count", 0) or 0)
             cards.append(

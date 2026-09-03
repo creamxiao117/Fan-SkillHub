@@ -41,7 +41,7 @@ skills:
   weight: 1.0
   status: active
 - name: cross-repo-index-commit
-  slot: shared
+  slot: dedicated
   scope: memory-hub
   invoke: user
   description_model: 当需要在中枢/其他独立 git 仓库执行 INDEX 登记、跨库改文件并 git 提交，而 Edit/Write 工具被限制在当前工作目录时触发
@@ -187,7 +187,8 @@ skills:
   scope: multica
   invoke: user
   description_model: 仅当用户点名 Multica 平台操作时触发
-  description_human: Multica 多技能合集：autopilot/agents/projects/squads/mentioning/runtimes/onboarding/issue 等 8 个子技能
+  description_human: Multica 多技能合集：autopilot/agents/projects/squads/mentioning/runtimes/onboarding/issue
+    等 8 个子技能
   trigger:
   - multica
   - autopilot
@@ -225,7 +226,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
   trigger:
   - cad-editor
-  forgot: []
+  forgot:
+  - 不需要图纸/可视化时
+  - 纯文本处理任务
+  - 代码审查
 - name: check-code-v1
   slot: shared
   scope: dev
@@ -236,7 +240,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
   trigger:
   - check-code-v1
-  forgot: []
+  forgot:
+  - 不需要代码质量检查
+  - 只做产品讨论
+  - 纯设计任务
 - name: chrome
   slot: shared
   scope: browser
@@ -247,7 +254,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill 插件）'
   trigger:
   - chrome
-  forgot: []
+  forgot:
+  - 不需要浏览器
+  - 纯本地文件操作
+  - CLI 脚本任务
 - name: dynamic-ui
   slot: shared
   scope: visual
@@ -258,7 +268,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
   trigger:
   - dynamic-ui
-  forgot: []
+  forgot:
+  - 不需要内联视觉
+  - 纯文本输出
+  - API 调用
 - name: github
   slot: shared
   scope: github
@@ -269,7 +282,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill 插件）'
   trigger:
   - github
-  forgot: []
+  forgot:
+  - 不涉及 GitHub
+  - 纯本地开发
+  - 飞书/Lark 操作
 - name: hub-mcp
   slot: shared
   scope: memory-hub
@@ -280,7 +296,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: MCP）'
   trigger:
   - hub-mcp
-  forgot: []
+  forgot:
+  - 不涉及 MCP 服务器
+  - 纯本地开发
+  - CLI 工具
 - name: integrated_code_mode
   slot: shared
   scope: core
@@ -291,7 +310,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: MCP）'
   trigger:
   - integrated_code_mode
-  forgot: []
+  forgot:
+  - 不需要代码质量检查
+  - 只做产品讨论
+  - 纯设计任务
 - name: integrated_goal
   slot: shared
   scope: core
@@ -302,7 +324,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: MCP）'
   trigger:
   - integrated_goal
-  forgot: []
+  forgot:
+  - 不需要 JavaScript 运行时
+  - Python/Go 后端
+  - CLI 工具
 - name: lark
   slot: shared
   scope: lark
@@ -313,7 +338,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill 插件）'
   trigger:
   - lark
-  forgot: []
+  forgot:
+  - 不涉及飞书
+  - 本地文件操作
+  - GitHub 相关
 - name: mcp_Computer_Use
   slot: shared
   scope: desktop
@@ -324,7 +352,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: MCP）'
   trigger:
   - mcp_Computer_Use
-  forgot: []
+  forgot:
+  - 不涉及 MCP 服务器
+  - 纯本地开发
+  - CLI 工具
 - name: mcp_apple_shortcuts
   slot: shared
   scope: apple
@@ -335,7 +366,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: MCP）'
   trigger:
   - mcp_apple_shortcuts
-  forgot: []
+  forgot:
+  - 不涉及 MCP 服务器
+  - 纯本地开发
+  - CLI 工具
 - name: mcp_plugin_GitHub_github
   slot: shared
   scope: github
@@ -346,7 +380,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: MCP）'
   trigger:
   - mcp_plugin_GitHub_github
-  forgot: []
+  forgot:
+  - 不涉及 GitHub
+  - 纯本地开发
+  - 飞书/Lark 操作
 - name: mcp_trends-hub
   slot: shared
   scope: trends
@@ -357,7 +394,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: MCP）'
   trigger:
   - mcp_trends-hub
-  forgot: []
+  forgot:
+  - 不涉及 MCP 服务器
+  - 纯本地开发
+  - CLI 工具
 - name: obsidian
   slot: shared
   scope: obsidian
@@ -368,7 +408,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill 插件）'
   trigger:
   - obsidian
-  forgot: []
+  forgot:
+  - 不涉及 Obsidian
+  - 纯代码任务
+  - 飞书文档操作
 - name: pdf
   slot: shared
   scope: document
@@ -379,7 +422,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
   trigger:
   - pdf
-  forgot: []
+  forgot:
+  - 不涉及 PDF 文件
+  - 纯代码任务
+  - 飞书文档操作
 - name: pdf-monster
   slot: shared
   scope: document
@@ -390,7 +436,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
   trigger:
   - pdf-monster
-  forgot: []
+  forgot:
+  - 不涉及 PDF 文件
+  - 纯代码任务
+  - 飞书文档操作
 - name: pdf-reader
   slot: shared
   scope: document
@@ -401,7 +450,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
   trigger:
   - pdf-reader
-  forgot: []
+  forgot:
+  - 不涉及 PDF 文件
+  - 纯代码任务
+  - 飞书文档操作
 - name: skill-creator
   slot: shared
   scope: dev
@@ -412,7 +464,9 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
   trigger:
   - skill-creator
-  forgot: []
+  forgot:
+  - 不相关场景
+  - 与本技能无关的任务
 - name: vercel-react-best-practices
   slot: shared
   scope: web
@@ -423,7 +477,10 @@ skills:
   description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
   trigger:
   - vercel-react-best-practices
-  forgot: []
+  forgot:
+  - 不涉及 React/Next.js
+  - 后端/基础设施任务
+  - 纯设计
 - name: excel-author
   slot: shared
   scope: productivity

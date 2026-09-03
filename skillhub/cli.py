@@ -76,6 +76,20 @@ def _default_root() -> Path:
     return PROJECT_ROOT / ".skillhub"
 
 
+def _default_hub_root() -> Path:
+    """从 hub.config.yaml 读中枢根; 不可用则返回空 Path(调用方处理)。"""
+    cfg = PROJECT_ROOT / "hub.config.yaml"
+    if cfg.is_file():
+        try:
+            data = yaml.safe_load(cfg.read_text(encoding="utf-8")) or {}
+            root = (data.get("hub") or {}).get("root", "")
+            if root:
+                return Path(root)
+        except yaml.YAMLError:
+            pass
+    return Path()
+
+
 def _cmd_route(args: argparse.Namespace) -> None:
     from router.tools.router import route
 
@@ -256,6 +270,45 @@ description: "{args.name}(新建技能, 待填写)"
     print("下一步: 编辑 SKILL.md 填写技能描述, 编辑 skill.yaml 添加 trigger/forgot")
 
 
+def _cmd_reconcile(args: argparse.Namespace) -> None:
+    from bridge.skill_promotion import reconcile
+
+    hub = args.hub_root or _default_hub_root()
+    if not hub or not Path(hub).is_dir():
+        print(f"[ERROR] 中枢根无效: {hub}")
+        print("  检查 hub.config.yaml 中 hub.root 配置, 或传 --hub-root")
+        raise SystemExit(1)
+
+    actions = reconcile(hub, args.skill_root, apply=args.apply, router_path=args.router)
+
+    if not actions:
+        print("reconcile: 中枢无卡通过过滤, 无待升级候选")
+        return
+
+    # 按 action 类型分组统计
+    from collections import Counter
+
+    counts = Counter(a["action"] for a in actions)
+    total = len(actions)
+    verb = "APPLY" if args.apply else "PROPOSE"
+
+    print(f"reconcile [{verb}]: {total} 卡, 分布: {dict(counts)}")
+    print()
+    for a in actions:
+        status_icon = {"propose": "📋", "apply": "✅", "skip": "⏭"}.get(
+            a["action"], "?"
+        )
+        extra = f" ({a['reason']})" if a.get("reason") else ""
+        print(
+            f"  {status_icon} [{a.get('card_type', '?')}] {a['slug']}"
+            f" → {a.get('target', '')}{extra}"
+        )
+
+    if not args.apply:
+        print()
+        print("dry-run 模式(默认); 加 --apply 才真正写盘并登记 router.yaml")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="skillhub", description="SkillHub 路由/反馈/权重/验证/审核 CLI"
@@ -315,6 +368,16 @@ def build_parser() -> argparse.ArgumentParser:
     p_new.add_argument("--slot", choices=["shared", "dedicated"], default="shared")
     p_new.add_argument("--scope", default="", help="专用域(仅 slot=dedicated 时填写)")
     p_new.set_defaults(func=_cmd_new)
+
+    p_reconcile = sub.add_parser(
+        "reconcile",
+        help="中枢 → SkillHub 反向回流: 扫描中枢卡, 判级升级成本地技能(dry-run 默认)",
+    )
+    p_reconcile.add_argument("--hub-root", default="", help="记忆中枢根(默认读 hub.config.yaml)")
+    p_reconcile.add_argument("--skill-root", default=str(SKILLS_ROOT))
+    p_reconcile.add_argument("--router", default=str(_default_router()))
+    p_reconcile.add_argument("--apply", action="store_true", help="真正写盘并登记 router.yaml(默认 dry-run)")
+    p_reconcile.set_defaults(func=_cmd_reconcile)
 
     return parser
 
