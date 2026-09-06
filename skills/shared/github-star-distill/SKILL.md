@@ -82,18 +82,53 @@ Step 3: INDEX.md 登记
 - **T1 通过** → 卡转 `active`，`reuse_count++`，登记 INDEX.md 并挂语义引用；同步 `build-vectors` 补向量。
 - **T1 失败/结论不清** → 保持 `reference`，建议放弃，不转 active。
 
-### 5. 登记与留痕
+### 5. T1 沙盒验证（可执行价值）
+
+T1 在 `F:\AgentMemoryT1\<卡名>-<日期>\` 隔离目录执行，全自动流程：
+
+```bash
+# 建沙盒目录
+mkdir -p F:/AgentMemoryT1/<slug>-<date>/
+
+# 安装工具（按需）
+# pip install <pkg>           # Python 包
+# curl -LO <url> && unzip     # Go/单文件工具
+# gh release download         # GitHub release（注意正确 asset 名）
+
+# 验证命令（最小 demo）
+# 记录 stdout/stderr
+
+# 清理
+rm -rf F:/AgentMemoryT1/<slug>-<date>/
+```
+
+**T1 验证结果回写规则**：
+- ✅ 通过 → `status: reference → active`，`reuse_count++`，末尾追加 T1 验证条目
+- ❌ 失败 → 保持原状态，末尾追加失败原因 + 踩坑经验
+- ⚠️ 部分 → 保持，记录下次迭代计划
+- 验证后重建向量：`python hub-engine/engine.py build-vectors --root AgentMemoryHub`
+
+### 6. 登记与留痕
 
 - retro/log.md 追加时间线条目（来源仓库、canonical ID、判级、静态 T0 结论、候选卡文件名）。
 - 每个 canonical ID 追加到 retro/log.md 去重表（防重复内化）。
 - B+ 自动提升完成后，INDEX.md 对应目录手动补登记行。
 - 语义引用挂接后，检索即可命中该卡（检索命中后按 `适用/不适用` 决定是否引用）。
 
-### 6. 清理
+### 7. 清理
 
 - 移除 `work/star/<owner>-<repo>` 临时克隆目录。
 - 移除本任务产生的零散临时脚本。
 - 最终工作区应回到只含 draft 卡 + retro log 改动 + B+ 自动提升增量的干净状态。
+
+## 已知坑（实测）
+
+- **Julia monorepo 超限额**：JuliaLang/julia size=385578 KB，克隆即失败 → 跳过
+- **nuclei v3 强制 author 字段**：YAML 模板必须含 `info.author`，否则 `-validate` 报错 `no template author field provided`
+- **turso release asset 名错误**：Releases 页直接下载的 `.zip` 是 HTML 重定向页 → 必须用 `turso_cli-x86_64-pc-windows-msvc.zip` 正确 asset 名
+- **esphome config 平台 key**：必须声明 `esp32:` / `esp8266:` 等平台 key，否则报 `Platform missing`
+- **ingest 首次超时**：LLM dedup 慢（LM Studio 推理模型超时），进程僵死 → 按双平台纪律 kill 后重试；建议把 `local_chat.model` 换成非推理模型（如 `qwen2.5-coder-1.5b-instruct`）
+- **LLM merge 误判**：draft 卡可能因"高度同主题"被 LLM 误判 merge 到已有卡 → 检查 `.sync/conflicts/` 有无 `.pred.json`；`action: merge + conf:0.9 + reason: 高度同主题` = 误判，手动 `cp` 搬入权威区 + 删 `.pred.json` + rebuild-vectors
 
 ## 门禁清单（区分自动可做 vs 需人工批准）
 
