@@ -23,24 +23,32 @@ jobs:
       - name: "Install deps"
         run: pip install pyyaml pytest pynacl
 
-      # Step 1: 克隆中枢（私有仓库必须 token；continue-on-error 保证中枢失败不影响 SkillHub 侧命令）
+      # Step 1: 克隆中枢（私有仓库必须 token）。先清理残留再 clone（解决 "not an empty directory" 空转）；
+      # 成功写 .hub_clone_ok 标志，后续所有依赖 .hub 的步骤仅在该标志存在时执行，避免误读残留目录。
       - name: "Clone AgentMemoryHub"
         env:
           HUB_PAT: ${{ secrets.HUB_PAT }}
         run: |
+          rm -rf .hub .hub_clone_ok
           echo "HUB_PAT len=${#HUB_PAT}"
-          if [ -z "${HUB_PAT}" ]; then echo "secrets.HUB_PAT 为空"; exit 0; fi
-          git clone --depth 1 "https://x-access-token:${HUB_PAT}@github.com/creamxiao117/AgentMemoryHub.git" .hub
+          if [ -z "${HUB_PAT}" ]; then echo "secrets.HUB_PAT 为空，跳过"; exit 0; fi
+          if git clone --depth 1 "https://x-access-token:${HUB_PAT}@github.com/creamxiao117/AgentMemoryHub.git" .hub 2>clone.log; then
+            touch .hub_clone_ok
+            echo "clone OK"
+          else
+            echo "clone FAILED (见 clone.log)，本次不执行依赖 .hub 的步骤"
+            cat clone.log
+          fi
         continue-on-error: true
 
       - name: "Migrate — 回填 verification/slot/__reconcile_batch__ 缺失字段"
         run: python -m skillhub migrate
         continue-on-error: true
 
-      # Step 2: reconcile blueprint 卡，每天 apply 5 张
+      # Step 2: reconcile blueprint 卡，每天 apply 5 张（仅当 clone 成功）
       - name: "Reconcile blueprints (apply batch=5)"
         run: |
-          if [ -d .hub ]; then
+          if [ -f .hub_clone_ok ]; then
             python -m skillhub reconcile \
               --hub-root .hub \
               --card-type blueprint \
@@ -48,7 +56,7 @@ jobs:
               --batch-size 5 \
               --batch-index 0
           else
-            echo "skip: no .hub directory"
+            echo "skip: .hub clone 失败/未执行，跳过 reconcile"
           fi
         continue-on-error: true
 
@@ -56,7 +64,7 @@ jobs:
       - name: "Sync verification — 双源回填 reuse_count"
         run: |
           HUB_FLAG=""
-          if [ -d .hub ]; then HUB_FLAG="--hub-root .hub"; fi
+          if [ -f .hub_clone_ok ]; then HUB_FLAG="--hub-root .hub"; fi
           python -m skillhub sync-verification $HUB_FLAG
         continue-on-error: true
 
@@ -68,10 +76,10 @@ jobs:
       # Step 5: SkillHub → 中枢反向同步（promote 到 active 的技能写回中枢卡 status / reuse_count）
       - name: "Push to hub — SkillHub→中枢反向同步"
         run: |
-          if [ -d .hub ]; then
+          if [ -f .hub_clone_ok ]; then
             python -m skillhub push-to-hub --hub-root .hub
           else
-            echo "skip: no .hub directory"
+            echo "skip: .hub clone 失败/未执行，跳过 push"
           fi
         continue-on-error: true
 
@@ -80,7 +88,7 @@ jobs:
         env:
           HUB_PAT: ${{ secrets.HUB_PAT }}
         run: |
-          if [ ! -d .hub ]; then echo "skip: no .hub directory"; exit 0; fi
+          if [ ! -f .hub_clone_ok ]; then echo "skip: .hub clone 失败/未执行"; exit 0; fi
           cd .hub
           git config user.email "skillhub-bot@users.noreply.github.com"
           git config user.name "skillhub-bot"
