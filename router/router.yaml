@@ -700,3 +700,132 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+- name: activedirs-five-type-discipline
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
+    绝不能缺席
+  description_human: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
+    绝不能缺席
+  trigger:
+  - 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
+    绝不能缺席
+  - retrieval
+  - active-dirs
+  - five-type-policy
+  - experience
+  - recall-regression
+  - regression
+  - bf8f49b
+  - INDEX
+  - 检索目录口径（_ACTIVE_DIRS）必须对齐
+  - INDEX.md
+  - 五类（rules
+  - blueprints
+  - methodology
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: autocad-5layer-testing-bench-6-7x
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: AutoCAD 5 层测试矩阵
+  description_human: AutoCAD 5 层测试矩阵
+  trigger:
+  - AutoCAD 5 层测试矩阵
+  - AutoCAD
+  - 测试
+  - accoreconsole
+  - COM
+  - win32com
+  - 基准
+  - 分层
+  - deadlock
+  - RPC_E_CALL_REJECTED
+  - 层测试矩阵：accoreconsole
+  - avg2.3s
+  - avg15.1s
+  - 死锁率
+  - 33%
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: autocad-com-automation-deadlock
+  slot: dedicated
+  scope: autocad
+  invoke: user
+  description_model: AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）
+  description_human: AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）
+  trigger:
+  - AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）
+  - netload
+  - 加载失败
+  - 卡死
+  - 错误
+  - 调试
+  - autocad
+  - com
+  - automation
+  - deadlock
+  - editor-input
+  - AutoCAD
+  - COM
+  - 自动化死锁（模态态拒调用）+
+  - Editor
+  - 交互不读命令行（自动化须写不交互命令）
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: autocad-dbtext-geometric-extents-degenerate-position
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: DBText/MText 包围盒爆炸 (>100mm) 退化到实体真实 Position，避免点选被长文字覆盖
+  description_human: DBText/MText 包围盒爆炸 (>100mm) 退化到实体真实 Position，避免点选被长文字覆盖
+  trigger:
+  - DBText/MText 包围盒爆炸 (>100mm) 退化到实体真实 Position，避免点选被长文字覆盖
+  - DBText
+  - MText
+  - 包围盒爆炸
+  - (>100mm)
+  - 退化到实体真实
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: autocad-dll-version-lock-v51-practice
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD
+    全改、进程释放）
+  description_human: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD
+    全改、进程释放）
+  trigger:
+  - DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）
+  - AutoCAD
+  - DLL
+  - 版本
+  - 文件锁
+  - ObjectARX
+  - MSB3061
+  - NETLOAD
+  - .scr
+  - 文件锁定+版本递增+MSB3061
+  - 规避操作清单（AssemblyName
+  - Version
+  - 进程释放）
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0

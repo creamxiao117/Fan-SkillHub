@@ -1,0 +1,47 @@
+name: autocad-com-automation-deadlock
+version: 0.1.0
+slot: dedicated
+scope: autocad
+status: reference
+reuse_count: 0
+updated: '2026-09-06'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 3
+  last_verified: '2026-09-06'
+invoke: user
+description_model: AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）
+description_human: AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）
+trigger:
+- AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）
+- netload
+- 加载失败
+- 卡死
+- 错误
+- 调试
+- autocad
+- com
+- automation
+- deadlock
+- editor-input
+- AutoCAD
+- COM
+- 自动化死锁（模态态拒调用）+
+- Editor
+- 交互不读命令行（自动化须写不交互命令）
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/autocad-com-automation-deadlock.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 32
+  total_candidates: 157

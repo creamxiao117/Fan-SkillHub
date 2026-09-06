@@ -1,0 +1,48 @@
+# skill.yaml —— autocad-dll-version-lock-v51-practice（shared库）
+# 由中枢卡升级生成: .hub/experience/autocad-dll-version-lock-v51-practice.md
+name: autocad-dll-version-lock-v51-practice
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-06'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD
+  全改、进程释放）
+description_human: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD
+  全改、进程释放）
+trigger:
+- DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）
+- AutoCAD
+- DLL
+- 版本
+- 文件锁
+- ObjectARX
+- MSB3061
+- NETLOAD
+- .scr
+- 文件锁定+版本递增+MSB3061
+- 规避操作清单（AssemblyName
+- Version
+- 进程释放）
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/autocad-dll-version-lock-v51-practice.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 32
+  total_candidates: 157

@@ -1,0 +1,48 @@
+name: activedirs-five-type-discipline
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-06'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 2
+  last_verified: '2026-09-06'
+invoke: user
+description_model: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
+  绝不能缺席
+description_human: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
+  绝不能缺席
+trigger:
+- 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
+  绝不能缺席
+- retrieval
+- active-dirs
+- five-type-policy
+- experience
+- recall-regression
+- regression
+- bf8f49b
+- INDEX
+- 检索目录口径（_ACTIVE_DIRS）必须对齐
+- INDEX.md
+- 五类（rules
+- blueprints
+- methodology
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/activedirs-five-type-discipline.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 32
+  total_candidates: 157

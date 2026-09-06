@@ -1,0 +1,39 @@
+# skill.yaml —— autocad-dbtext-geometric-extents-degenerate-position（shared库）
+# 由中枢卡升级生成: .hub/experience/autocad-dbtext-geometric-extents-degenerate-position.md
+name: autocad-dbtext-geometric-extents-degenerate-position
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-06'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: DBText/MText 包围盒爆炸 (>100mm) 退化到实体真实 Position，避免点选被长文字覆盖
+description_human: DBText/MText 包围盒爆炸 (>100mm) 退化到实体真实 Position，避免点选被长文字覆盖
+trigger:
+- DBText/MText 包围盒爆炸 (>100mm) 退化到实体真实 Position，避免点选被长文字覆盖
+- DBText
+- MText
+- 包围盒爆炸
+- (>100mm)
+- 退化到实体真实
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/autocad-dbtext-geometric-extents-degenerate-position.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 32
+  total_candidates: 157

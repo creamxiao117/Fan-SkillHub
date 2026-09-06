@@ -1,0 +1,48 @@
+# skill.yaml —— autocad-5layer-testing-bench-6-7x（shared库）
+# 由中枢卡升级生成: .hub/experience/autocad-5layer-testing-bench-6-7x.md
+name: autocad-5layer-testing-bench-6-7x
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-06'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: AutoCAD 5 层测试矩阵
+description_human: AutoCAD 5 层测试矩阵
+trigger:
+- AutoCAD 5 层测试矩阵
+- AutoCAD
+- 测试
+- accoreconsole
+- COM
+- win32com
+- 基准
+- 分层
+- deadlock
+- RPC_E_CALL_REJECTED
+- 层测试矩阵：accoreconsole
+- avg2.3s
+- avg15.1s
+- 死锁率
+- 33%
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/autocad-5layer-testing-bench-6-7x.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 32
+  total_candidates: 157
