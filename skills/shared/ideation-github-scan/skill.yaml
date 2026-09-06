@@ -1,0 +1,42 @@
+name: ideation-github-scan
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-06'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 3
+  last_verified: '2026-09-06'
+invoke: user
+description_model: 立项研究
+description_human: 立项研究
+trigger:
+- 立项研究
+- context-engineering
+- research
+- blueprint
+- ideation
+- 立项研究：轻量
+- GitHub
+- 扫描产出「借鉴
+- 避开」最小指引
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/methodology/ideation-github-scan.md
+blueprint_source: ideation-github-scan.md
+blueprint_level: T0 静态验证
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 12
+  total_candidates: 59

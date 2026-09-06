@@ -1,0 +1,45 @@
+name: local-dense-retrieval-model-selection
+version: 0.1.0
+slot: dedicated
+scope: memory-hub
+status: reference
+reuse_count: 0
+updated: '2026-09-06'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 4
+  last_verified: '2026-09-06'
+invoke: user
+description_model: 本地稠密检索模型选型
+description_human: 本地稠密检索模型选型
+trigger:
+- 本地稠密检索模型选型
+- embedding
+- semantic-search
+- model-selection
+- bge
+- local-model
+- memory-hub
+- 本地稠密检索模型选型：BGE
+- 谱系体量事实（bge-m3
+- 568M
+- 不算「小」）+
+- 决策规则（实证定版默认
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/local-dense-retrieval-model-selection.md
+blueprint_source: local-dense-retrieval-model-selection.md
+blueprint_level: T0 静态验证
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 12
+  total_candidates: 59

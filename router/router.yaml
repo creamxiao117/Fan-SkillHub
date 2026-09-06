@@ -605,3 +605,98 @@ skills:
   - install
   - 答疑
   weight: 1.0
+- name: bge-small-zh-sqlite-vector-search
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 实践
+  description_human: 实践
+  trigger:
+  - 实践
+  - semantic-search
+  - embedding
+  - vector-search
+  - bge
+  - sqlite
+  - fts5
+  - 实践：bge-small-zh
+  - SQLite(FTS5
+  - trigram
+  - JSON)
+  - 语义检索（md-GuanLi
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: local-dense-retrieval-model-selection
+  slot: dedicated
+  scope: memory-hub
+  invoke: user
+  description_model: 本地稠密检索模型选型
+  description_human: 本地稠密检索模型选型
+  trigger:
+  - 本地稠密检索模型选型
+  - embedding
+  - semantic-search
+  - model-selection
+  - bge
+  - local-model
+  - memory-hub
+  - 本地稠密检索模型选型：BGE
+  - 谱系体量事实（bge-m3
+  - 568M
+  - 不算「小」）+
+  - 决策规则（实证定版默认
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: retrieve-english-stopword-overhit
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag
+    → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
+  description_human: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag
+    → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
+  trigger:
+  - deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加
+    _EN_STOP 停用词过滤（真机验证收敛）
+  - retrieve
+  - semantic-search
+  - stopword
+  - overhit
+  - rrf-fusion
+  - deterministic
+  - word
+  - 子串匹配被
+  - for
+  - 等功能词命中含
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: ideation-github-scan
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 立项研究
+  description_human: 立项研究
+  trigger:
+  - 立项研究
+  - context-engineering
+  - research
+  - blueprint
+  - ideation
+  - 立项研究：轻量
+  - GitHub
+  - 扫描产出「借鉴
+  - 避开」最小指引
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
