@@ -1,0 +1,47 @@
+name: retrieve-english-stopword-overhit
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-06'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 3
+  last_verified: '2026-09-06'
+invoke: user
+description_model: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag
+  → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
+description_human: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag
+  → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
+trigger:
+- deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加
+  _EN_STOP 停用词过滤（真机验证收敛）
+- retrieve
+- semantic-search
+- stopword
+- overhit
+- rrf-fusion
+- deterministic
+- word
+- 子串匹配被
+- for
+- 等功能词命中含
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/retrieve-english-stopword-overhit.md
+blueprint_source: retrieve-english-stopword-overhit.md
+blueprint_level: T0 静态验证
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 12
+  total_candidates: 59

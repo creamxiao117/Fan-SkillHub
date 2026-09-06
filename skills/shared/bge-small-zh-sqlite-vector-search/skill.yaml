@@ -1,0 +1,45 @@
+name: bge-small-zh-sqlite-vector-search
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-06'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 4
+  last_verified: '2026-09-06'
+invoke: user
+description_model: 实践
+description_human: 实践
+trigger:
+- 实践
+- semantic-search
+- embedding
+- vector-search
+- bge
+- sqlite
+- fts5
+- 实践：bge-small-zh
+- SQLite(FTS5
+- trigram
+- JSON)
+- 语义检索（md-GuanLi
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/bge-small-zh-sqlite-vector-search.md
+blueprint_source: bge-small-zh-sqlite-vector-search.md
+blueprint_level: T0 静态验证
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 12
+  total_candidates: 59

@@ -46,8 +46,8 @@ capabilities:
 - testing_validation
 auto_capped: '2026-08-25'
 verification:
-  reuse_count: 1
-  last_verified: '2026-09-03'
+  reuse_count: 3
+  last_verified: '2026-09-06'
 __reconcile_batch__:
   migrated: true
   from_references:
