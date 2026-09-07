@@ -829,3 +829,213 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+- name: one-three-one-rule
+  slot: shared
+  scope: communication
+  invoke: user
+  description_model: 当需要提供结构化多方案决策建议时触发，要求包含"一个问题 + 三个选项 + 一个推荐"的 1-3-1 格式
+  description_human: 1-3-1 决策框架：problem + three options + one pick，适用于架构选型、工具选型、策略推荐等需要明确推荐意见的场景
+  trigger:
+  - 1-3-1
+  - 决策建议
+  - 多方案推荐
+  - 三个选项一个推荐
+  - decision brief
+  forgot:
+  - 纯知识问答
+  - 不需要推荐建议的简单查询
+  weight: 0.8
+  status: active
+- name: ascii-art
+  slot: shared
+  scope: creative
+  invoke: user
+  description_model: 当用户要求生成 ASCII 艺术、文字横幅、图形文字时触发
+  description_human: ASCII 艺术生成工具：pyfiglet / cowsay / boxes / image-to-ascii，用于终端美化、视觉强调、装饰性输出
+  trigger:
+  - ASCII art
+  - ascii art
+  - 文字横幅
+  - 终端艺术
+  - 艺术字
+  forgot:
+  - 纯文本输出
+  - 不需要视觉装饰的简单回复
+  weight: 0.6
+  status: active
+- name: concept-diagrams
+  slot: shared
+  scope: creative
+  invoke: user
+  description_model: 当需要生成概念图、流程图、架构图、UML 图等可视化图表时触发
+  description_human: 概念图生成工具：支持 UML/流程图/架构图/物理图形等多种模板的 SVG 生成，用于技术文档、教学材料、架构说明
+  trigger:
+  - 概念图
+  - 流程图
+  - 架构图
+  - UML
+  - diagram
+  - 图表生成
+  - 生成图表
+  forgot:
+  - 纯文字说明
+  - 不需要可视化的简单分析
+  weight: 0.7
+  status: active
+- name: meme-generation
+  slot: shared
+  scope: creative
+  invoke: user
+  description_model: 当用户要求生成表情包、梗图时触发
+  description_human: 表情包/梗图生成工具：基于 Pillow 模板叠加文字生成 PNG 图片，用于社交媒体、娱乐性内容创作
+  trigger:
+  - meme
+  - 表情包
+  - 梗图
+  - 生成表情包
+  - 生成 meme
+  forgot:
+  - 专业图像生成
+  - 不需要娱乐性图像的场景
+  weight: 0.5
+  status: active
+- name: jupyter-notebook
+  slot: shared
+  scope: data-science
+  invoke: user
+  description_model: 当需要读写、执行、调试 Jupyter Notebook（.ipynb）时触发，支持 cell 级操作、变量预览、内核重启
+  description_human: Jupyter Notebook 操作工具（基于 hamelnb）：执行代码、插入/删除/替换 cell、预览变量、管理内核，适用于数据分析、实验迭代场景
+  trigger:
+  - Jupyter
+  - notebook
+  - ipynb
+  - 执行 notebook
+  - 调试 notebook
+  - cell 操作
+  forgot:
+  - 普通 Python 脚本执行
+  - 不需要 notebook 特定功能的场景
+  weight: 0.8
+  status: active
+- name: fastmcp
+  slot: shared
+  scope: mcp
+  invoke: user
+  description_model: 当需要构建、测试、部署 Python MCP（Model Context Protocol）服务器时触发
+  description_human: FastMCP 服务器开发工具：脚手架生成、API 包装器模板、数据库/文件处理服务器模板，适用于 MCP 工具开发
+  trigger:
+  - FastMCP
+  - MCP server
+  - MCP 服务器
+  - 构建 MCP
+  - 开发 MCP
+  - Model Context Protocol
+  forgot:
+  - 不涉及 MCP 开发的场景
+  weight: 0.8
+  status: active
+- name: here-now
+  slot: shared
+  scope: productivity
+  invoke: user
+  description_model: 当需要将内容发布到 here.now 托管平台或进行实时状态广播时触发
+  description_human: here.now 发布工具：内容发布到 {slug}.here.now 并存储到 Drives，适用于快速托管分享、实时状态同步
+  trigger:
+  - here.now
+  - 发布站点
+  - 快速托管
+  - 实时同步
+  - here-now
+  forgot:
+  - 长期生产环境部署
+  - 不需要托管服务的场景
+  weight: 0.6
+  status: active
+- name: duckduckgo-search
+  slot: shared
+  scope: research
+  invoke: user
+  description_model: 当需要进行网页搜索、新闻搜索、图片搜索且不想使用需要 API Key 的服务时触发
+  description_human: DuckDuckGo 免费搜索工具（基于 ddgs）：无需 API Key，支持网页/新闻/图片搜索，适用于快速信息检索
+  trigger:
+  - DuckDuckGo
+  - ddg 搜索
+  - 免费搜索
+  - 无需 key 的搜索
+  - 联网搜索
+  - web search
+  forgot:
+  - 需要特定搜索 API 的场景
+  - 需要登录认证的搜索服务
+  weight: 0.8
+  status: active
+- name: qmd
+  slot: shared
+  scope: research
+  invoke: user
+  description_model: 当需要对本地笔记、文档、转录进行混合语义搜索时触发（需要 Node.js 环境）
+  description_human: QMD 混合本地搜索工具：对笔记、文档、转录进行语义混合检索，适用于知识库查询
+  trigger:
+  - QMD
+  - 本地笔记搜索
+  - 文档混合搜索
+  - 语义搜索笔记
+  forgot:
+  - 纯关键词搜索
+  - Windows 环境（该技能主要为 macOS/Linux 设计）
+  weight: 0.7
+  status: active
+- name: scrapling
+  slot: shared
+  scope: research
+  invoke: user
+  description_model: 当需要抓取动态渲染页面（JS 加载内容、Cloudflare 保护站点）时触发
+  description_human: scrapling 动态网页抓取工具：支持 JS 渲染页面 stealth 抓取、Cloudflare 绕过，适用于需要执行 JavaScript 才能获取内容的站点
+  trigger:
+  - scrapling
+  - 动态网页抓取
+  - JS 渲染页面
+  - Cloudflare 绕过
+  - stealth 抓取
+  - 抓取动态页面
+  forgot:
+  - 纯静态 HTML 页面（用简单 HTTP 请求即可）
+  - 不需要 JavaScript 执行的内容
+  weight: 0.8
+  status: active
+- name: 1password
+  slot: shared
+  scope: security
+  invoke: user
+  description_model: 当需要从 1Password 读取或注入密钥/凭证时触发（需已安装 1Password CLI）
+  description_human: 1Password CLI 集成工具：通过 op CLI 读取/注入密钥和凭证，适用于安全凭证管理（需本地安装 1Password 和 op CLI）
+  trigger:
+  - 1Password
+  - op CLI
+  - 读取密钥
+  - 凭证管理
+  - 密码读取
+  - 1password
+  forgot:
+  - 不涉及凭证管理的场景
+  - 未安装 1Password 的环境
+  weight: 0.7
+  status: active
+- name: sherlock
+  slot: shared
+  scope: security
+  invoke: user
+  description_model: 当需要在 400+ 社交平台检索某用户名是否存在（OSINT 调查）时触发
+  description_human: Sherlock OSINT 工具：在 400+ 社交平台跨平台检索用户名，用于账号排查、舆情监控、安全审计（需 pipx/pip 安装）
+  trigger:
+  - Sherlock
+  - sherlock
+  - 用户名检索
+  - OSINT
+  - 社工账号排查
+  - 跨平台账号搜索
+  forgot:
+  - 需要登录认证的账号查询
+  - 非 OSINT 用途的账号管理
+  weight: 0.7
+  status: active
