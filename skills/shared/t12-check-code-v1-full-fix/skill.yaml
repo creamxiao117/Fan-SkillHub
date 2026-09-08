@@ -1,0 +1,41 @@
+# skill.yaml —— t12-check-code-v1-full-fix（shared库）
+# 由中枢卡升级生成: .hub/experience/T12-check-code-v1-full-fix.md
+name: t12-check-code-v1-full-fix
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-08'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: check-code-v1 全面修复 T12 实录
+description_human: check-code-v1 全面修复 T12 实录
+trigger:
+- check-code-v1 全面修复 T12 实录
+- check-code-v1
+- ruff
+- shellcheck
+- markdownlint
+- yamllint
+- fix-all
+- time-sensitive-test
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/T12-check-code-v1-full-fix.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 37
+  total_candidates: 181

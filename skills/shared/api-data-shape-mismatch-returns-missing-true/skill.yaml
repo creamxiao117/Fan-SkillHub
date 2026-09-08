@@ -1,0 +1,46 @@
+# skill.yaml —— api-data-shape-mismatch-returns-missing-true（shared库）
+# 由中枢卡升级生成: .hub/experience/api-data-shape-mismatch-returns-missing-true.md
+name: api-data-shape-mismatch-returns-missing-true
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-08'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true
+description_human: API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true
+trigger:
+- API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true
+- mavis
+- MiniMax-Code
+- api-contract
+- schema-mismatch
+- silent-failure
+- file-vs-text
+- 404-mislead
+- API
+- 接口假设
+- 字段是文件路径而实际是文本内容
+- 静默返回
+- missing:true
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/api-data-shape-mismatch-returns-missing-true.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 37
+  total_candidates: 181

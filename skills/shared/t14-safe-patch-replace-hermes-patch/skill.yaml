@@ -1,0 +1,40 @@
+# skill.yaml —— t14-safe-patch-replace-hermes-patch（shared库）
+# 由中枢卡升级生成: .hub/experience/T14-safe-patch-replace-hermes-patch.md
+name: t14-safe-patch-replace-hermes-patch
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-08'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: T14 safe_patch 替代 Hermes patch —— 完整复盘
+description_human: T14 safe_patch 替代 Hermes patch —— 完整复盘
+trigger:
+- T14 safe_patch 替代 Hermes patch —— 完整复盘
+- safe-patch
+- hermes-tool-replace
+- iron-rule
+- code-discipline
+- cli-alias
+- t14
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/T14-safe-patch-replace-hermes-patch.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 37
+  total_candidates: 181
