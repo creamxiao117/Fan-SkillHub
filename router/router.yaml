@@ -1107,4 +1107,67 @@ skills:
   - B站
   - YouTube
   - 小文件
+- name: t12-check-code-v1-full-fix
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: check-code-v1 全面修复 T12 实录
+  description_human: check-code-v1 全面修复 T12 实录
+  trigger:
+  - check-code-v1 全面修复 T12 实录
+  - check-code-v1
+  - ruff
+  - shellcheck
+  - markdownlint
+  - yamllint
+  - fix-all
+  - time-sensitive-test
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: t14-safe-patch-replace-hermes-patch
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: T14 safe_patch 替代 Hermes patch —— 完整复盘
+  description_human: T14 safe_patch 替代 Hermes patch —— 完整复盘
+  trigger:
+  - T14 safe_patch 替代 Hermes patch —— 完整复盘
+  - safe-patch
+  - hermes-tool-replace
+  - iron-rule
+  - code-discipline
+  - cli-alias
+  - t14
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: api-data-shape-mismatch-returns-missing-true
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true
+  description_human: API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true
+  trigger:
+  - API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true
+  - mavis
+  - MiniMax-Code
+  - api-contract
+  - schema-mismatch
+  - silent-failure
+  - file-vs-text
+  - 404-mislead
+  - API
+  - 接口假设
+  - 字段是文件路径而实际是文本内容
+  - 静默返回
+  - missing:true
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
   weight: 1.0
