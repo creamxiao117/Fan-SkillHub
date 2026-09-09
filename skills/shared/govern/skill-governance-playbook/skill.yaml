@@ -11,8 +11,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 6
-  last_verified: '2026-09-08'
+  reuse_count: 7
+  last_verified: '2026-09-09'
 invoke: user
 description_model: 技能治理操作手册（聚合导航）
 description_human: 技能治理操作手册（聚合导航）

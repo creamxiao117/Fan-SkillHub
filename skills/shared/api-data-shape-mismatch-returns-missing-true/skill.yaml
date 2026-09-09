@@ -1,5 +1,3 @@
-# skill.yaml —— api-data-shape-mismatch-returns-missing-true（shared库）
-# 由中枢卡升级生成: .hub/experience/api-data-shape-mismatch-returns-missing-true.md
 name: api-data-shape-mismatch-returns-missing-true
 version: 0.1.0
 slot: shared
@@ -13,8 +11,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 0
-  last_verified: ''
+  reuse_count: 1
+  last_verified: '2026-09-09'
 invoke: user
 description_model: API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true
 description_human: API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true

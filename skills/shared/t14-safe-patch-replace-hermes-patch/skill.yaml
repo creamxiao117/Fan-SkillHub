@@ -1,5 +1,3 @@
-# skill.yaml —— t14-safe-patch-replace-hermes-patch（shared库）
-# 由中枢卡升级生成: .hub/experience/T14-safe-patch-replace-hermes-patch.md
 name: t14-safe-patch-replace-hermes-patch
 version: 0.1.0
 slot: shared
@@ -13,8 +11,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 0
-  last_verified: ''
+  reuse_count: 1
+  last_verified: '2026-09-09'
 invoke: user
 description_model: T14 safe_patch 替代 Hermes patch —— 完整复盘
 description_human: T14 safe_patch 替代 Hermes patch —— 完整复盘

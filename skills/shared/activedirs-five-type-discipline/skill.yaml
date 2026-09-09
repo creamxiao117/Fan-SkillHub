@@ -11,8 +11,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 2
-  last_verified: '2026-09-08'
+  reuse_count: 3
+  last_verified: '2026-09-09'
 invoke: user
 description_model: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
   绝不能缺席
