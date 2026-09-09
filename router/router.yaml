@@ -1,4 +1,4 @@
-version: 1.1.1
+version: 1.1.2
 complexity:
   files_threshold: 2
   cross_module: true
@@ -1178,4 +1178,26 @@ skills:
   - 自动执行外部脚本
   - push 到远程
   - 改写全局 git config
+  weight: 1.0
+- name: skillhub-tool-to-skill-registration-workflow
+  slot: shared
+  invoke: model
+  scope: skillhub
+  description_model: 当需要把新工具注册为 SkillHub 技能，或需执行 skillhub record / promote / reconcile
+    等运维操作时触发
+  description_human: SkillHub 工具→技能注册标准流程：安装验证→骨架创建→router注册→路由测试→git push，含 submodule
+    处理和晋级链路
+  trigger:
+  - 注册技能
+  - skillhub new
+  - 工具注册
+  - skillhub record
+  - skillhub promote
+  - skillhub reconcile
+  - router.yaml
+  forgot:
+  - 直接改权威区
+  - 改中枢文件
+  - 执行外部脚本
+  - push到远程
   weight: 1.0

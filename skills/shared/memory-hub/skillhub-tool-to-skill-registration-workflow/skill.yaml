@@ -1,0 +1,16 @@
+name: skillhub-tool-to-skill-registration-workflow
+version: 0.1.0
+slot: shared
+scope: memory-hub
+tags:
+- skillhub
+- registration
+- workflow
+status: reference
+reuse_count: 0
+updated: '2026-09-07'
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: '2026-09-07'
