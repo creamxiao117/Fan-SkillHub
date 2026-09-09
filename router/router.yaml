@@ -237,16 +237,24 @@ skills:
   slot: shared
   scope: dev
   invoke: model
-  weight: 0.7
+  weight: 1.0
   status: active
-  description_model: 检查/建技能时
-  description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
+  description_model: 当需要检查代码质量、lint、格式化、代码规范审查时使用
+  description_human: 多语言代码质量检查工具，支持 Python/PowerShell/JSON/YAML/Markdown
   trigger:
   - check-code-v1
+  - 代码质量
+  - 代码检查
+  - 检查代码
+  - lint
+  - 代码审查
+  - code review
+  - 代码规范
   forgot:
   - 不需要代码质量检查
   - 只做产品讨论
   - 纯设计任务
+  - 不需要检查
 - name: chrome
   slot: shared
   scope: browser
