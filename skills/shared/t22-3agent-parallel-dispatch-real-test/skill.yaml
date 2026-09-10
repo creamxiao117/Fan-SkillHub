@@ -1,0 +1,40 @@
+name: t22-3agent-parallel-dispatch-real-test
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-10'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 1
+  last_verified: '2026-09-10'
+invoke: user
+description_model: T22 3-Agent 并行调度真测试经验
+description_human: T22 3-Agent 并行调度真测试经验
+trigger:
+- T22 3-Agent 并行调度真测试经验
+- multi-agent
+- parallel
+- delegate_task
+- subagent
+- dashboard
+- 3-agent
+- t22
+- real-test
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/T22-3agent-parallel-dispatch-real-test.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 42
+  total_candidates: 208

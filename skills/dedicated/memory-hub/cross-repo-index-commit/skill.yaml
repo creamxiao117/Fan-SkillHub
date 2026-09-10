@@ -45,7 +45,7 @@ auto_capped: '2026-08-25'
 last_used: '2026-08-25T01:26:12+00:00'
 verification:
   reuse_count: 4
-  last_verified: '2026-09-09'
+  last_verified: '2026-09-10'
 __reconcile_batch__:
   migrated: true
   from_references:

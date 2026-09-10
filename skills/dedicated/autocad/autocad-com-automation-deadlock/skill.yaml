@@ -12,7 +12,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 4
-  last_verified: '2026-09-09'
+  last_verified: '2026-09-10'
 invoke: user
 description_model: AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）
 description_human: AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）

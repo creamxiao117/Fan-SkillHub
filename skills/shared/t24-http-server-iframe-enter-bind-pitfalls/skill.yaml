@@ -1,0 +1,40 @@
+# skill.yaml —— t24-http-server-iframe-enter-bind-pitfalls（shared库）
+# 由中枢卡升级生成: .hub/experience/T24-http-server-iframe-enter-bind-pitfalls.md
+name: t24-http-server-iframe-enter-bind-pitfalls
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-10'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: T24 反思 — 实战踩坑 3 件套
+description_human: T24 反思 — 实战踩坑 3 件套
+trigger:
+- T24 反思 — 实战踩坑 3 件套
+- gr-1
+- gr-3
+- dashboard
+- file-protocol
+- hermes-process-cleanup
+- dev-discipline
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/T24-http-server-iframe-enter-bind-pitfalls.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 42
+  total_candidates: 208

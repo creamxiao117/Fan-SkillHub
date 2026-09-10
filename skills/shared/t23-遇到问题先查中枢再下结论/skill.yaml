@@ -1,0 +1,39 @@
+name: t23-遇到问题先查中枢再下结论
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-10'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 1
+  last_verified: '2026-09-10'
+invoke: user
+description_model: T23 教训：遇到问题先查中枢/路由表/借鉴再下结论
+description_human: T23 教训：遇到问题先查中枢/路由表/借鉴再下结论
+trigger:
+- T23 教训：遇到问题先查中枢/路由表/借鉴再下结论
+- gr-1
+- gr-2
+- gr-3
+- rule-violation
+- desktop-preview
+- search-first
+- agent-discipline
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/T23-遇到问题先查中枢再下结论.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 42
+  total_candidates: 208

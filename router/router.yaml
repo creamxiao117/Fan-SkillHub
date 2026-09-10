@@ -1201,3 +1201,63 @@ skills:
   - 执行外部脚本
   - push到远程
   weight: 1.0
+- name: t22-3agent-parallel-dispatch-real-test
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: T22 3-Agent 并行调度真测试经验
+  description_human: T22 3-Agent 并行调度真测试经验
+  trigger:
+  - T22 3-Agent 并行调度真测试经验
+  - multi-agent
+  - parallel
+  - delegate_task
+  - subagent
+  - dashboard
+  - 3-agent
+  - t22
+  - real-test
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: t23-遇到问题先查中枢再下结论
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: T23 教训：遇到问题先查中枢/路由表/借鉴再下结论
+  description_human: T23 教训：遇到问题先查中枢/路由表/借鉴再下结论
+  trigger:
+  - T23 教训：遇到问题先查中枢/路由表/借鉴再下结论
+  - gr-1
+  - gr-2
+  - gr-3
+  - rule-violation
+  - desktop-preview
+  - search-first
+  - agent-discipline
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: t24-http-server-iframe-enter-bind-pitfalls
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: T24 反思 — 实战踩坑 3 件套
+  description_human: T24 反思 — 实战踩坑 3 件套
+  trigger:
+  - T24 反思 — 实战踩坑 3 件套
+  - gr-1
+  - gr-3
+  - dashboard
+  - file-protocol
+  - hermes-process-cleanup
+  - dev-discipline
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
