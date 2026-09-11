@@ -664,6 +664,25 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+- name: hub-schema-drift-remediation
+  slot: shared
+  scope: memory-hub
+  invoke: user
+  description_model: 中枢卡片 schema 漂移排查→引擎收口→门禁安装→回写闭环，含本地模型优先级（bge 维度约束）和 pre-commit 门禁安装
+  description_human: 中枢卡片 schema 漂移排查→引擎收口→门禁安装→回写闭环，含本地模型优先级（bge 维度约束）和 pre-commit 门禁安装
+  trigger:
+  - schema 漂移
+  - type: experience
+  - 校验绕过
+  - 字典漂移
+  - frontmatter 校验
+  - pre-commit 门禁
+  - 本地模型优先级
+  - bge 维度约束
+  forgot:
+  - 直接改权威区
+  - push 到远程
+  weight: 1.0
 - name: retrieve-english-stopword-overhit
   slot: shared
   scope: ''
