@@ -12,7 +12,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 1
-  last_verified: '2026-09-11'
+  last_verified: '2026-09-12'
 invoke: user
 description_model: API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true
 description_human: API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true

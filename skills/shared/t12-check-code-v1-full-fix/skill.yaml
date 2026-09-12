@@ -12,7 +12,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 1
-  last_verified: '2026-09-11'
+  last_verified: '2026-09-12'
 invoke: user
 description_model: check-code-v1 全面修复 T12 实录
 description_human: check-code-v1 全面修复 T12 实录

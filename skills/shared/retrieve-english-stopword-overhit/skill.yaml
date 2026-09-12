@@ -12,7 +12,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 4
-  last_verified: '2026-09-11'
+  last_verified: '2026-09-12'
 invoke: user
 description_model: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag
   → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
