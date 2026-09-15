@@ -1,0 +1,49 @@
+# skill.yaml —— 2026-09-10-12gb-vram-model-selection-and-qwen35-9b-48k-fix（shared库）
+# 由中枢卡升级生成: .hub/experience/2026-09-10-12gb-vram-model-selection-and-qwen35-9b-48k-fix.md
+name: 2026-09-10-12gb-vram-model-selection-and-qwen35-9b-48k-fix
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-15'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: 经验卡草稿：12GB 显存模型选型方法论 + Qwen3.5-9B 48K 起不来的一手修复（2026-09-10）
+description_human: 经验卡草稿：12GB 显存模型选型方法论 + Qwen3.5-9B 48K 起不来的一手修复（2026-09-10）
+trigger:
+- 经验卡草稿：12GB 显存模型选型方法论 + Qwen3.5-9B 48K 起不来的一手修复（2026-09-10）
+- local-llm
+- vram
+- model-selection
+- qwen3.5
+- ornith
+- k2-horizon
+- sglang
+- 48k-context
+- consumer-gpu
+- workbuddy
+- 经验卡草稿：12GB
+- 显存模型选型方法论
+- Qwen3.5-9B
+- 48K
+- 起不来的一手修复（2026-09-10）
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/2026-09-10-12gb-vram-model-selection-and-qwen35-9b-48k-fix.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 46
+  total_candidates: 227

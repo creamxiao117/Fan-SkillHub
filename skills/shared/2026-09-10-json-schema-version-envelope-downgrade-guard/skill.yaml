@@ -1,0 +1,47 @@
+# skill.yaml —— 2026-09-10-json-schema-version-envelope-downgrade-guard（shared库）
+# 由中枢卡升级生成: .hub/experience/2026-09-10-json-schema-version-envelope-downgrade-guard.md
+name: 2026-09-10-json-schema-version-envelope-downgrade-guard
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-15'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: JSON 数据文件加 schema 版本**必须三件套齐做**
+description_human: JSON 数据文件加 schema 版本**必须三件套齐做**
+trigger:
+- JSON 数据文件加 schema 版本**必须三件套齐做**
+- schema
+- versioning
+- migration
+- json
+- data-safety
+- downgrade-guard
+- desktop-app
+- workbuddy
+- JSON
+- 数据文件加
+- 版本**必须三件套齐做**：版本信封
+- '`{_schema_version'
+- payload}`
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/2026-09-10-json-schema-version-envelope-downgrade-guard.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 46
+  total_candidates: 227

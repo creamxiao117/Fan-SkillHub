@@ -1,0 +1,50 @@
+# skill.yaml —— 2026-09-10-k2-horizon-7b-consumer-gpu-deploy（shared库）
+# 由中枢卡升级生成: .hub/experience/2026-09-10-k2-horizon-7b-consumer-gpu-deploy.md
+name: 2026-09-10-k2-horizon-7b-consumer-gpu-deploy
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-15'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon
+  分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
+description_human: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon
+  分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
+trigger:
+- 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon 分支）+
+  Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
+- local-llm
+- k2-horizon
+- llama-cpp
+- gguf
+- consumer-gpu
+- vram
+- sglang
+- workbuddy
+- 12GB
+- 消费级卡跑
+- K2-Horizon-7B
+- 唯一可行路径
+- MBZUAI-IFM
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/2026-09-10-k2-horizon-7b-consumer-gpu-deploy.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 46
+  total_candidates: 227

@@ -1261,3 +1261,138 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+- name: 2026-09-10-12gb-vram-model-selection-and-qwen35-9b-48k-fix
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 经验卡草稿：12GB 显存模型选型方法论 + Qwen3.5-9B 48K 起不来的一手修复（2026-09-10）
+  description_human: 经验卡草稿：12GB 显存模型选型方法论 + Qwen3.5-9B 48K 起不来的一手修复（2026-09-10）
+  trigger:
+  - 经验卡草稿：12GB 显存模型选型方法论 + Qwen3.5-9B 48K 起不来的一手修复（2026-09-10）
+  - local-llm
+  - vram
+  - model-selection
+  - qwen3.5
+  - ornith
+  - k2-horizon
+  - sglang
+  - 48k-context
+  - consumer-gpu
+  - workbuddy
+  - 经验卡草稿：12GB
+  - 显存模型选型方法论
+  - Qwen3.5-9B
+  - 48K
+  - 起不来的一手修复（2026-09-10）
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: 2026-09-10-json-schema-version-envelope-downgrade-guard
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: JSON 数据文件加 schema 版本**必须三件套齐做**
+  description_human: JSON 数据文件加 schema 版本**必须三件套齐做**
+  trigger:
+  - JSON 数据文件加 schema 版本**必须三件套齐做**
+  - schema
+  - versioning
+  - migration
+  - json
+  - data-safety
+  - downgrade-guard
+  - desktop-app
+  - workbuddy
+  - JSON
+  - 数据文件加
+  - 版本**必须三件套齐做**：版本信封
+  - '`{_schema_version'
+  - payload}`
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: 2026-09-10-k2-horizon-7b-consumer-gpu-deploy
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon
+    分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV
+    池为负）（2026-09-10）
+  description_human: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon
+    分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV
+    池为负）（2026-09-10）
+  trigger:
+  - 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon 分支）+
+    Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
+  - local-llm
+  - k2-horizon
+  - llama-cpp
+  - gguf
+  - consumer-gpu
+  - vram
+  - sglang
+  - workbuddy
+  - 12GB
+  - 消费级卡跑
+  - K2-Horizon-7B
+  - 唯一可行路径
+  - MBZUAI-IFM
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: 2026-09-10-low-coverage-hides-real-bugs-scheduler-args
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: '**覆盖率洼地 ≈ bug 富集区**'
+  description_human: '**覆盖率洼地 ≈ bug 富集区**'
+  trigger:
+  - '**覆盖率洼地 ≈ bug 富集区**'
+  - testing
+  - coverage
+  - bug-hunting
+  - scheduler
+  - silent-failure
+  - regression-assertion
+  - workbuddy
+  - '**覆盖率洼地'
+  - bug
+  - 富集区**：PluginHub
+  - 测试时挖出真
+  - bug——`action.Arguments
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: 2026-09-10-parallel-edit-same-file-loss
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 同文件并行 Edit 会静默丢失部分编辑
+  description_human: 同文件并行 Edit 会静默丢失部分编辑
+  trigger:
+  - 同文件并行 Edit 会静默丢失部分编辑
+  - tooling
+  - edit-tool
+  - race-condition
+  - concurrent-write
+  - verification
+  - pitfall
+  - workbuddy
+  - 同文件并行
+  - Edit
+  - 会静默丢失部分编辑：每个调用都返回
+  - Successfully
+  - edited
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
