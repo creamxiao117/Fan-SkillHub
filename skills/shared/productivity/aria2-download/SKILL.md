@@ -3,7 +3,7 @@ name: aria2-download
 description: 多线程并行下载工具（aria2），支持断点续传、分段并发、磁力链、BT。 适用场景：多线程、多线程下载、加速下载。勿用于：视频下载、B站。
 metadata:
   hermes:
-    category: aria2-download
+    category: productivity
     source: router.yaml
 ---
 

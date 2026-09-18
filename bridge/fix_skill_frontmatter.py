@@ -84,7 +84,8 @@ def _strip_dots(text: str) -> tuple[str, int]:
 def _make_frontmatter(name: str, entry: dict, rel: Path) -> str:
     """按 router 条目生成最小 frontmatter。"""
     desc = (entry.get("description_human") or entry.get("description_model") or "").strip()
-    category = rel.parent.name if rel.parent.name not in {"shared", "dedicated"} else ""
+    # rel 相对 slot 目录：1 段=扁平技能（无分类），3 段=<分类>/<技能>/SKILL.md
+    category = rel.parts[0] if len(rel.parts) == 3 else ""
     meta = f"    category: {category}\n" if category else ""
     return f"---\nname: {name}\ndescription: {desc}\nmetadata:\n  hermes:\n{meta}    source: router.yaml\n---\n\n"
 
