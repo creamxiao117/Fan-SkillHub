@@ -1436,4 +1436,24 @@ skills:
   - 自动执行外部脚本
   - push 到远程
   - 改写全局 git config
+- name: chinese-text-encoding-discipline
+  slot: shared
+  scope: ''
+  invoke: model
+  description_model: 处理中文文本/中文路径时预防与修复乱码——全链路 UTF-8 唯一口径、7 环检查表、编码自检
+  description_human: 中文文本与中文路径编码纪律：定位步骤、7 环检查表、各语言落地片段、编码自检脚本与 pre-commit 门禁
+  trigger:
+  - 乱码
+  - 中文路径
+  - 中文文件名
+  - 编码
+  - UTF-8
+  - GBK
+  - 子进程编码
+  - PYTHONUTF8
+  - check_encoding
+  forgot:
+  - 直接改权威区
+  - push到远程
+  - 与编码无关的字符集转换
   weight: 1.0

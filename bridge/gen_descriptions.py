@@ -61,6 +61,18 @@ def build_description(old: str, triggers: list[str], forgot: list[str]) -> str:
     return new[:MAX_DESC_LEN].rstrip()
 
 
+def _dump_scalar(s: str) -> str:
+    """把字符串 dump 成单行 YAML 标量，并剥掉 PyYAML 自动追加的 `...` 文档结束符。
+
+    坑：PyYAML 对该形态的纯标量会附加 "\n...\n"。直接把结果拼回 frontmatter，
+    等于插入一个 **YAML 文档结束符**，frontmatter 被拆成两个文档 → 严格解析器
+    报 "expected '<document start>', but found '<block mapping start>'"，
+    整个 frontmatter（含 name/description）全部读不出。实测 2026-09-19。
+    """
+    out = yaml.dump(s, allow_unicode=True, width=10**6).strip()
+    return "\n".join(ln for ln in out.splitlines() if ln.strip() != "...")
+
+
 def process(name: str, entry: dict[str, Any], dry_run: bool) -> None:
     md_path = find_skill_md(name)
     if not md_path:
@@ -104,15 +116,18 @@ def process(name: str, entry: dict[str, Any], dry_run: bool) -> None:
         block = mm.group(2)
         block_new, n = re.subn(
             r"^description:\s*.*$",
-            "description: " + yaml.dump(new_desc, allow_unicode=True, width=10**6).strip(),
+            "description: " + _dump_scalar(new_desc),
             block,
             count=1,
             flags=re.MULTILINE,
         )
         if n == 0:  # 原 frontmatter 没有 description 行则追加
-            block_new = block.rstrip("\n") + "\ndescription: " + yaml.dump(
-                new_desc, allow_unicode=True, width=10**6
-            ).strip() + "\n"
+            block_new = (
+                block.rstrip("\n")
+                + "\ndescription: "
+                + _dump_scalar(new_desc)
+                + "\n"
+            )
         return mm.group(1) + block_new + mm.group(3)
 
     updated = re.sub(r"^(---\s*\n)(.*?\n)(---\s*\n)", _sub, raw, count=1, flags=re.DOTALL)
