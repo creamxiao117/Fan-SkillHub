@@ -1,9 +1,6 @@
 ---
 name: "github-star-distill"
 description: 内化 GitHub 项目：隔离克隆->评审判级(A/B+/B/C/D)->B+及以上自动提升->T1人工门禁->沉淀规则/方法论/经验(带负路由边界)到记忆中枢。适用场景：借鉴、参考 GitHub 项目、内化 / 导入 / 投入。勿用于：只是运行某个 GitHub 仓库的单条命令(非提炼沉淀)、需要自动安装仓库依赖或执行仓库内脚本(需人工批准)。
-...
-...
-...
 ---
 
 # GitHub Star Distill (GitHub 明星项目内化)

@@ -1,7 +1,6 @@
 ---
 name: diagram-design
 description: Create branded architecture, IT current-state, flowchart, sequence, state machine, ER/data model, timeline, swimlane, quadrant, radar/spider, polar chart (polar/radial lollipop), loop/flywheel, nested, tree, org chart, l
-...
 license: MIT
 metadata:
   version: "2.6"

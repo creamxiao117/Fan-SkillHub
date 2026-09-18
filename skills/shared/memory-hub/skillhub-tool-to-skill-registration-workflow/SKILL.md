@@ -1,3 +1,12 @@
+---
+name: skillhub-tool-to-skill-registration-workflow
+description: SkillHub 工具→技能注册标准流程：安装验证→骨架创建→router注册→路由测试→git push，含 submodule 处理和晋级链路 适用场景：注册技能、skillhub new、工具注册。勿用于：直接改权威区、改中枢文件。
+metadata:
+  hermes:
+    category: skillhub-tool-to-skill-registration-workflow
+    source: router.yaml
+---
+
 # SkillHub 工具 → 技能注册标准流程
 
 > 适用：当需要把一个新工具纳入 SkillHub 路由体系时触发
