@@ -1,0 +1,43 @@
+# skill.yaml —— 2026-09-10-dashboard-metric-source-mismatch（shared库）
+# 由中枢卡升级生成: .hub/experience/2026-09-10-dashboard-metric-source-mismatch.md
+name: 2026-09-10-dashboard-metric-source-mismatch
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-09-26'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: 看板指标恒为 0 / 空 —— 三个"口径不匹配"静默错误
+description_human: 看板指标恒为 0 / 空 —— 三个"口径不匹配"静默错误
+trigger:
+- 看板指标恒为 0 / 空 —— 三个"口径不匹配"静默错误
+- dashboard
+- hub-health
+- metric-mismatch
+- flywheel
+- skill-scanner
+- silent-zero
+- hub_health
+- local_chat
+- delta
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- .hub/experience/2026-09-10-dashboard-metric-source-mismatch.md
+__reconcile_batch__:
+  batch_size: 5
+  batch_index: 0
+  total_batches: 65
+  total_candidates: 321

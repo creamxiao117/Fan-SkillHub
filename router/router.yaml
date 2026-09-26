@@ -1396,3 +1396,25 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+- name: 2026-09-10-dashboard-metric-source-mismatch
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 看板指标恒为 0 / 空 —— 三个"口径不匹配"静默错误
+  description_human: 看板指标恒为 0 / 空 —— 三个"口径不匹配"静默错误
+  trigger:
+  - 看板指标恒为 0 / 空 —— 三个"口径不匹配"静默错误
+  - dashboard
+  - hub-health
+  - metric-mismatch
+  - flywheel
+  - skill-scanner
+  - silent-zero
+  - hub_health
+  - local_chat
+  - delta
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
