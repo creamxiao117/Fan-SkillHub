@@ -20,6 +20,7 @@ skills:
   - 需要自动安装仓库依赖或执行仓库内脚本(需人工批准)
   weight: 1.0
   status: active
+  deploy_scope: always
 - name: memory-hub-card-promotion
   slot: shared
   scope: memory-hub
@@ -40,6 +41,7 @@ skills:
   - 自动执行中枢权威区外的脚本
   weight: 1.0
   status: active
+  deploy_scope: always
 - name: cross-repo-index-commit
   slot: dedicated
   scope: memory-hub
@@ -59,6 +61,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: always
 - name: superpowers
   slot: shared
   scope: methodology
@@ -86,6 +89,7 @@ skills:
   - 只是想知道
   weight: 0.7
   status: active
+  deploy_scope: always
 - name: seedance
   slot: shared
   scope: media
@@ -101,6 +105,7 @@ skills:
   - 不需要视频生成的场景
   weight: 0.5
   status: active
+  deploy_scope: always
 - name: seedream
   slot: shared
   scope: media
@@ -116,6 +121,7 @@ skills:
   - 不需要图片生成的场景
   weight: 0.5
   status: active
+  deploy_scope: always
 - name: all-in-one-media-notes
   slot: shared
   scope: media
@@ -133,6 +139,7 @@ skills:
   - 不需要媒体处理的场景
   weight: 0.6
   status: active
+  deploy_scope: always
 - name: browser-bridge
   slot: shared
   scope: browser
@@ -150,6 +157,7 @@ skills:
   - 不需要浏览器的场景
   weight: 0.8
   status: active
+  deploy_scope: always
 - name: computer-use
   slot: shared
   scope: desktop
@@ -166,6 +174,7 @@ skills:
   - 不需要桌面操作的场景
   weight: 0.7
   status: active
+  deploy_scope: always
 - name: personal-workbench
   slot: shared
   scope: personal
@@ -185,13 +194,13 @@ skills:
   - 飞书任务等已由 lark 技能覆盖
   weight: 0.5
   status: active
+  deploy_scope: always
 - name: multica
   slot: shared
   scope: multica
   invoke: user
   description_model: 仅当用户点名 Multica 平台操作时触发
-  description_human: Multica 多技能合集：autopilot/agents/projects/squads/mentioning/runtimes/onboarding/issue
-    等 8 个子技能
+  description_human: Multica 多技能合集：autopilot/agents/projects/squads/mentioning/runtimes/onboarding/issue 等 8 个子技能
   trigger:
   - multica
   - autopilot
@@ -203,6 +212,7 @@ skills:
   - 不需要 Multica 平台操作的场景
   weight: 0.5
   status: active
+  deploy_scope: always
 - name: hub-inventory-baseline-audit
   slot: shared
   scope: govern
@@ -219,6 +229,7 @@ skills:
   - 单仓库独立检查
   - 不需要跨库比对的场景
   weight: 0.5
+  deploy_scope: always
 - name: cad-editor
   slot: shared
   scope: visual
@@ -233,6 +244,7 @@ skills:
   - 不需要图纸/可视化时
   - 纯文本处理任务
   - 代码审查
+  deploy_scope: always
 - name: check-code-v1
   slot: shared
   scope: dev
@@ -255,6 +267,7 @@ skills:
   - 只做产品讨论
   - 纯设计任务
   - 不需要检查
+  deploy_scope: always
 - name: chrome
   slot: shared
   scope: browser
@@ -269,6 +282,7 @@ skills:
   - 不需要浏览器
   - 纯本地文件操作
   - CLI 脚本任务
+  deploy_scope: on-demand
 - name: dynamic-ui
   slot: shared
   scope: visual
@@ -283,6 +297,7 @@ skills:
   - 不需要内联视觉
   - 纯文本输出
   - API 调用
+  deploy_scope: on-demand
 - name: github
   slot: shared
   scope: github
@@ -297,6 +312,8 @@ skills:
   - 不涉及 GitHub
   - 纯本地开发
   - 飞书/Lark 操作
+  deploy_scope: always
+  kind: mcp
 - name: hub-mcp
   slot: shared
   scope: memory-hub
@@ -311,6 +328,8 @@ skills:
   - 不涉及 MCP 服务器
   - 纯本地开发
   - CLI 工具
+  deploy_scope: on-demand
+  kind: mcp
 - name: integrated_code_mode
   slot: shared
   scope: core
@@ -325,6 +344,7 @@ skills:
   - 不需要代码质量检查
   - 只做产品讨论
   - 纯设计任务
+  deploy_scope: on-demand
 - name: integrated_goal
   slot: shared
   scope: core
@@ -339,6 +359,7 @@ skills:
   - 不需要 JavaScript 运行时
   - Python/Go 后端
   - CLI 工具
+  deploy_scope: on-demand
 - name: lark
   slot: shared
   scope: lark
@@ -353,6 +374,7 @@ skills:
   - 不涉及飞书
   - 本地文件操作
   - GitHub 相关
+  deploy_scope: on-demand
 - name: mcp_Computer_Use
   slot: shared
   scope: desktop
@@ -367,6 +389,8 @@ skills:
   - 不涉及 MCP 服务器
   - 纯本地开发
   - CLI 工具
+  deploy_scope: on-demand
+  kind: mcp
 - name: mcp_apple_shortcuts
   slot: shared
   scope: apple
@@ -381,6 +405,8 @@ skills:
   - 不涉及 MCP 服务器
   - 纯本地开发
   - CLI 工具
+  deploy_scope: on-demand
+  kind: mcp
 - name: mcp_plugin_GitHub_github
   slot: shared
   scope: github
@@ -395,6 +421,8 @@ skills:
   - 不涉及 GitHub
   - 纯本地开发
   - 飞书/Lark 操作
+  deploy_scope: on-demand
+  kind: mcp
 - name: mcp_trends-hub
   slot: shared
   scope: trends
@@ -409,6 +437,8 @@ skills:
   - 不涉及 MCP 服务器
   - 纯本地开发
   - CLI 工具
+  deploy_scope: on-demand
+  kind: mcp
 - name: obsidian
   slot: shared
   scope: obsidian
@@ -423,6 +453,7 @@ skills:
   - 不涉及 Obsidian
   - 纯代码任务
   - 飞书文档操作
+  deploy_scope: always
 - name: pdf
   slot: shared
   scope: document
@@ -437,6 +468,7 @@ skills:
   - 不涉及 PDF 文件
   - 纯代码任务
   - 飞书文档操作
+  deploy_scope: always
 - name: pdf-monster
   slot: shared
   scope: document
@@ -451,6 +483,7 @@ skills:
   - 不涉及 PDF 文件
   - 纯代码任务
   - 飞书文档操作
+  deploy_scope: on-demand
 - name: pdf-reader
   slot: shared
   scope: document
@@ -465,6 +498,7 @@ skills:
   - 不涉及 PDF 文件
   - 纯代码任务
   - 飞书文档操作
+  deploy_scope: always
 - name: skill-creator
   slot: shared
   scope: dev
@@ -478,6 +512,7 @@ skills:
   forgot:
   - 不相关场景
   - 与本技能无关的任务
+  deploy_scope: always
 - name: vercel-react-best-practices
   slot: shared
   scope: web
@@ -492,6 +527,7 @@ skills:
   - 不涉及 React/Next.js
   - 后端/基础设施任务
   - 纯设计
+  deploy_scope: on-demand
 - name: excel-author
   slot: shared
   scope: productivity
@@ -506,6 +542,7 @@ skills:
   - 读csv用pandas即可
   weight: 1.0
   status: active
+  deploy_scope: always
 - name: diagram-design
   slot: shared
   scope: creative
@@ -520,6 +557,7 @@ skills:
   - 简单mermaid即可的场景
   weight: 1.0
   status: active
+  deploy_scope: always
 - name: context-engineering-v1
   slot: shared
   scope: engineering
@@ -534,6 +572,7 @@ skills:
   - 一般prompt提问
   weight: 1.0
   status: active
+  deploy_scope: always
 - name: skill-authoring-verify-blueprint
   slot: shared
   scope: govern
@@ -555,6 +594,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: skill-governance-blueprint
   slot: shared
   scope: govern
@@ -573,6 +613,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: skill-governance-playbook
   slot: shared
   scope: govern
@@ -594,6 +635,7 @@ skills:
   - 答疑
   - 装插件
   weight: 1.0
+  deploy_scope: on-demand
 - name: skill-quality-governance-blueprint
   slot: shared
   scope: govern
@@ -616,6 +658,7 @@ skills:
   - install
   - 答疑
   weight: 1.0
+  deploy_scope: on-demand
 - name: bge-small-zh-sqlite-vector-search
   slot: shared
   scope: ''
@@ -640,6 +683,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: local-dense-retrieval-model-selection
   slot: dedicated
   scope: memory-hub
@@ -664,6 +708,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: hub-schema-drift-remediation
   slot: shared
   scope: memory-hub
@@ -683,17 +728,15 @@ skills:
   - 直接改权威区
   - push 到远程
   weight: 1.0
+  deploy_scope: on-demand
 - name: retrieve-english-stopword-overhit
   slot: shared
   scope: ''
   invoke: user
-  description_model: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag
-    → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
-  description_human: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag
-    → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
+  description_model: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
+  description_human: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
   trigger:
-  - deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加
-    _EN_STOP 停用词过滤（真机验证收敛）
+  - deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
   - retrieve
   - semantic-search
   - stopword
@@ -709,6 +752,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: ideation-github-scan
   slot: shared
   scope: ''
@@ -730,17 +774,15 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: activedirs-five-type-discipline
   slot: shared
   scope: ''
   invoke: user
-  description_model: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
-    绝不能缺席
-  description_human: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
-    绝不能缺席
+  description_model: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience 绝不能缺席
+  description_human: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience 绝不能缺席
   trigger:
-  - 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
-    绝不能缺席
+  - 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience 绝不能缺席
   - retrieval
   - active-dirs
   - five-type-policy
@@ -759,6 +801,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: autocad-5layer-testing-bench-6-7x
   slot: shared
   scope: ''
@@ -786,6 +829,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: autocad-com-automation-deadlock
   slot: dedicated
   scope: autocad
@@ -814,6 +858,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: autocad-dbtext-geometric-extents-degenerate-position
   slot: shared
   scope: ''
@@ -832,14 +877,13 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: autocad-dll-version-lock-v51-practice
   slot: shared
   scope: ''
   invoke: user
-  description_model: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD
-    全改、进程释放）
-  description_human: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD
-    全改、进程释放）
+  description_model: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）
+  description_human: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）
   trigger:
   - DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）
   - AutoCAD
@@ -859,6 +903,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: one-three-one-rule
   slot: shared
   platform_tags:
@@ -880,6 +925,7 @@ skills:
   - 不需要推荐建议的简单查询
   weight: 0.8
   status: active
+  deploy_scope: on-demand
 - name: ascii-art
   slot: shared
   platform_tags:
@@ -901,6 +947,7 @@ skills:
   - 不需要视觉装饰的简单回复
   weight: 0.6
   status: active
+  deploy_scope: on-demand
 - name: concept-diagrams
   slot: shared
   platform_tags:
@@ -924,6 +971,7 @@ skills:
   - 不需要可视化的简单分析
   weight: 0.7
   status: active
+  deploy_scope: on-demand
 - name: meme-generation
   slot: shared
   platform_tags:
@@ -945,6 +993,7 @@ skills:
   - 不需要娱乐性图像的场景
   weight: 0.5
   status: active
+  deploy_scope: on-demand
 - name: jupyter-notebook
   slot: dedicated
   platform_tags:
@@ -965,6 +1014,7 @@ skills:
   - 不需要 notebook 特定功能的场景
   weight: 0.8
   status: active
+  deploy_scope: on-demand
 - name: fastmcp
   slot: shared
   platform_tags:
@@ -986,6 +1036,7 @@ skills:
   - 不涉及 MCP 开发的场景
   weight: 0.8
   status: active
+  deploy_scope: on-demand
 - name: here-now
   slot: shared
   platform_tags:
@@ -1007,6 +1058,7 @@ skills:
   - 不需要托管服务的场景
   weight: 0.6
   status: active
+  deploy_scope: on-demand
 - name: duckduckgo-search
   slot: shared
   platform_tags:
@@ -1029,6 +1081,7 @@ skills:
   - 需要登录认证的搜索服务
   weight: 0.8
   status: active
+  deploy_scope: on-demand
 - name: qmd
   slot: dedicated
   platform_tags:
@@ -1047,6 +1100,7 @@ skills:
   - Windows 环境（该技能主要为 macOS/Linux 设计）
   weight: 0.7
   status: active
+  deploy_scope: on-demand
 - name: scrapling
   slot: shared
   platform_tags:
@@ -1056,8 +1110,7 @@ skills:
   scope: research
   invoke: user
   description_model: 当需要抓取动态渲染页面（JS 加载内容、Cloudflare 保护站点）时触发
-  description_human: scrapling 动态网页抓取工具：支持 JS 渲染页面 stealth 抓取、Cloudflare 绕过，适用于需要执行
-    JavaScript 才能获取内容的站点
+  description_human: scrapling 动态网页抓取工具：支持 JS 渲染页面 stealth 抓取、Cloudflare 绕过，适用于需要执行 JavaScript 才能获取内容的站点
   trigger:
   - scrapling
   - 动态网页抓取
@@ -1070,6 +1123,7 @@ skills:
   - 不需要 JavaScript 执行的内容
   weight: 0.8
   status: active
+  deploy_scope: on-demand
 - name: 1password
   slot: shared
   platform_tags:
@@ -1079,8 +1133,7 @@ skills:
   scope: security
   invoke: user
   description_model: 当需要从 1Password 读取或注入密钥/凭证时触发（需已安装 1Password CLI）
-  description_human: 1Password CLI 集成工具：通过 op CLI 读取/注入密钥和凭证，适用于安全凭证管理（需本地安装 1Password
-    和 op CLI）
+  description_human: 1Password CLI 集成工具：通过 op CLI 读取/注入密钥和凭证，适用于安全凭证管理（需本地安装 1Password 和 op CLI）
   trigger:
   - 1Password
   - op CLI
@@ -1093,6 +1146,7 @@ skills:
   - 未安装 1Password 的环境
   weight: 0.7
   status: active
+  deploy_scope: on-demand
 - name: sherlock
   slot: shared
   platform_tags:
@@ -1102,8 +1156,7 @@ skills:
   scope: security
   invoke: user
   description_model: 当需要在 400+ 社交平台检索某用户名是否存在（OSINT 调查）时触发
-  description_human: Sherlock OSINT 工具：在 400+ 社交平台跨平台检索用户名，用于账号排查、舆情监控、安全审计（需 pipx/pip
-    安装）
+  description_human: Sherlock OSINT 工具：在 400+ 社交平台跨平台检索用户名，用于账号排查、舆情监控、安全审计（需 pipx/pip 安装）
   trigger:
   - Sherlock
   - sherlock
@@ -1116,6 +1169,7 @@ skills:
   - 非 OSINT 用途的账号管理
   weight: 0.7
   status: active
+  deploy_scope: on-demand
 - name: aria2-download
   slot: shared
   invoke: user
@@ -1134,6 +1188,7 @@ skills:
   - B站
   - YouTube
   - 小文件
+  deploy_scope: on-demand
 - name: t12-check-code-v1-full-fix
   slot: shared
   scope: ''
@@ -1154,6 +1209,14 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: task
+  install:
+    kind: copy
+    from: skills/**/t12-check-code-v1-full-fix
+    to: .pi/skills/t12-check-code-v1-full-fix
+  verify:
+    kind: exists
+    path: .pi/skills/t12-check-code-v1-full-fix/SKILL.md
 - name: t14-safe-patch-replace-hermes-patch
   slot: shared
   scope: ''
@@ -1173,6 +1236,14 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: task
+  install:
+    kind: copy
+    from: skills/**/t14-safe-patch-replace-hermes-patch
+    to: .pi/skills/t14-safe-patch-replace-hermes-patch
+  verify:
+    kind: exists
+    path: .pi/skills/t14-safe-patch-replace-hermes-patch/SKILL.md
 - name: api-data-shape-mismatch-returns-missing-true
   slot: shared
   scope: ''
@@ -1198,14 +1269,13 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: skillhub-tool-to-skill-registration-workflow
   slot: shared
   invoke: model
   scope: skillhub
-  description_model: 当需要把新工具注册为 SkillHub 技能，或需执行 skillhub record / promote / reconcile
-    等运维操作时触发
-  description_human: SkillHub 工具→技能注册标准流程：安装验证→骨架创建→router注册→路由测试→git push，含 submodule
-    处理和晋级链路
+  description_model: 当需要把新工具注册为 SkillHub 技能，或需执行 skillhub record / promote / reconcile 等运维操作时触发
+  description_human: SkillHub 工具→技能注册标准流程：安装验证→骨架创建→router注册→路由测试→git push，含 submodule 处理和晋级链路
   trigger:
   - 注册技能
   - skillhub new
@@ -1220,6 +1290,7 @@ skills:
   - 执行外部脚本
   - push到远程
   weight: 1.0
+  deploy_scope: on-demand
 - name: t22-3agent-parallel-dispatch-real-test
   slot: shared
   scope: ''
@@ -1241,6 +1312,14 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: task
+  install:
+    kind: copy
+    from: skills/**/t22-3agent-parallel-dispatch-real-test
+    to: .pi/skills/t22-3agent-parallel-dispatch-real-test
+  verify:
+    kind: exists
+    path: .pi/skills/t22-3agent-parallel-dispatch-real-test/SKILL.md
 - name: t23-遇到问题先查中枢再下结论
   slot: shared
   scope: ''
@@ -1261,6 +1340,14 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: task
+  install:
+    kind: copy
+    from: skills/**/t23-遇到问题先查中枢再下结论
+    to: .pi/skills/t23-遇到问题先查中枢再下结论
+  verify:
+    kind: exists
+    path: .pi/skills/t23-遇到问题先查中枢再下结论/SKILL.md
 - name: t24-http-server-iframe-enter-bind-pitfalls
   slot: shared
   scope: ''
@@ -1280,6 +1367,14 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: task
+  install:
+    kind: copy
+    from: skills/**/t24-http-server-iframe-enter-bind-pitfalls
+    to: .pi/skills/t24-http-server-iframe-enter-bind-pitfalls
+  verify:
+    kind: exists
+    path: .pi/skills/t24-http-server-iframe-enter-bind-pitfalls/SKILL.md
 - name: 2026-09-10-12gb-vram-model-selection-and-qwen35-9b-48k-fix
   slot: shared
   scope: ''
@@ -1308,6 +1403,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: 2026-09-10-json-schema-version-envelope-downgrade-guard
   slot: shared
   scope: ''
@@ -1334,19 +1430,15 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: 2026-09-10-k2-horizon-7b-consumer-gpu-deploy
   slot: shared
   scope: ''
   invoke: user
-  description_model: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon
-    分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV
-    池为负）（2026-09-10）
-  description_human: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon
-    分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV
-    池为负）（2026-09-10）
+  description_model: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon 分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
+  description_human: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon 分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
   trigger:
-  - 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon 分支）+
-    Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
+  - 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon 分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
   - local-llm
   - k2-horizon
   - llama-cpp
@@ -1365,6 +1457,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: 2026-09-10-low-coverage-hides-real-bugs-scheduler-args
   slot: shared
   scope: ''
@@ -1390,6 +1483,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: 2026-09-10-parallel-edit-same-file-loss
   slot: shared
   scope: ''
@@ -1415,6 +1509,7 @@ skills:
   - push 到远程
   - 改写全局 git config
   weight: 1.0
+  deploy_scope: on-demand
 - name: 2026-09-10-dashboard-metric-source-mismatch
   slot: shared
   scope: ''
@@ -1436,6 +1531,7 @@ skills:
   - 自动执行外部脚本
   - push 到远程
   - 改写全局 git config
+  deploy_scope: on-demand
 - name: chinese-text-encoding-discipline
   slot: shared
   scope: ''
@@ -1457,3 +1553,4 @@ skills:
   - push到远程
   - 与编码无关的字符集转换
   weight: 1.0
+  deploy_scope: on-demand
