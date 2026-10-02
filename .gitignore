@@ -16,3 +16,6 @@ work/
 .hub/
 # cron 每日重写的派生审核队列（仅存磁盘，不入库；2026-09-19 Hermes 止血）
 cards/skill-candidates/
+
+# 编辑器/修复器留下的中间备份（不是产物，不入库）
+*.bak-*

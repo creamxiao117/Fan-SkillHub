@@ -15,7 +15,21 @@ from typing import Any
 import yaml
 
 # 命中结果仅携带给调用方做 JIT 决策的元数据键
-HIT_KEYS = ("name", "slot", "scope", "invoke", "description_human", "description_model")
+HIT_KEYS = (
+    "name",
+    "slot",
+    "scope",
+    "invoke",
+    "description_human",
+    "description_model",
+    # M2/Task 16：调用方（如记忆中枢的 tier-bootstrap）据此决定「能不能任务级装」
+    "kind",
+    "deploy_scope",
+)
+
+
+ALLOWED_KINDS = {"skill", "mcp", "cli"}
+ALLOWED_DEPLOY_SCOPES = {"always", "task", "on-demand"}
 
 
 class RouterError(ValueError):
@@ -58,6 +72,34 @@ def _validate(rows: list[dict[str, Any]]) -> None:
             raise RouterError(f"技能 {name} 的 forgot(负路由边界)必须非空")
         if not r.get("trigger"):
             raise RouterError(f"技能 {name} 的 trigger 必须非空")
+        # ---- M2/Task 16：能力类型 / 部署范围 / 「临时装」的门槛 ----
+        kind = r.get("kind") or "skill"
+        if kind not in ALLOWED_KINDS:
+            raise RouterError(f"技能 {name} 的 kind 非法: {kind}（允许 {sorted(ALLOWED_KINDS)}）")
+        scope = r.get("deploy_scope") or "always"
+        if scope not in ALLOWED_DEPLOY_SCOPES:
+            raise RouterError(
+                f"技能 {name} 的 deploy_scope 非法: {scope}（允许 {sorted(ALLOWED_DEPLOY_SCOPES)}）"
+            )
+        # deploy_scope=task 是**有门槛的声明**：装了没法验、卸了没法证 ⇒ 临时装必然退化成永久装
+        if scope == "task":
+            missing = [k for k in ("install", "verify") if not isinstance(r.get(k), dict) or not r[k]]
+            if missing:
+                raise RouterError(
+                    f"技能 {name} 声明 deploy_scope=task，但缺 {missing} —— "
+                    "task 装必须同时给出 install 与 verify（装了要能验、卸了要能证）"
+                )
+        for key in ("install", "uninstall", "verify"):
+            recipe = r.get(key)
+            if recipe is None:
+                continue
+            if not isinstance(recipe, dict):
+                raise RouterError(f"技能 {name} 的 {key} 必须是对象（配方）")
+            rk = recipe.get("kind")
+            if rk not in {"copy", "command", "exists"}:
+                raise RouterError(
+                    f"技能 {name} 的 {key}.kind 非法: {rk}（允许 copy/command/exists）"
+                )
 
 
 def _match(row: dict[str, Any], query: str) -> str:

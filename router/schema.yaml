@@ -58,6 +58,75 @@ weight:
   default: 1.0
   desc: 基础命中级优先度；反触发降权在此基础上递减。
 
+# ----- 能力类型与部署（M2/Task 16：「装→验→卸」可执行的前提）-----
+kind:
+  type: enum
+  values: [skill, mcp, cli]
+  required: false
+  default: skill
+  desc: >
+    能力种类。**同一张表表达三类能力**，不为 MCP/CLI 另建一份台账
+    （两份记同一件事的台账必然漂移；实测源始终是各客户端配置实测态）。
+
+deploy_scope:
+  type: enum
+  values: [always, task, on-demand]
+  required: false
+  default: always
+  desc: >
+    部署范围。always=常驻（装在客户端，每会话付发现成本）；task=**任务级临时装**
+    （任务开头装到项目级目录，任务结束**必须卸**）；on-demand=按需（用到才装，可长期留）。
+    判据：常驻的写 always；只在特定项目/一次性任务里用的写 task。
+
+install:
+  type: object
+  required: false
+  fields:
+    kind: {type: enum, values: [copy, command], desc: copy=只复制文件；command=跑命令}
+    from: {desc: "kind=copy 时的源（SkillHub 内相对路径）"}
+    to: {desc: "kind=copy 时的落点（目标项目内相对路径）"}
+    command: {desc: "kind=command 时的命令（需用户批准后手动跑）"}
+  desc: >
+    安装配方。`kind: copy` 是**唯一允许被自动执行**的形式——**只复制文件，绝不执行**
+    （外部仓内容不可信，SkillHub 既有纪律）。`kind: command` 必须由用户批准后手动执行。
+
+uninstall:
+  type: object
+  required: false
+  fields: {同上: null}
+  desc: 卸载配方；省略时默认「删除 install 落点」。
+
+verify:
+  type: object
+  required: false
+  fields:
+    kind: {type: enum, values: [exists, command]}
+    path: {desc: "kind=exists 时须存在的文件/目录"}
+    command: {desc: "kind=command 时用来判定的命令"}
+  desc: >
+    **验证配方（装后与卸后都要能验证）**。判据是「行为」而非「配置文件」：
+    装完要能验证*确实可用*，卸完要能验证*确实没了*。
+
+constraint: >
+  **deploy_scope=task ⇒ install 与 verify 都必须给出**（由 router.tools.router._validate 强制）。
+  理由：装了没法验、卸了没法证 = 临时装必然退化成永久装，不许声明为 task。
+
+requires:
+  type: array
+  items: string
+  required: false
+  desc: 前置能力名（另一个能力）或环境要求（如 python>=3.11）。前置缺失时不得自动安装。
+
+discovery_cost:
+  type: int
+  required: false
+  derived: true
+  desc: >
+    **派生字段，禁止手填**（手填 = 第二个事实源，必然与实测漂移）。
+    派生口径 = len(description_model) // 4。实测源 = 记忆中枢
+    `system/capabilities.json` 的 `per_session_tokens`
+    （由 `hub-engine scripts/capability_scan --write` 渲染）。
+
 # ----- 复杂度路由判据（全局，仅此处判定，不复制到每个技能） -----
 complexity:
   type: object
