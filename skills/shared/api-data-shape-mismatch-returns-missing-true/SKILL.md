@@ -1,6 +1,6 @@
 ---
 name: "api-data-shape-mismatch-returns-missing-true"
-description: "API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true(由中枢 exp 卡升级, 源: api-data-shape-mismatch-returns-missing-true.md)"
+description: 'API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true(由中枢 exp 卡升级, 源: api-data-shape-mismatch-returns-missing-true.md) 适用场景：API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true、mavis、MiniMax-Code。勿用于：自动执行外部脚本、push 到远程。'
 ---
 
 # API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true

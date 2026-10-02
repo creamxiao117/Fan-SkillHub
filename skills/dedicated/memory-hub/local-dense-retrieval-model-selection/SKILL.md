@@ -1,6 +1,6 @@
 ---
 name: "local-dense-retrieval-model-selection"
-description: "本地稠密检索模型选型(由中枢 blueprint 卡升级, 源: local-dense-retrieval-model-selection.md)"
+description: '本地稠密检索模型选型(由中枢 blueprint 卡升级, 源: local-dense-retrieval-model-selection.md) 适用场景：本地稠密检索模型选型、embedding、semantic-search。勿用于：自动执行外部脚本、push 到远程。'
 ---
 
 # 本地稠密检索模型选型

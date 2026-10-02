@@ -1,6 +1,6 @@
 ---
 name: "skill-authoring-verify-blueprint"
-description: "Skill 作者级验证门禁：纯标准库整树完整性校验范本(由中枢 blueprint 卡升级, 源: skill-authoring-verify-blueprint.md)"
+description: 'Skill 作者级验证门禁：纯标准库整树完整性校验范本(由中枢 blueprint 卡升级, 源: skill-authoring-verify-blueprint.md) 适用场景：Skill 作者级验证门禁：纯标准库整树完整性校验范本、skill-verification、lint。勿用于：自动执行外部脚本、push 到远程。'
 ---
 
 # Skill 作者级验证门禁：纯标准库整树完整性校验范本

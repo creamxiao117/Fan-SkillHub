@@ -1,6 +1,6 @@
 ---
 name: "autocad-dll-version-lock-v51-practice"
-description: "DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）(由中枢 exp 卡升级, 源: autocad-dll-version-lock-v51-practice.md)"
+description: 'DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）(由中枢 exp 卡升级, 源: autocad-dll-version-lock-v51-practice.md) 适用场景：DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）、AutoCAD、DLL'
 ---
 
 # DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）

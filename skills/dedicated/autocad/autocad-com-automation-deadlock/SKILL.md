@@ -1,6 +1,6 @@
 ---
 name: "autocad-com-automation-deadlock"
-description: "AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）(由中枢 exp 卡升级, 源: autocad-com-automation-deadlock.md)"
+description: 'AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）(由中枢 exp 卡升级, 源: autocad-com-automation-deadlock.md) 适用场景：AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）、netload、加载失败。勿用于：自动执行外部脚本、push 到远程。'
 ---
 
 # AutoCAD COM 自动化死锁（模态态拒调用）+ Editor 交互不读命令行（自动化须写不交互命令）

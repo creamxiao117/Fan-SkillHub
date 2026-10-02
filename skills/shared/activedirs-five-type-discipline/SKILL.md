@@ -1,6 +1,6 @@
 ---
 name: "activedirs-five-type-discipline"
-description: "检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience 绝不能缺席(由中枢 exp 卡升级, 源: activedirs-five-type-discipline.md)"
+description: '检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience 绝不能缺席(由中枢 exp 卡升级, 源: activedirs-five-type-discipline.md) Use when: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/bl'
 ---
 
 # 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience 绝不能缺席

@@ -1,6 +1,6 @@
 ---
 name: "autocad-5layer-testing-bench-6-7x"
-description: "AutoCAD 5 层测试矩阵(由中枢 exp 卡升级, 源: autocad-5layer-testing-bench-6-7x.md)"
+description: 'AutoCAD 5 层测试矩阵(由中枢 exp 卡升级, 源: autocad-5layer-testing-bench-6-7x.md) 适用场景：AutoCAD 5 层测试矩阵、AutoCAD、测试。勿用于：自动执行外部脚本、push 到远程。'
 ---
 
 # AutoCAD 5 层测试矩阵

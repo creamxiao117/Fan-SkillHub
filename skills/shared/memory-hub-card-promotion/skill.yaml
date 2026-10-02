@@ -1,5 +1,5 @@
 name: memory-hub-card-promotion
-version: 0.1.0
+version: 0.1.1
 slot: shared
 scope: null
 tags:
@@ -10,7 +10,7 @@ tags:
 - workflow
 status: active
 reuse_count: 1
-updated: '2026-08-25'
+updated: '2026-10-02'
 evidence:
   gate: required
   grade: pending

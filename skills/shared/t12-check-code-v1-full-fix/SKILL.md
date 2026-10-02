@@ -1,6 +1,6 @@
 ---
 name: "t12-check-code-v1-full-fix"
-description: "check-code-v1 全面修复 T12 实录(由中枢 exp 卡升级, 源: T12-check-code-v1-full-fix.md)"
+description: 'check-code-v1 全面修复 T12 实录(由中枢 exp 卡升级, 源: T12-check-code-v1-full-fix.md) 适用场景：check-code-v1 全面修复 T12 实录、check-code-v1、ruff。勿用于：自动执行外部脚本、push 到远程。'
 ---
 
 # check-code-v1 全面修复 T12 实录

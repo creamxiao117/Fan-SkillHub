@@ -1,6 +1,6 @@
 ---
 name: "skill-governance-blueprint"
-description: "Agent 技能仓库治理类项目 · 技术路径蓝图(由中枢 blueprint 卡升级, 源: skill-governance-blueprint.md)"
+description: 'Agent 技能仓库治理类项目 · 技术路径蓝图(由中枢 blueprint 卡升级, 源: skill-governance-blueprint.md) 适用场景：Agent 技能仓库治理类项目 · 技术路径蓝图、skill-governance、agent-workflow。勿用于：自动执行外部脚本、push 到远程。'
 ---
 
 # Agent 技能仓库治理类项目 · 技术路径蓝图

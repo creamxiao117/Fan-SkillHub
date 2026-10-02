@@ -1,6 +1,6 @@
 ---
 name: "ideation-github-scan"
-description: "立项研究(由中枢 blueprint 卡升级, 源: ideation-github-scan.md)"
+description: '立项研究(由中枢 blueprint 卡升级, 源: ideation-github-scan.md) 适用场景：立项研究、context-engineering、research。勿用于：自动执行外部脚本、push 到远程。'
 ---
 
 # 立项研究

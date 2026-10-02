@@ -1,6 +1,6 @@
 ---
 name: "t14-safe-patch-replace-hermes-patch"
-description: "T14 safe_patch 替代 Hermes patch —— 完整复盘(由中枢 exp 卡升级, 源: T14-safe-patch-replace-hermes-patch.md)"
+description: 'T14 safe_patch 替代 Hermes patch —— 完整复盘(由中枢 exp 卡升级, 源: T14-safe-patch-replace-hermes-patch.md) Use when: T14 safe_patch 替代 Hermes patch —— 完整复盘, safe-patch, hermes-tool-replace. ; NOT for 自动执行外部脚本, push 到远程.'
 ---
 
 # T14 safe_patch 替代 Hermes patch —— 完整复盘

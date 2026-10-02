@@ -1,6 +1,6 @@
 ---
 name: "bge-small-zh-sqlite-vector-search"
-description: "实践(由中枢 blueprint 卡升级, 源: bge-small-zh-sqlite-vector-search.md)"
+description: '实践(由中枢 blueprint 卡升级, 源: bge-small-zh-sqlite-vector-search.md) Use when: 实践, semantic-search, embedding. ; NOT for 自动执行外部脚本, push 到远程.'
 ---
 
 # 实践

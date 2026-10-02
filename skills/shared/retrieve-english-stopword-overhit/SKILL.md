@@ -1,6 +1,6 @@
 ---
 name: "retrieve-english-stopword-overhit"
-description: "deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）(由中枢 blueprint 卡升级, 源: retrieve-english-stopword-overhit.md)"
+description: 'deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）(由中枢 blueprint 卡升级, 源: retrieve-english-stopword-overhit.md) 适用场景：deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含'
 ---
 
 # deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）

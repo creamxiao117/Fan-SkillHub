@@ -1,6 +1,6 @@
 ---
 name: "autocad-dbtext-geometric-extents-degenerate-position"
-description: "DBText/MText 包围盒爆炸 (>100mm) 退化到实体真实 Position，避免点选被长文字覆盖(由中枢 exp 卡升级, 源: autocad-dbtext-geometric-extents-degenerate-position.md)"
+description: 'DBText/MText 包围盒爆炸 (>100mm) 退化到实体真实 Position，避免点选被长文字覆盖(由中枢 exp 卡升级, 源: autocad-dbtext-geometric-extents-degenerate-position.md) 适用场景：DBText/MText 包围盒爆炸 (>100mm) 退化到实体真实 Position，避免点选被长文字覆盖、DBText、MText。勿用于：自动执行外部脚本、push'
 ---
 
 # DBText/MText 包围盒爆炸 (>100mm) 退化到实体真实 Position，避免点选被长文字覆盖

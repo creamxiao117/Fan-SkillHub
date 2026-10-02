@@ -1,6 +1,6 @@
 ---
 name: "skill-quality-governance-blueprint"
-description: "技能质量量化治理 × 路由打分增强 · 技术路径蓝图(由中枢 methodology 卡升级, 源: skill-quality-governance-blueprint.md)"
+description: '技能质量量化治理 × 路由打分增强 · 技术路径蓝图(由中枢 methodology 卡升级, 源: skill-quality-governance-blueprint.md) 适用场景：技能质量量化治理 × 路由打分增强 · 技术路径蓝图、skill-governance、quality-metrics。勿用于：安装、install。'
 ---
 
 # 技能质量量化治理 × 路由打分增强 · 技术路径蓝图

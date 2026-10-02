@@ -1,6 +1,6 @@
 ---
 name: "skill-governance-playbook"
-description: "技能治理操作手册（聚合导航）(由中枢 blueprint 卡升级, 源: skill-governance-playbook.md)"
+description: '技能治理操作手册（聚合导航）(由中枢 blueprint 卡升级, 源: skill-governance-playbook.md) 适用场景：技能治理操作手册（聚合导航）、skill-governance、playbook。勿用于：安装、install。'
 ---
 
 # 技能治理操作手册（聚合导航）
