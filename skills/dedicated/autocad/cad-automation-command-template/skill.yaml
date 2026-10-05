@@ -1,6 +1,7 @@
 # skill.yaml —— cad-automation-command-template（dedicated库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\cad-automation-command-template.md
 name: cad-automation-command-template
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: autocad
@@ -19,7 +20,6 @@ invoke: user
 description_model: CAD 插件命令自动化模板：XxxCore(useUi) + 非交互变体 + 可 grep 输出
 description_human: CAD 插件命令自动化模板：XxxCore(useUi) + 非交互变体 + 可 grep 输出
 trigger:
-- CAD 插件命令自动化模板：XxxCore(useUi) + 非交互变体 + 可 grep 输出
 - autocad
 - dotnet
 - automation

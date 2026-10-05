@@ -1,4 +1,5 @@
 name: cross-repo-index-commit
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: memory-hub
@@ -21,8 +22,6 @@ trigger:
 - 跨仓库提交
 - 跨库登记
 - 跨库提交
-- 中枢 INDEX
-- INDEX 补登记
 - 独立仓库改文件
 - 跨库改文件
 forgot:

@@ -1,6 +1,7 @@
 # skill.yaml —— mavis-as-5th-platform（dedicated库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\mavis-as-5th-platform.md
 name: mavis-as-5th-platform
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: memory-hub
@@ -19,7 +20,6 @@ invoke: user
 description_model: mavis (MiniMax Code) 作为第 5 平台接入 AgentMemoryHub
 description_human: mavis (MiniMax Code) 作为第 5 平台接入 AgentMemoryHub
 trigger:
-- mavis (MiniMax Code) 作为第 5 平台接入 AgentMemoryHub
 - mavis
 - MiniMax-Code
 - mavis

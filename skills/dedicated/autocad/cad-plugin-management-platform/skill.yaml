@@ -1,6 +1,7 @@
 # skill.yaml —— cad-plugin-management-platform（dedicated库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\cad-plugin-management-platform.md
 name: cad-plugin-management-platform
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: autocad

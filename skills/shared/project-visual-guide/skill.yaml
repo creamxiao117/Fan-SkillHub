@@ -1,6 +1,7 @@
 # skill.yaml —— project-visual-guide（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\project-visual-guide.md
 name: project-visual-guide
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 【可视化】骨架稳定后补一页项目可视化（project-visual-guide.md，Mermaid/结构化 MD）；小任务可跳过。
 description_human: 【可视化】骨架稳定后补一页项目可视化（project-visual-guide.md，Mermaid/结构化 MD）；小任务可跳过。
 trigger:
-- 【可视化】骨架稳定后补一页项目可视化（project-visual-guide.md，Mermaid/结构化 MD）；小任务可跳过。
 - context-engineering
 - visualize
 forgot:

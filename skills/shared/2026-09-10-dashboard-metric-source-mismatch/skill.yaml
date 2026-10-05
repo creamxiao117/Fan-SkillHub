@@ -1,6 +1,7 @@
 # skill.yaml —— 2026-09-10-dashboard-metric-source-mismatch（shared库）
 # 由中枢卡升级生成: .hub/experience/2026-09-10-dashboard-metric-source-mismatch.md
 name: 2026-09-10-dashboard-metric-source-mismatch
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 看板指标恒为 0 / 空 —— 三个"口径不匹配"静默错误
 description_human: 看板指标恒为 0 / 空 —— 三个"口径不匹配"静默错误
 trigger:
-- 看板指标恒为 0 / 空 —— 三个"口径不匹配"静默错误
 - dashboard
 - hub-health
 - metric-mismatch

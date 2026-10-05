@@ -1,6 +1,7 @@
 # skill.yaml —— mcp-hub-mount-guaranteed-retrieval（dedicated库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\mcp-hub-mount-guaranteed-retrieval.md
 name: mcp-hub-mount-guaranteed-retrieval
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: memory-hub
@@ -19,7 +20,6 @@ invoke: user
 description_model: MCP 挂载范式：保证对中枢 100% 检索命中
 description_human: MCP 挂载范式：保证对中枢 100% 检索命中
 trigger:
-- MCP 挂载范式：保证对中枢 100% 检索命中
 - cross-platform
 - mcp
 - memory-hub

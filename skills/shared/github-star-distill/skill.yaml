@@ -1,4 +1,5 @@
 name: github-star-distill
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: null
@@ -18,9 +19,6 @@ description_model: 用户给出 GitHub 仓库链接，表示想借鉴/参考/提
 description_human: 把 GitHub 明星项目内化为带适用边界的可复用经验/方法论，沉淀到统一记忆中枢
 trigger:
 - 借鉴
-- 参考 GitHub 项目
-- 内化 / 导入 / 投入
-- distill github repo
 forgot:
 - 只是运行某个 GitHub 仓库的单条命令(非提炼沉淀)
 - 需要自动安装仓库依赖或执行仓库内脚本(需人工批准)

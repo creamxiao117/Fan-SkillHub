@@ -1,6 +1,7 @@
 # skill.yaml —— omniroute-local-deployment（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\omniroute-local-deployment.md
 name: omniroute-local-deployment
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: OmniRoute 本机部署全貌（网关 / 容器网络 / 引擎配置）
 description_human: OmniRoute 本机部署全貌（网关 / 容器网络 / 引擎配置）
 trigger:
-- OmniRoute 本机部署全貌（网关 / 容器网络 / 引擎配置）
 - omniroute
 - gateway
 - docker

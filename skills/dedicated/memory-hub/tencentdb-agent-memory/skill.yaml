@@ -1,6 +1,7 @@
 # skill.yaml —— tencentdb-agent-memory（dedicated库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\tencentdb-agent-memory.md
 name: tencentdb-agent-memory
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: memory-hub
@@ -19,7 +20,6 @@ invoke: user
 description_model: TencentDB Agent Memory 工具档案
 description_human: TencentDB Agent Memory 工具档案
 trigger:
-- TencentDB Agent Memory 工具档案
 - tencentdb
 - agent-memory
 - memory-hub

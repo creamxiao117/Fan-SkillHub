@@ -1,6 +1,7 @@
 # skill.yaml —— env-injection-yaml（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\env-injection-yaml.md
 name: env-injection-yaml
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''

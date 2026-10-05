@@ -1,6 +1,7 @@
 # skill.yaml —— t1-plan-three-blueprints（dedicated库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\t1-plan-three-blueprints.md
 name: t1-plan-three-blueprints
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: cad

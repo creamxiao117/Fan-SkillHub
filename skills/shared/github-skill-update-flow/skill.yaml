@@ -1,6 +1,7 @@
 # skill.yaml —— github-skill-update-flow（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\github-skill-update-flow.md
 name: github-skill-update-flow
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 【技能更新流程】改完本地技能目录后同步到镜像工作副本，再 git add -A && git commit && git push：
 description_human: 【技能更新流程】改完本地技能目录后同步到镜像工作副本，再 git add -A && git commit && git push：
 trigger:
-- 【技能更新流程】改完本地技能目录后同步到镜像工作副本，再 git add -A && git commit && git push：
 - github
 - skill
 - workflow

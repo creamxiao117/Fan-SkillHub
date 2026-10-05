@@ -1,6 +1,7 @@
 # skill.yaml —— pluginhub-speech-input-registration（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\pluginhub-speech-input-registration.md
 name: pluginhub-speech-input-registration
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: PluginHub 注册卡：speech_input（语音输入法）
 description_human: PluginHub 注册卡：speech_input（语音输入法）
 trigger:
-- PluginHub 注册卡：speech_input（语音输入法）
 - mavis
 - MiniMax-Code
 - pluginhub

@@ -1,6 +1,7 @@
 # skill.yaml —— 2026-09-10-k2-horizon-7b-consumer-gpu-deploy（shared库）
 # 由中枢卡升级生成: .hub/experience/2026-09-10-k2-horizon-7b-consumer-gpu-deploy.md
 name: 2026-09-10-k2-horizon-7b-consumer-gpu-deploy
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''

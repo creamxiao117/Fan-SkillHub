@@ -1,6 +1,7 @@
 # skill.yaml —— old-project-minimal-migration（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\old-project-minimal-migration.md
 name: old-project-minimal-migration
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 旧项目接入 context-engineering-v1 最小迁移方法论：
 description_human: 旧项目接入 context-engineering-v1 最小迁移方法论：
 trigger:
-- 旧项目接入 context-engineering-v1 最小迁移方法论：
 - context-engineering
 - migration
 - skeleton

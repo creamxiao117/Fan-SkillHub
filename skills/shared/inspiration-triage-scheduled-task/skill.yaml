@@ -1,6 +1,7 @@
 # skill.yaml —— inspiration-triage-scheduled-task（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\inspiration-triage-scheduled-task.md
 name: inspiration-triage-scheduled-task
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''

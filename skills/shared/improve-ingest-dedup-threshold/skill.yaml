@@ -1,6 +1,7 @@
 # skill.yaml —— improve-ingest-dedup-threshold（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\improve-ingest-dedup-threshold.md
 name: improve-ingest-dedup-threshold
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 改进候选：ingest 去重误判真新卡（跨独立仓库命令行提交经验被收进冲突区）
 description_human: 改进候选：ingest 去重误判真新卡（跨独立仓库命令行提交经验被收进冲突区）
 trigger:
-- 改进候选：ingest 去重误判真新卡（跨独立仓库命令行提交经验被收进冲突区）
 - memoryhub
 - dedup
 - ingest

@@ -1,4 +1,5 @@
 name: superpowers
+deploy_scope: task
 version: 0.2.0
 slot: shared
 scope: null
@@ -26,12 +27,10 @@ trigger:
 - TDD
 - 测试驱动
 - 代码评审
-- code review
 - 调试
 - debugging
 - 写计划
 - planning
-- Git worktree
 - 分支管理
 forgot:
 - 纯知识问答

@@ -1,4 +1,5 @@
 name: retrieve-english-stopword-overhit
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''

@@ -1,6 +1,7 @@
 # skill.yaml —— 2026-08-17-dsh-worktable-cordis-plugin（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\2026-08-17-dsh-worktable-cordis-plugin.md
 name: 2026-08-17-dsh-worktable-cordis-plugin
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 经验卡：dsh-worktable Cordis 插件项目（context-engineering-v1）
 description_human: 经验卡：dsh-worktable Cordis 插件项目（context-engineering-v1）
 trigger:
-- 经验卡：dsh-worktable Cordis 插件项目（context-engineering-v1）
 - context-engineering-v1
 - cordis
 - dsh

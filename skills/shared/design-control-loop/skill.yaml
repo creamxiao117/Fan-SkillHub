@@ -1,6 +1,7 @@
 # skill.yaml —— design-control-loop（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\design-control-loop.md
 name: design-control-loop
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: Design Control Loop：控制论视角设计 Agentic 循环
 description_human: Design Control Loop：控制论视角设计 Agentic 循环
 trigger:
-- Design Control Loop：控制论视角设计 Agentic 循环
 - control-loop
 - control-theory
 - agentic

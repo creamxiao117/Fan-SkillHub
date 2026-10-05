@@ -1,4 +1,5 @@
 name: api-data-shape-mismatch-returns-missing-true
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -17,7 +18,6 @@ invoke: user
 description_model: API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true
 description_human: API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true
 trigger:
-- API 接口假设 DB 字段是文件路径而实际是文本内容 — 静默返回 missing:true
 - mavis
 - MiniMax-Code
 - api-contract

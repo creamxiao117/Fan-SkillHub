@@ -1,6 +1,7 @@
 # skill.yaml —— continuous-task-iteration（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\continuous-task-iteration.md
 name: continuous-task-iteration
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 持续任务迭代门禁（5 档量化分析模型）
 description_human: 持续任务迭代门禁（5 档量化分析模型）
 trigger:
-- 持续任务迭代门禁（5 档量化分析模型）
 - 持续任务
 - 迭代门禁
 - 档位模型

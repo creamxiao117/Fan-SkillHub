@@ -1,6 +1,7 @@
 # skill.yaml —— improve-claude-md-important-if（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\improve-claude-md-important-if.md
 name: improve-claude-md-important-if
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: Improve CLAUDE.md：`<important if>` 区块提升指令遵循率
 description_human: Improve CLAUDE.md：`<important if>` 区块提升指令遵循率
 trigger:
-- Improve CLAUDE.md：`<important if>` 区块提升指令遵循率
 - claude-md
 - instruction-adherence
 - context-engineering

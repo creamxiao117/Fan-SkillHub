@@ -1,6 +1,7 @@
 # skill.yaml —— 2026-09-10-json-schema-version-envelope-downgrade-guard（shared库）
 # 由中枢卡升级生成: .hub/experience/2026-09-10-json-schema-version-envelope-downgrade-guard.md
 name: 2026-09-10-json-schema-version-envelope-downgrade-guard
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: JSON 数据文件加 schema 版本**必须三件套齐做**
 description_human: JSON 数据文件加 schema 版本**必须三件套齐做**
 trigger:
-- JSON 数据文件加 schema 版本**必须三件套齐做**
 - schema
 - versioning
 - migration

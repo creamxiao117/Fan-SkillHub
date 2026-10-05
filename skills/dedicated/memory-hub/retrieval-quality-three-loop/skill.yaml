@@ -1,6 +1,7 @@
 # skill.yaml —— retrieval-quality-three-loop（dedicated库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\retrieval-quality-three-loop.md
 name: retrieval-quality-three-loop
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: memory-hub
@@ -19,7 +20,6 @@ invoke: user
 description_model: 检索质量三环经验汇总：定模型 → 压规模 → 兜退化
 description_human: 检索质量三环经验汇总：定模型 → 压规模 → 兜退化
 trigger:
-- 检索质量三环经验汇总：定模型 → 压规模 → 兜退化
 - memory-hub
 - retrieval
 - quality

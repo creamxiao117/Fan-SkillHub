@@ -1,6 +1,7 @@
 # skill.yaml —— llm-dedup-gateway-degrade-fix（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\llm-dedup-gateway-degrade-fix.md
 name: llm-dedup-gateway-degrade-fix
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: LLM 去重网关降级 conflicts 的根因诊断与修复
 description_human: LLM 去重网关降级 conflicts 的根因诊断与修复
 trigger:
-- LLM 去重网关降级 conflicts 的根因诊断与修复
 - llm网关
 - dedup
 - 降级

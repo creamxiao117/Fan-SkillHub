@@ -1,6 +1,7 @@
 # skill.yaml —— hermes-tool-router（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\hermes-tool-router.md
 name: hermes-tool-router
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''

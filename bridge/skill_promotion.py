@@ -267,7 +267,8 @@ def render_skill_yaml(
         "invoke": "user",
         "description_model": card.title,
         "description_human": card.title,
-        "trigger": [card.title.strip()] + card.tags,
+        "trigger": _short_triggers(card),
+        "deploy_scope": _deploy_scope_of(card),
         "forgot": list(card.anti_trigger or GENERIC_FORGOT),
         "instructions": SKILL_MD_NAME,
         "references": [str(card.source).replace("\\", "/")],
@@ -672,7 +673,8 @@ def _register_router(router_path: str | Path, card: CardInfo) -> bool:
             "invoke": "user",
             "description_model": card.title,
             "description_human": card.title,
-            "trigger": [card.title.strip()] + card.tags,
+            "trigger": _short_triggers(card),
+            "deploy_scope": _deploy_scope_of(card),
             "forgot": list(card.anti_trigger or GENERIC_FORGOT),
             "weight": 1.0,
         }
@@ -793,3 +795,32 @@ def _cleanup_router_backup(backup: Path | None) -> None:
         Path(backup).unlink(missing_ok=True)
     except OSError:
         pass
+
+# --- 2026-10-05 修：合规偏差两处（schema 要求 vs 生成物）---
+def _short_triggers(card) -> list:
+    """据 schema 的 note_granularity：trigger **只用短 token**，禁止含空格的整句。
+
+    原实现 `[card.title.strip()] + card.tags` 把整句卡标题当 trigger[0]：
+    路由是子串匹配，整句几乎永不命中（死 token）且违反 schema 明写的"勿用含空格整句"。
+    现只用 tags（短 token）；tags 为空时从标题切出短 token 兜底，保证非空（schema required）。
+    """
+    toks = [str(t).strip() for t in (card.tags or []) if str(t).strip() and " " not in str(t)]
+    if toks:
+        return toks
+    parts = [x for x in re.split(r"[\s:：,，。;；/、()（）\[\]【】\-—]+", (card.title or "").strip()) if len(x) >= 2]
+    return parts[:3] or [(card.title or "").strip() or "unnamed"]
+
+
+GENERATED_DEPLOY_SCOPE = "task"
+
+
+def _deploy_scope_of(card) -> str:
+    """生成技能的部署范围：**默认 task**（任务级临时装），不做 always。
+
+    为什么：schema 里 deploy_scope 缺省是 always（常驻）；而 reconcile 批量生成的技能
+    尚未经"装→验"证明常驻价值，若默认 always，一旦部署就会推高每会话发现成本，
+    与 capability_budget.per_platform_ratchet（只许降不许抬）的纪律冲突。
+    卡上显式声明了 deploy_scope 时以其为准。
+    """
+    v = getattr(card, "deploy_scope", None)
+    return str(v) if v in ("always", "task", "on-demand") else GENERATED_DEPLOY_SCOPE

@@ -1,6 +1,7 @@
 # skill.yaml —— gh-cap-router-paradigm（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\gh-cap-router-paradigm.md
 name: gh-cap-router-paradigm
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: Table-GitHub-Capability-Router 治理范式（判级 A，方法已落地本 hub）
 description_human: Table-GitHub-Capability-Router 治理范式（判级 A，方法已落地本 hub）
 trigger:
-- Table-GitHub-Capability-Router 治理范式（判级 A，方法已落地本 hub）
 - github-vault-router
 - memory-governance
 - agent-routing

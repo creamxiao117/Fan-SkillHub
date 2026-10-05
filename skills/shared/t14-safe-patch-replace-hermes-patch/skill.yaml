@@ -1,4 +1,5 @@
 name: t14-safe-patch-replace-hermes-patch
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -17,7 +18,6 @@ invoke: user
 description_model: T14 safe_patch 替代 Hermes patch —— 完整复盘
 description_human: T14 safe_patch 替代 Hermes patch —— 完整复盘
 trigger:
-- T14 safe_patch 替代 Hermes patch —— 完整复盘
 - safe-patch
 - hermes-tool-replace
 - iron-rule

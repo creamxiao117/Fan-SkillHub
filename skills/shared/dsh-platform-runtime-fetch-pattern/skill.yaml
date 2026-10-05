@@ -1,6 +1,7 @@
 # skill.yaml —— dsh-platform-runtime-fetch-pattern（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\dsh-platform-runtime-fetch-pattern.md
 name: dsh-platform-runtime-fetch-pattern
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: DSH 平台权威区运行时拉取范式（query-first + system_prompt.section）
 description_human: DSH 平台权威区运行时拉取范式（query-first + system_prompt.section）
 trigger:
-- DSH 平台权威区运行时拉取范式（query-first + system_prompt.section）
 - dsh
 - deepseek
 - cordis

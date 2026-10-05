@@ -1,6 +1,7 @@
 # skill.yaml —— memory-tool-landscape（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\memory-tool-landscape.md
 name: memory-tool-landscape
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 开源跨 Agent 记忆工具生态地图（2026-08）
 description_human: 开源跨 Agent 记忆工具生态地图（2026-08）
 trigger:
-- 开源跨 Agent 记忆工具生态地图（2026-08）
 - memory-tools
 - landscape
 - survey

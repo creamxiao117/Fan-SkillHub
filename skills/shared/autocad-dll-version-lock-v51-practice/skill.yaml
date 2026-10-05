@@ -1,6 +1,7 @@
 # skill.yaml —— autocad-dll-version-lock-v51-practice（shared库）
 # 由中枢卡升级生成: .hub/experience/autocad-dll-version-lock-v51-practice.md
 name: autocad-dll-version-lock-v51-practice
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -21,7 +22,6 @@ description_model: DLL 文件锁定+版本递增+MSB3061 规避操作清单（As
 description_human: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD
   全改、进程释放）
 trigger:
-- DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）
 - AutoCAD
 - DLL
 - 版本

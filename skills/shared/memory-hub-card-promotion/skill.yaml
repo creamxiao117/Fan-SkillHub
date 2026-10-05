@@ -1,4 +1,5 @@
 name: memory-hub-card-promotion
+deploy_scope: task
 version: 0.1.1
 slot: shared
 scope: null
@@ -22,7 +23,6 @@ trigger:
 - 中枢草稿
 - 提升经验卡
 - 经验卡升级
-- 登记 INDEX
 - ingest
 forgot:
 - rule 类型

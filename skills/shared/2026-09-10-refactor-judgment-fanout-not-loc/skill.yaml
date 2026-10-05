@@ -1,6 +1,7 @@
 # skill.yaml —— 2026-09-10-refactor-judgment-fanout-not-loc（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\2026-09-10-refactor-judgment-fanout-not-loc.md
 name: 2026-09-10-refactor-judgment-fanout-not-loc
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 重构判据：看「运行时依赖扇出 + 可测性」，不看行数
 description_human: 重构判据：看「运行时依赖扇出 + 可测性」，不看行数
 trigger:
-- 重构判据：看「运行时依赖扇出 + 可测性」，不看行数
 - refactoring
 - complexity
 - fanout

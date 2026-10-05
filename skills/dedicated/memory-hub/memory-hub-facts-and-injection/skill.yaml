@@ -1,6 +1,7 @@
 # skill.yaml —— memory-hub-facts-and-injection（dedicated库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\memory-hub-facts-and-injection.md
 name: memory-hub-facts-and-injection
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: memory-hub
@@ -19,7 +20,6 @@ invoke: user
 description_model: 统一记忆中枢 · 事实与注入目标
 description_human: 统一记忆中枢 · 事实与注入目标
 trigger:
-- 统一记忆中枢 · 事实与注入目标
 - memory-hub
 - architecture
 - inject

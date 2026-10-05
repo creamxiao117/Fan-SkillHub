@@ -1,6 +1,7 @@
 # skill.yaml —— platform-backlog-t19-t21（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\platform-backlog-t19-t21.md
 name: platform-backlog-t19-t21
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 平台后续优化待办总表（T19 + T21 合流）
 description_human: 平台后续优化待办总表（T19 + T21 合流）
 trigger:
-- 平台后续优化待办总表（T19 + T21 合流）
 - backlog
 - cron-optimization
 - platform-management

@@ -1,6 +1,7 @@
 # skill.yaml —— gh-cap-router-borrow（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\gh-cap-router-borrow.md
 name: gh-cap-router-borrow
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -21,7 +22,6 @@ description_model: 【借鉴】同类仓库 Table-GitHub-Capability-Router（Age
 description_human: 【借鉴】同类仓库 Table-GitHub-Capability-Router（Agent 记忆/能力路由基建）可借鉴的 6
   个治理层设计，按 ROI 排序。暂只沉淀结论，未改代码。
 trigger:
-- 【借鉴】同类仓库 Table-GitHub-Capability-Router（Agent 记忆/能力路由基建）可借鉴的 6 个治理层设计，按 ROI 排序。暂只沉淀结论，未改代码。
 - research
 - agent-routing
 - memory-governance

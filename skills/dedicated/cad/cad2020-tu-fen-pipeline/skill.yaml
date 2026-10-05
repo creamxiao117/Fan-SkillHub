@@ -1,6 +1,7 @@
 # skill.yaml —— cad2020-tu-fen-pipeline（dedicated库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\cad2020-tu-fen-pipeline.md
 name: cad2020-tu-fen-pipeline
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: cad
@@ -19,7 +20,6 @@ invoke: user
 description_model: CAD2020 拆图流水线（拆图 → 出图设置 → 合并校验 → 上传）
 description_human: CAD2020 拆图流水线（拆图 → 出图设置 → 合并校验 → 上传）
 trigger:
-- CAD2020 拆图流水线（拆图 → 出图设置 → 合并校验 → 上传）
 - cad2020
 - kplot
 - pdf-merge

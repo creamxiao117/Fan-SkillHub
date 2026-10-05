@@ -1,6 +1,7 @@
 # skill.yaml —— t15-improvement-backlog（dedicated库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\T15-improvement-backlog.md
 name: t15-improvement-backlog
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: memory-hub
@@ -19,7 +20,6 @@ invoke: user
 description_model: T15 改进待办清单（8项）
 description_human: T15 改进待办清单（8项）
 trigger:
-- T15 改进待办清单（8项）
 - improvement
 - backlog
 - skillhub

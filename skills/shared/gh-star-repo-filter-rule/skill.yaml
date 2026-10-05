@@ -1,6 +1,7 @@
 # skill.yaml —— gh-star-repo-filter-rule（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\gh-star-repo-filter-rule.md
 name: gh-star-repo-filter-rule
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 仓库选择前置过滤规则（star-distill 入口门禁）
 description_human: 仓库选择前置过滤规则（star-distill 入口门禁）
 trigger:
-- 仓库选择前置过滤规则（star-distill 入口门禁）
 - star-distill
 - repo-filter
 - pre-check

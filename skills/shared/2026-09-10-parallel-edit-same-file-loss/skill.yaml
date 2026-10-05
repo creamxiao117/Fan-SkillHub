@@ -1,6 +1,7 @@
 # skill.yaml —— 2026-09-10-parallel-edit-same-file-loss（shared库）
 # 由中枢卡升级生成: .hub/experience/2026-09-10-parallel-edit-same-file-loss.md
 name: 2026-09-10-parallel-edit-same-file-loss
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 同文件并行 Edit 会静默丢失部分编辑
 description_human: 同文件并行 Edit 会静默丢失部分编辑
 trigger:
-- 同文件并行 Edit 会静默丢失部分编辑
 - tooling
 - edit-tool
 - race-condition

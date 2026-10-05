@@ -1,6 +1,7 @@
 # skill.yaml —— hermes-desktop-facts（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\hermes-desktop-facts.md
 name: hermes-desktop-facts
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: Hermes 桌面本机事实（上下文用量 / 默认目录 / 调试技能）
 description_human: Hermes 桌面本机事实（上下文用量 / 默认目录 / 调试技能）
 trigger:
-- Hermes 桌面本机事实（上下文用量 / 默认目录 / 调试技能）
 - hermes
 - desktop
 - context

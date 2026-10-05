@@ -1,6 +1,7 @@
 # skill.yaml —— user-guide-for-every-deliverable（dedicated库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\user-guide-for-every-deliverable.md
 name: user-guide-for-every-deliverable
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: autocad
@@ -19,7 +20,6 @@ invoke: user
 description_model: 【交付约定】每个 CAD/.NET 插件等可交付项目，都要随交付附一份「用户使用手册」（USER_GUIDE.md），手册是交付物的一部分，用户能直接照着做。
 description_human: 【交付约定】每个 CAD/.NET 插件等可交付项目，都要随交付附一份「用户使用手册」（USER_GUIDE.md），手册是交付物的一部分，用户能直接照着做。
 trigger:
-- 【交付约定】每个 CAD/.NET 插件等可交付项目，都要随交付附一份「用户使用手册」（USER_GUIDE.md），手册是交付物的一部分，用户能直接照着做。
 - user-guide
 - deliverable
 - documentation

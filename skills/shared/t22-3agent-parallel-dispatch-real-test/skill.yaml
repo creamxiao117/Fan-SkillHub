@@ -1,4 +1,5 @@
 name: t22-3agent-parallel-dispatch-real-test
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -17,7 +18,6 @@ invoke: user
 description_model: T22 3-Agent 并行调度真测试经验
 description_human: T22 3-Agent 并行调度真测试经验
 trigger:
-- T22 3-Agent 并行调度真测试经验
 - multi-agent
 - parallel
 - delegate_task

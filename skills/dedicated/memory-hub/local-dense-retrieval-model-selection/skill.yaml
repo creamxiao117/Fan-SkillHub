@@ -1,4 +1,5 @@
 name: local-dense-retrieval-model-selection
+deploy_scope: task
 version: 0.1.0
 slot: dedicated
 scope: memory-hub

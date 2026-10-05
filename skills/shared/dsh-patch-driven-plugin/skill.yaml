@@ -1,6 +1,7 @@
 # skill.yaml —— dsh-patch-driven-plugin（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\dsh-patch-driven-plugin.md
 name: dsh-patch-driven-plugin
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: DSH 插件开发原则：补丁优先 vs 代码优先
 description_human: DSH 插件开发原则：补丁优先 vs 代码优先
 trigger:
-- DSH 插件开发原则：补丁优先 vs 代码优先
 - dsh
 - dsh-plugin
 - cordis

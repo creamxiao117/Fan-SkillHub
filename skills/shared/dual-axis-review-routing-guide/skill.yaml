@@ -1,6 +1,7 @@
 # skill.yaml —— dual-axis-review-routing-guide（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\dual-axis-review-routing-guide.md
 name: dual-axis-review-routing-guide
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: 双轴并行审查 × 复杂度路由 · 决策指南
 description_human: 双轴并行审查 × 复杂度路由 · 决策指南
 trigger:
-- 双轴并行审查 × 复杂度路由 · 决策指南
 - code-review
 - complexity-routing
 - decision-guide

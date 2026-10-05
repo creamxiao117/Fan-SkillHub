@@ -1,6 +1,7 @@
 # skill.yaml —— hermes-cron-jobs（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\hermes-cron-jobs.md
 name: hermes-cron-jobs
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: Hermes 定时任务（2026-09-26 精简后现状）
 description_human: Hermes 定时任务（2026-09-26 精简后现状）
 trigger:
-- Hermes 定时任务（2026-09-26 精简后现状）
 - hermes
 - cron
 - scheduled-tasks

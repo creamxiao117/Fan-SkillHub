@@ -1,6 +1,7 @@
 # skill.yaml —— github-autopush（shared库）
 # 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\github-autopush.md
 name: github-autopush
+deploy_scope: task
 version: 0.1.0
 slot: shared
 scope: ''
@@ -19,7 +20,6 @@ invoke: user
 description_model: GitHub AutoPush — 本地项目一键推送工具
 description_human: GitHub AutoPush — 本地项目一键推送工具
 trigger:
-- GitHub AutoPush — 本地项目一键推送工具
 - github
 - tool
 - python
