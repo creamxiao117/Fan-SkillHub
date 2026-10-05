@@ -1,0 +1,43 @@
+# skill.yaml —— agent-trigger-symbols-7state（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\agent-trigger-symbols-7state.md
+name: agent-trigger-symbols-7state
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: Agent 任务触发符号：7 状态 1-2 字符（v2 最终版）
+description_human: Agent 任务触发符号：7 状态 1-2 字符（v2 最终版）
+trigger:
+- Agent 任务触发符号：7 状态 1-2 字符（v2 最终版）
+- agent
+- workflow
+- trigger-phrase
+- trigger-symbol
+- orchestration
+- 7-symbol
+- 单字符
+- ascii-only
+- 可以推广
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/agent-trigger-symbols-7state.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

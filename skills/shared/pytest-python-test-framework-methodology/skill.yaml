@@ -1,0 +1,41 @@
+# skill.yaml —— pytest-python-test-framework-methodology（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\pytest-python-test-framework-methodology.md
+name: pytest-python-test-framework-methodology
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 7
+  last_verified: ''
+invoke: user
+description_model: gh-pytest-dev-pytest（14k★, MIT, Python 测试框架）
+description_human: gh-pytest-dev-pytest（14k★, MIT, Python 测试框架）
+trigger:
+- gh-pytest-dev-pytest（14k★, MIT, Python 测试框架）
+- python
+- testing
+- framework
+- fixtures
+- parametrize
+- assert-rewriting
+- hook
+forgot:
+- no Python (not applicable to JUnit/NUnit/Go test)
+- monolithic test runner without plugin architecture
+- no fixture system / just xUnit test discovery
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/pytest-python-test-framework-methodology.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

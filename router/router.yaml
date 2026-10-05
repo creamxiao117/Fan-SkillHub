@@ -200,7 +200,8 @@ skills:
   scope: multica
   invoke: user
   description_model: 仅当用户点名 Multica 平台操作时触发
-  description_human: Multica 多技能合集：autopilot/agents/projects/squads/mentioning/runtimes/onboarding/issue 等 8 个子技能
+  description_human: Multica 多技能合集：autopilot/agents/projects/squads/mentioning/runtimes/onboarding/issue
+    等 8 个子技能
   trigger:
   - multica
   - autopilot
@@ -713,8 +714,10 @@ skills:
   slot: shared
   scope: memory-hub
   invoke: user
-  description_model: 中枢卡片 schema 漂移排查→引擎收口→门禁安装→回写闭环，含本地模型优先级（bge 维度约束）和 pre-commit 门禁安装
-  description_human: 中枢卡片 schema 漂移排查→引擎收口→门禁安装→回写闭环，含本地模型优先级（bge 维度约束）和 pre-commit 门禁安装
+  description_model: 中枢卡片 schema 漂移排查→引擎收口→门禁安装→回写闭环，含本地模型优先级（bge 维度约束）和 pre-commit
+    门禁安装
+  description_human: 中枢卡片 schema 漂移排查→引擎收口→门禁安装→回写闭环，含本地模型优先级（bge 维度约束）和 pre-commit
+    门禁安装
   trigger:
   - schema 漂移
   - type: experience
@@ -733,10 +736,13 @@ skills:
   slot: shared
   scope: ''
   invoke: user
-  description_model: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
-  description_human: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
+  description_model: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag
+    → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
+  description_human: deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag
+    → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
   trigger:
-  - deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加 _EN_STOP 停用词过滤（真机验证收敛）
+  - deterministic word 分支 `w in t` 子串匹配被 to/for 等功能词命中含 tool 的 tag → 英文查询过度命中全库；修复加
+    _EN_STOP 停用词过滤（真机验证收敛）
   - retrieve
   - semantic-search
   - stopword
@@ -779,10 +785,13 @@ skills:
   slot: shared
   scope: ''
   invoke: user
-  description_model: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience 绝不能缺席
-  description_human: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience 绝不能缺席
+  description_model: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
+    绝不能缺席
+  description_human: 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
+    绝不能缺席
   trigger:
-  - 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience 绝不能缺席
+  - 检索目录口径（_ACTIVE_DIRS）必须对齐 INDEX.md 五类（rules/blueprints/methodology/longterm/projects/experience），experience
+    绝不能缺席
   - retrieval
   - active-dirs
   - five-type-policy
@@ -882,8 +891,10 @@ skills:
   slot: shared
   scope: ''
   invoke: user
-  description_model: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）
-  description_human: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）
+  description_model: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD
+    全改、进程释放）
+  description_human: DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD
+    全改、进程释放）
   trigger:
   - DLL 文件锁定+版本递增+MSB3061 规避操作清单（AssemblyName/Version 同步、sc/NETLOAD 全改、进程释放）
   - AutoCAD
@@ -1110,7 +1121,8 @@ skills:
   scope: research
   invoke: user
   description_model: 当需要抓取动态渲染页面（JS 加载内容、Cloudflare 保护站点）时触发
-  description_human: scrapling 动态网页抓取工具：支持 JS 渲染页面 stealth 抓取、Cloudflare 绕过，适用于需要执行 JavaScript 才能获取内容的站点
+  description_human: scrapling 动态网页抓取工具：支持 JS 渲染页面 stealth 抓取、Cloudflare 绕过，适用于需要执行
+    JavaScript 才能获取内容的站点
   trigger:
   - scrapling
   - 动态网页抓取
@@ -1133,7 +1145,8 @@ skills:
   scope: security
   invoke: user
   description_model: 当需要从 1Password 读取或注入密钥/凭证时触发（需已安装 1Password CLI）
-  description_human: 1Password CLI 集成工具：通过 op CLI 读取/注入密钥和凭证，适用于安全凭证管理（需本地安装 1Password 和 op CLI）
+  description_human: 1Password CLI 集成工具：通过 op CLI 读取/注入密钥和凭证，适用于安全凭证管理（需本地安装 1Password
+    和 op CLI）
   trigger:
   - 1Password
   - op CLI
@@ -1156,7 +1169,8 @@ skills:
   scope: security
   invoke: user
   description_model: 当需要在 400+ 社交平台检索某用户名是否存在（OSINT 调查）时触发
-  description_human: Sherlock OSINT 工具：在 400+ 社交平台跨平台检索用户名，用于账号排查、舆情监控、安全审计（需 pipx/pip 安装）
+  description_human: Sherlock OSINT 工具：在 400+ 社交平台跨平台检索用户名，用于账号排查、舆情监控、安全审计（需 pipx/pip
+    安装）
   trigger:
   - Sherlock
   - sherlock
@@ -1274,8 +1288,10 @@ skills:
   slot: shared
   invoke: model
   scope: skillhub
-  description_model: 当需要把新工具注册为 SkillHub 技能，或需执行 skillhub record / promote / reconcile 等运维操作时触发
-  description_human: SkillHub 工具→技能注册标准流程：安装验证→骨架创建→router注册→路由测试→git push，含 submodule 处理和晋级链路
+  description_model: 当需要把新工具注册为 SkillHub 技能，或需执行 skillhub record / promote / reconcile
+    等运维操作时触发
+  description_human: SkillHub 工具→技能注册标准流程：安装验证→骨架创建→router注册→路由测试→git push，含 submodule
+    处理和晋级链路
   trigger:
   - 注册技能
   - skillhub new
@@ -1435,10 +1451,15 @@ skills:
   slot: shared
   scope: ''
   invoke: user
-  description_model: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon 分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
-  description_human: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon 分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
+  description_model: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon
+    分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV
+    池为负）（2026-09-10）
+  description_human: 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon
+    分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV
+    池为负）（2026-09-10）
   trigger:
-  - 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon 分支）+ Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
+  - 12GB 消费级卡跑 K2-Horizon-7B 唯一可行路径 = MBZUAI-IFM llama.cpp fork（model/K2Horizon 分支）+
+    Q4_K_M GGUF + KV q8_0，可达 64K 上下文；SGLang/vLLM 的 FP8 路线被实测判死刑（权重+运行开销超显存，KV 池为负）（2026-09-10）
   - local-llm
   - k2-horizon
   - llama-cpp
@@ -1554,3 +1575,1247 @@ skills:
   - 与编码无关的字符集转换
   weight: 1.0
   deploy_scope: on-demand
+- name: 2026-08-17-dsh-worktable-cordis-plugin
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 经验卡：dsh-worktable Cordis 插件项目（context-engineering-v1）
+  description_human: 经验卡：dsh-worktable Cordis 插件项目（context-engineering-v1）
+  trigger:
+  - 经验卡：dsh-worktable Cordis 插件项目（context-engineering-v1）
+  - context-engineering-v1
+  - cordis
+  - dsh
+  - plugin-development
+  - boundary-recognition
+  - lm-studio
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: 2026-09-10-refactor-judgment-fanout-not-loc
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 重构判据：看「运行时依赖扇出 + 可测性」，不看行数
+  description_human: 重构判据：看「运行时依赖扇出 + 可测性」，不看行数
+  trigger:
+  - 重构判据：看「运行时依赖扇出 + 可测性」，不看行数
+  - refactoring
+  - complexity
+  - fanout
+  - testability
+  - code-review
+  - judgment
+  - workbuddy
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: 门禁类缺陷修复先证红再修
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 门禁/检查器类缺陷修复：先证红、再修、修完必须同步副本
+  description_human: 门禁/检查器类缺陷修复：先证红、再修、修完必须同步副本
+  trigger:
+  - 门禁/检查器类缺陷修复：先证红、再修、修完必须同步副本
+  - testing
+  - gate
+  - hub-engine
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: acceptance-net-self-audit-criteria-redlines
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 方法论卡：验收网自审 —— 判据红线八条 + 「能红证明」制度
+  description_human: 方法论卡：验收网自审 —— 判据红线八条 + 「能红证明」制度
+  trigger:
+  - 方法论卡：验收网自审 —— 判据红线八条 + 「能红证明」制度
+  - acceptance-net
+  - self-audit
+  - gate-design
+  - redlines
+  - false-green
+  - criteria-authoring
+  - runner-exit-code
+  - hermes
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: agent-platform-onboarding-paradigm
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Agent 平台接入 AgentMemoryHub 范式流程
+  description_human: Agent 平台接入 AgentMemoryHub 范式流程
+  trigger:
+  - Agent 平台接入 AgentMemoryHub 范式流程
+  - agent-platform
+  - integration-pattern
+  - mcp
+  - cross-platform
+  - onboarding
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: agent-tool-inventory
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 【盘点】统一各 Agent 平台的 skill / MCP 清单与使用频率，作为轻量工具路由表（借鉴 gh-cap-router
+    L1/L2）的地基。数据为 2026-08-18 实采，改动客户端配置前需用户批准。
+  description_human: 【盘点】统一各 Agent 平台的 skill / MCP 清单与使用频率，作为轻量工具路由表（借鉴 gh-cap-router
+    L1/L2）的地基。数据为 2026-08-18 实采，改动客户端配置前需用户批准。
+  trigger:
+  - 【盘点】统一各 Agent 平台的 skill / MCP 清单与使用频率，作为轻量工具路由表（借鉴 gh-cap-router L1/L2）的地基。数据为
+    2026-08-18 实采，改动客户端配置前需用户批准。
+  - agent-routing
+  - tool-governance
+  - tool-inventory
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: agent-trigger-symbols-7state
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Agent 任务触发符号：7 状态 1-2 字符（v2 最终版）
+  description_human: Agent 任务触发符号：7 状态 1-2 字符（v2 最终版）
+  trigger:
+  - Agent 任务触发符号：7 状态 1-2 字符（v2 最终版）
+  - agent
+  - workflow
+  - trigger-phrase
+  - trigger-symbol
+  - orchestration
+  - 7-symbol
+  - 单字符
+  - ascii-only
+  - 可以推广
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: autocad-plugin-testing
+  slot: dedicated
+  scope: autocad
+  invoke: user
+  description_model: Tag 覆盖（防 hook 漂移）
+  description_human: Tag 覆盖（防 hook 漂移）
+  trigger:
+  - Tag 覆盖（防 hook 漂移）
+  - netload
+  - 踩坑
+  - 错误
+  - 调试
+  - autocad
+  - dotnet-plugin
+  - testing
+  - headless
+  - com-automation
+  - computer-use
+  - cross-project
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: build-iterated-agentic-loop
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Build Iterated Agentic Loop：可迭代的定时编程 Agent 循环
+  description_human: Build Iterated Agentic Loop：可迭代的定时编程 Agent 循环
+  trigger:
+  - Build Iterated Agentic Loop：可迭代的定时编程 Agent 循环
+  - agentic-loop
+  - automation
+  - pr-bounding
+  - agent-memory
+  - github-actions
+  - self-growth
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: cad-automation-command-template
+  slot: dedicated
+  scope: autocad
+  invoke: user
+  description_model: CAD 插件命令自动化模板：XxxCore(useUi) + 非交互变体 + 可 grep 输出
+  description_human: CAD 插件命令自动化模板：XxxCore(useUi) + 非交互变体 + 可 grep 输出
+  trigger:
+  - CAD 插件命令自动化模板：XxxCore(useUi) + 非交互变体 + 可 grep 输出
+  - autocad
+  - dotnet
+  - automation
+  - command-template
+  - modality
+  - cross-project
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: checker-must-be-provably-red
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 检查器/守门器必须能被负样本打红 —— 否则它只是"假绿制造机"
+  description_human: 检查器/守门器必须能被负样本打红 —— 否则它只是"假绿制造机"
+  trigger:
+  - 检查器/守门器必须能被负样本打红 —— 否则它只是"假绿制造机"
+  - 判据
+  - 假绿
+  - 自测
+  - 编排器
+  - 守门器
+  - 验收
+  - 退出码
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: continuous-task-iteration
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 持续任务迭代门禁（5 档量化分析模型）
+  description_human: 持续任务迭代门禁（5 档量化分析模型）
+  trigger:
+  - 持续任务迭代门禁（5 档量化分析模型）
+  - 持续任务
+  - 迭代门禁
+  - 档位模型
+  - token成本
+  - 任务收敛
+  - 量化分析
+  - workflow
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: design-control-loop
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Design Control Loop：控制论视角设计 Agentic 循环
+  description_human: Design Control Loop：控制论视角设计 Agentic 循环
+  trigger:
+  - Design Control Loop：控制论视角设计 Agentic 循环
+  - control-loop
+  - control-theory
+  - agentic
+  - sensor
+  - actuator
+  - feedback
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: dsh-patch-driven-plugin
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: DSH 插件开发原则：补丁优先 vs 代码优先
+  description_human: DSH 插件开发原则：补丁优先 vs 代码优先
+  trigger:
+  - DSH 插件开发原则：补丁优先 vs 代码优先
+  - dsh
+  - dsh-plugin
+  - cordis
+  - patch-driven
+  - dsh专属
+  - 不跨平台sync
+  forgot:
+  - code 平台插件开发
+  - trae 平台插件开发
+  - 非 DSH monorepo 内部开发
+  weight: 1.0
+- name: dsh-platform-runtime-fetch-pattern
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: DSH 平台权威区运行时拉取范式（query-first + system_prompt.section）
+  description_human: DSH 平台权威区运行时拉取范式（query-first + system_prompt.section）
+  trigger:
+  - DSH 平台权威区运行时拉取范式（query-first + system_prompt.section）
+  - dsh
+  - deepseek
+  - cordis
+  - systemPrompt
+  - query-first
+  - runtime-fetch
+  - 不存副本
+  - 单平台
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: dual-axis-review-routing-guide
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 双轴并行审查 × 复杂度路由 · 决策指南
+  description_human: 双轴并行审查 × 复杂度路由 · 决策指南
+  trigger:
+  - 双轴并行审查 × 复杂度路由 · 决策指南
+  - code-review
+  - complexity-routing
+  - decision-guide
+  - skill-governance
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: env-injection-yaml
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 【可靠注入 env 配置】用 Python + yaml.dump 直接编辑 YAML 以确保 `env:` 块正确（`hermes
+    mcp add --env` 有时把 key 放进 args 而非 env:，不可靠）。
+  description_human: 【可靠注入 env 配置】用 Python + yaml.dump 直接编辑 YAML 以确保 `env:` 块正确（`hermes
+    mcp add --env` 有时把 key 放进 args 而非 env:，不可靠）。
+  trigger:
+  - 【可靠注入 env 配置】用 Python + yaml.dump 直接编辑 YAML 以确保 `env:` 块正确（`hermes mcp add --env`
+    有时把 key 放进 args 而非 env:，不可靠）。
+  - hermes
+  - mcp
+  - yaml
+  - env
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: freecad-parametric-cad-architecture-blueprint
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Tag 覆盖（防 hook 漂移）
+  description_human: Tag 覆盖（防 hook 漂移）
+  trigger:
+  - Tag 覆盖（防 hook 漂移）
+  - CAD
+  - 三维建模
+  - 开源
+  - FreeCAD
+  - 工作台插件
+  - 参数化
+  - Python脚本
+  - OpenCASCADE
+  - 跨平台
+  forgot:
+  - 记忆中枢
+  - 语义检索
+  - 数据库内核
+  - 图表设计
+  - 文档转换
+  - .NET性能测试
+  - CAD脚本建模
+  - 2D CAD
+  - DXF批处理
+  - IFC/BIM库
+  - .NET插件
+  - CAD应用架构
+  weight: 1.0
+- name: gh-cap-router-borrow
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 【借鉴】同类仓库 Table-GitHub-Capability-Router（Agent 记忆/能力路由基建）可借鉴的
+    6 个治理层设计，按 ROI 排序。暂只沉淀结论，未改代码。
+  description_human: 【借鉴】同类仓库 Table-GitHub-Capability-Router（Agent 记忆/能力路由基建）可借鉴的
+    6 个治理层设计，按 ROI 排序。暂只沉淀结论，未改代码。
+  trigger:
+  - 【借鉴】同类仓库 Table-GitHub-Capability-Router（Agent 记忆/能力路由基建）可借鉴的 6 个治理层设计，按 ROI 排序。暂只沉淀结论，未改代码。
+  - research
+  - agent-routing
+  - memory-governance
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: gh-cap-router-paradigm
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Table-GitHub-Capability-Router 治理范式（判级 A，方法已落地本 hub）
+  description_human: Table-GitHub-Capability-Router 治理范式（判级 A，方法已落地本 hub）
+  trigger:
+  - Table-GitHub-Capability-Router 治理范式（判级 A，方法已落地本 hub）
+  - github-vault-router
+  - memory-governance
+  - agent-routing
+  - capability-state-machine
+  - transactional-writeback
+  - provenance
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: gh-star-repo-filter-rule
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 仓库选择前置过滤规则（star-distill 入口门禁）
+  description_human: 仓库选择前置过滤规则（star-distill 入口门禁）
+  trigger:
+  - 仓库选择前置过滤规则（star-distill 入口门禁）
+  - star-distill
+  - repo-filter
+  - pre-check
+  - automation-gate
+  - windows-path-safety
+  - clone-safety
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: github-skill-update-flow
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 【技能更新流程】改完本地技能目录后同步到镜像工作副本，再 git add -A && git commit && git
+    push：
+  description_human: 【技能更新流程】改完本地技能目录后同步到镜像工作副本，再 git add -A && git commit && git
+    push：
+  trigger:
+  - 【技能更新流程】改完本地技能目录后同步到镜像工作副本，再 git add -A && git commit && git push：
+  - github
+  - skill
+  - workflow
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: hermes-tool-router
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 【路由】hermes 侧工具路由表（L1 薄路由 + L2 Registry）。用途：任务先查 L1 命中候选，只读命中
+    Registry 行，不扫描全量 138 技能。
+  description_human: 【路由】hermes 侧工具路由表（L1 薄路由 + L2 Registry）。用途：任务先查 L1 命中候选，只读命中
+    Registry 行，不扫描全量 138 技能。
+  trigger:
+  - 【路由】hermes 侧工具路由表（L1 薄路由 + L2 Registry）。用途：任务先查 L1 命中候选，只读命中 Registry 行，不扫描全量
+    138 技能。
+  - agent-routing
+  - hermes
+  - tool-governance
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: improve-claude-md-important-if
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Improve CLAUDE.md：`<important if>` 区块提升指令遵循率
+  description_human: Improve CLAUDE.md：`<important if>` 区块提升指令遵循率
+  trigger:
+  - Improve CLAUDE.md：`<important if>` 区块提升指令遵循率
+  - claude-md
+  - instruction-adherence
+  - context-engineering
+  - optimize
+  - rule-file
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: inspiration-triage-scheduled-task
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 增强灵感整理定时任务：筛选待办-认知-急需
+  description_human: 增强灵感整理定时任务：筛选待办-认知-急需
+  trigger:
+  - 增强灵感整理定时任务：筛选待办-认知-急需
+  - inspiration
+  - triage
+  - scheduled-task
+  - jtbd
+  - knowledge-management
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: iteration-methodology
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: iteration-gate.md
+  description_human: iteration-gate.md
+  trigger:
+  - iteration-gate.md
+  - context-engineering
+  - gate
+  - workflow
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: llm-dedup-gateway-degrade-fix
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: LLM 去重网关降级 conflicts 的根因诊断与修复
+  description_human: LLM 去重网关降级 conflicts 的根因诊断与修复
+  trigger:
+  - LLM 去重网关降级 conflicts 的根因诊断与修复
+  - llm网关
+  - dedup
+  - 降级
+  - lmstudio
+  - 上下文超限
+  - 排障方法论
+  forgot:
+  - 非LLM网关类问题的通用排障
+  weight: 1.0
+- name: mavis-as-5th-platform
+  slot: dedicated
+  scope: memory-hub
+  invoke: user
+  description_model: mavis (MiniMax Code) 作为第 5 平台接入 AgentMemoryHub
+  description_human: mavis (MiniMax Code) 作为第 5 平台接入 AgentMemoryHub
+  trigger:
+  - mavis (MiniMax Code) 作为第 5 平台接入 AgentMemoryHub
+  - mavis
+  - MiniMax-Code
+  - mavis
+  - cross-platform
+  - memory-hub
+  - 5th-platform
+  - hook-integration
+  - agent-memory-mirror
+  - dual-channel
+  - sync-architecture
+  - 接入方案
+  - mavis
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: mcp-hub-mount-guaranteed-retrieval
+  slot: dedicated
+  scope: memory-hub
+  invoke: user
+  description_model: MCP 挂载范式：保证对中枢 100% 检索命中
+  description_human: MCP 挂载范式：保证对中枢 100% 检索命中
+  trigger:
+  - MCP 挂载范式：保证对中枢 100% 检索命中
+  - cross-platform
+  - mcp
+  - memory-hub
+  - retrieval
+  - onboarding
+  - agent
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: memory-injection-pattern
+  slot: dedicated
+  scope: memory-hub
+  invoke: user
+  description_model: cross-agent-memory-hub-architecture.md
+  description_human: cross-agent-memory-hub-architecture.md
+  trigger:
+  - cross-agent-memory-hub-architecture.md
+  - memory-hub
+  - multi-agent
+  - architecture
+  - gateway
+  - mavis
+  - 5-platform
+  - mini-max-code
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: memory-tool-landscape
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 开源跨 Agent 记忆工具生态地图（2026-08）
+  description_human: 开源跨 Agent 记忆工具生态地图（2026-08）
+  trigger:
+  - 开源跨 Agent 记忆工具生态地图（2026-08）
+  - memory-tools
+  - landscape
+  - survey
+  - agent-memory
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: next-roi-suggestion
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 【下一步推荐】每完成一个能力后推荐 2-3 个高 ROI 方向（收益/时间/Token/主要风险），只挑 1 个推荐。
+  description_human: 【下一步推荐】每完成一个能力后推荐 2-3 个高 ROI 方向（收益/时间/Token/主要风险），只挑 1 个推荐。
+  trigger:
+  - 【下一步推荐】每完成一个能力后推荐 2-3 个高 ROI 方向（收益/时间/Token/主要风险），只挑 1 个推荐。
+  - context-engineering
+  - planning
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: old-project-minimal-migration
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 旧项目接入 context-engineering-v1 最小迁移方法论：
+  description_human: 旧项目接入 context-engineering-v1 最小迁移方法论：
+  trigger:
+  - 旧项目接入 context-engineering-v1 最小迁移方法论：
+  - context-engineering
+  - migration
+  - skeleton
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: pitfall-feedback-loop-closed
+  slot: dedicated
+  scope: memory-hub
+  invoke: user
+  description_model: 三段式闭环：踩坑 → 反哺工具 → 补记回卡
+  description_human: 三段式闭环：踩坑 → 反哺工具 → 补记回卡
+  trigger:
+  - 三段式闭环：踩坑 → 反哺工具 → 补记回卡
+  - skillhub
+  - memory-hub
+  - writeback
+  - tooling
+  - closed-loop
+  - cross-project
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: post-task-recommendations
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 任务收尾建议清单（post-task recommendations）
+  description_human: 任务收尾建议清单（post-task recommendations）
+  trigger:
+  - 任务收尾建议清单（post-task recommendations）
+  - workflow
+  - methodology
+  - todo
+  - review
+  - context-preservation
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: project-visual-guide
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 【可视化】骨架稳定后补一页项目可视化（project-visual-guide.md，Mermaid/结构化 MD）；小任务可跳过。
+  description_human: 【可视化】骨架稳定后补一页项目可视化（project-visual-guide.md，Mermaid/结构化 MD）；小任务可跳过。
+  trigger:
+  - 【可视化】骨架稳定后补一页项目可视化（project-visual-guide.md，Mermaid/结构化 MD）；小任务可跳过。
+  - context-engineering
+  - visualize
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: pytest-python-test-framework-methodology
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: gh-pytest-dev-pytest（14k★, MIT, Python 测试框架）
+  description_human: gh-pytest-dev-pytest（14k★, MIT, Python 测试框架）
+  trigger:
+  - gh-pytest-dev-pytest（14k★, MIT, Python 测试框架）
+  - python
+  - testing
+  - framework
+  - fixtures
+  - parametrize
+  - assert-rewriting
+  - hook
+  forgot:
+  - no Python (not applicable to JUnit/NUnit/Go test)
+  - monolithic test runner without plugin architecture
+  - no fixture system / just xUnit test discovery
+  weight: 1.0
+- name: python-automation-skeleton-blueprint
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Python 自动化脚本骨架：无 BOM/幂等/退出码契约/降级/ASCII
+  description_human: Python 自动化脚本骨架：无 BOM/幂等/退出码契约/降级/ASCII
+  trigger:
+  - Python 自动化脚本骨架：无 BOM/幂等/退出码契约/降级/ASCII
+  - python
+  - automation
+  - skeleton
+  - test-automation
+  - exit-code
+  - bom
+  - idempotent
+  - cross-project
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: reflection-methodology
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: tunnel-vision-check.md
+  description_human: tunnel-vision-check.md
+  trigger:
+  - tunnel-vision-check.md
+  - thinking
+  - workflow
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: retrieval-quality-three-loop
+  slot: dedicated
+  scope: memory-hub
+  invoke: user
+  description_model: 检索质量三环经验汇总：定模型 → 压规模 → 兜退化
+  description_human: 检索质量三环经验汇总：定模型 → 压规模 → 兜退化
+  trigger:
+  - 检索质量三环经验汇总：定模型 → 压规模 → 兜退化
+  - memory-hub
+  - retrieval
+  - quality
+  - benchmark
+  - scaling
+  - alerting
+  - regression-gate
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: thinking-principles
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: first-principles.md
+  description_human: first-principles.md
+  trigger:
+  - first-principles.md
+  - context-engineering
+  - thinking
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: tool-trim-candidates
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 【裁剪】TRAE 与 workbuddy 工具裁剪候选统一清单，按 ROI 排序（ROI = 省常驻上下文/少误触发 ÷
+    改动风险与恢复成本）。改客户端可见性/配置前必须先获用户批准（L0 治理）。
+  description_human: 【裁剪】TRAE 与 workbuddy 工具裁剪候选统一清单，按 ROI 排序（ROI = 省常驻上下文/少误触发 ÷
+    改动风险与恢复成本）。改客户端可见性/配置前必须先获用户批准（L0 治理）。
+  trigger:
+  - 【裁剪】TRAE 与 workbuddy 工具裁剪候选统一清单，按 ROI 排序（ROI = 省常驻上下文/少误触发 ÷ 改动风险与恢复成本）。改客户端可见性/配置前必须先获用户批准（L0
+    治理）。
+  - agent-routing
+  - tool-governance
+  - trae
+  - workbuddy
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: user-guide-for-every-deliverable
+  slot: dedicated
+  scope: autocad
+  invoke: user
+  description_model: 【交付约定】每个 CAD/.NET 插件等可交付项目，都要随交付附一份「用户使用手册」（USER_GUIDE.md），手册是交付物的一部分，用户能直接照着做。
+  description_human: 【交付约定】每个 CAD/.NET 插件等可交付项目，都要随交付附一份「用户使用手册」（USER_GUIDE.md），手册是交付物的一部分，用户能直接照着做。
+  trigger:
+  - 【交付约定】每个 CAD/.NET 插件等可交付项目，都要随交付附一份「用户使用手册」（USER_GUIDE.md），手册是交付物的一部分，用户能直接照着做。
+  - user-guide
+  - deliverable
+  - documentation
+  - autocad
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: workbuddy-tool-router
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 【路由】workbuddy 侧工具路由表（L1 薄路由 + L2 Registry）。用途：任务先查 L1 命中候选，只读命中
+    Registry 行，不扫描全量。
+  description_human: 【路由】workbuddy 侧工具路由表（L1 薄路由 + L2 Registry）。用途：任务先查 L1 命中候选，只读命中
+    Registry 行，不扫描全量。
+  trigger:
+  - 【路由】workbuddy 侧工具路由表（L1 薄路由 + L2 Registry）。用途：任务先查 L1 命中候选，只读命中 Registry 行，不扫描全量。
+  - agent-routing
+  - workbuddy
+  - tool-governance
+  - minimax
+  - minimax-xlsx
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: cad-plugin-management-platform
+  slot: dedicated
+  scope: autocad
+  invoke: user
+  description_model: 开发一个CAD插件集中管理平台
+  description_human: 开发一个CAD插件集中管理平台
+  trigger:
+  - 开发一个CAD插件集中管理平台
+  - cad
+  - autocad
+  - plugin
+  - netload
+  - version-adapt
+  - tooling
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: cad2020-tu-fen-pipeline
+  slot: dedicated
+  scope: cad
+  invoke: user
+  description_model: CAD2020 拆图流水线（拆图 → 出图设置 → 合并校验 → 上传）
+  description_human: CAD2020 拆图流水线（拆图 → 出图设置 → 合并校验 → 上传）
+  trigger:
+  - CAD2020 拆图流水线（拆图 → 出图设置 → 合并校验 → 上传）
+  - cad2020
+  - kplot
+  - pdf-merge
+  - tachart
+  - upload
+  - 拆图流水线
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: clash-verge-config
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Clash Verge=%AppData%\cashrev，mixed 7897，API 127.0.0.1:9097，secret=运行时
+    caserg.yaml（常 set-your-secret）。
+  description_human: Clash Verge=%AppData%\cashrev，mixed 7897，API 127.0.0.1:9097，secret=运行时
+    caserg.yaml（常 set-your-secret）。
+  trigger:
+  - Clash Verge=%AppData%\cashrev，mixed 7897，API 127.0.0.1:9097，secret=运行时 caserg.yaml（常
+    set-your-secret）。
+  - clash
+  - proxy
+  - config
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: consolidation-backlog-20260918
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 中枢 + 存量整合 待办总表（活文档）
+  description_human: 中枢 + 存量整合 待办总表（活文档）
+  trigger:
+  - 中枢 + 存量整合 待办总表（活文档）
+  - backlog
+  - todo
+  - hub-maintenance
+  - consolidation
+  - conflicts
+  - flywheel
+  - priority
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: gateway-platforms
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Gateway 消息平台接入状态
+  description_human: Gateway 消息平台接入状态
+  trigger:
+  - Gateway 消息平台接入状态
+  - gateway
+  - weixin
+  - yuanbao
+  - bot
+  - im
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: github-autopush
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: GitHub AutoPush — 本地项目一键推送工具
+  description_human: GitHub AutoPush — 本地项目一键推送工具
+  trigger:
+  - GitHub AutoPush — 本地项目一键推送工具
+  - github
+  - tool
+  - python
+  - automation
+  - repo
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: hermes-cron-jobs
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Hermes 定时任务（2026-09-26 精简后现状）
+  description_human: Hermes 定时任务（2026-09-26 精简后现状）
+  trigger:
+  - Hermes 定时任务（2026-09-26 精简后现状）
+  - hermes
+  - cron
+  - scheduled-tasks
+  - 定时任务
+  - mimo-token-plan
+  - 精简
+  - ops
+  - windows-task
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: hermes-desktop-facts
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: Hermes 桌面本机事实（上下文用量 / 默认目录 / 调试技能）
+  description_human: Hermes 桌面本机事实（上下文用量 / 默认目录 / 调试技能）
+  trigger:
+  - Hermes 桌面本机事实（上下文用量 / 默认目录 / 调试技能）
+  - hermes
+  - desktop
+  - context
+  - project-dir
+  - debug
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: improve-ingest-dedup-threshold
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 改进候选：ingest 去重误判真新卡（跨独立仓库命令行提交经验被收进冲突区）
+  description_human: 改进候选：ingest 去重误判真新卡（跨独立仓库命令行提交经验被收进冲突区）
+  trigger:
+  - 改进候选：ingest 去重误判真新卡（跨独立仓库命令行提交经验被收进冲突区）
+  - memoryhub
+  - dedup
+  - ingest
+  - improvement
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: memory-hub-facts-and-injection
+  slot: dedicated
+  scope: memory-hub
+  invoke: user
+  description_model: 统一记忆中枢 · 事实与注入目标
+  description_human: 统一记忆中枢 · 事实与注入目标
+  trigger:
+  - 统一记忆中枢 · 事实与注入目标
+  - memory-hub
+  - architecture
+  - inject
+  - platform
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: omniroute-local-deployment
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: OmniRoute 本机部署全貌（网关 / 容器网络 / 引擎配置）
+  description_human: OmniRoute 本机部署全貌（网关 / 容器网络 / 引擎配置）
+  trigger:
+  - OmniRoute 本机部署全貌（网关 / 容器网络 / 引擎配置）
+  - omniroute
+  - gateway
+  - docker
+  - networking
+  - llm
+  - config
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: platform-backlog-t19-t21
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: 平台后续优化待办总表（T19 + T21 合流）
+  description_human: 平台后续优化待办总表（T19 + T21 合流）
+  trigger:
+  - 平台后续优化待办总表（T19 + T21 合流）
+  - backlog
+  - cron-optimization
+  - platform-management
+  - 5-platform
+  - post-optimization
+  - observation
+  - t19
+  - t21
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: pluginhub-current-state
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: PluginHub 项目现状（截至 2026-09-10）
+  description_human: PluginHub 项目现状（截至 2026-09-10）
+  trigger:
+  - PluginHub 项目现状（截至 2026-09-10）
+  - mavis
+  - MiniMax-Code
+  - workbuddy
+  - pluginhub
+  - pyside6
+  - windows-desktop
+  - lmstudio
+  - project-state
+  - phase-4
+  - phase-5
+  - mvvm
+  - theme-manager
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: pluginhub-speech-input-registration
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: PluginHub 注册卡：speech_input（语音输入法）
+  description_human: PluginHub 注册卡：speech_input（语音输入法）
+  trigger:
+  - PluginHub 注册卡：speech_input（语音输入法）
+  - mavis
+  - MiniMax-Code
+  - pluginhub
+  - speech-input
+  - asr
+  - windows
+  - python
+  - autostart
+  - hotkey
+  - tray
+  - uia
+  - ctypes
+  - MiniMax
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: pluginhub-startup-automation-script-registration-standard
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: PluginHub 开机自动化脚本注册规范
+  description_human: PluginHub 开机自动化脚本注册规范
+  trigger:
+  - PluginHub 开机自动化脚本注册规范
+  - pluginhub
+  - startup-automation
+  - script-registry
+  - label
+  - hermes-only
+  - windows
+  - autostart
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: project-threerowrein-baseline-v51-snapshot
+  slot: dedicated
+  scope: cad
+  invoke: user
+  description_model: threeRowRein 项目基线（交付基线）v51 快照
+  description_human: threeRowRein 项目基线（交付基线）v51 快照
+  trigger:
+  - threeRowRein 项目基线（交付基线）v51 快照
+  - AutoCAD
+  - 三排钢筋
+  - threeRowRein
+  - cad-command-development
+  - YJK
+  - 交付基线
+  - v51
+  - vision_server
+  - 分层测试
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: sglang-dashboard-pluginhub-registration
+  slot: shared
+  scope: ''
+  invoke: user
+  description_model: SGLang Dashboard 注册卡
+  description_human: SGLang Dashboard 注册卡
+  trigger:
+  - SGLang Dashboard 注册卡
+  - sglang
+  - dashboard
+  - llm
+  - local-inference
+  - gpu
+  - monitoring
+  - python
+  - automation
+  - docker
+  - pluginhub
+  - fan-53m
+  - windows
+  - local-project
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: t1-plan-three-blueprints
+  slot: dedicated
+  scope: cad
+  invoke: user
+  description_model: '> 📌 **2026-09-01 注记**：本计划中所有"Ollama embed/chat"的容错验收语境，随本地模型迁移改按
+    **LM Studio（1234）+ OmniRoute（20128）** 执行（Ollama 已退役，见 `rules/ollama-retired-lmstudio-takeover.md`）。弹性管道针对"本地
+    LLM 服务不可用"的测试意图不变，故障注入对象换现役端点即可。'
+  description_human: '> 📌 **2026-09-01 注记**：本计划中所有"Ollama embed/chat"的容错验收语境，随本地模型迁移改按
+    **LM Studio（1234）+ OmniRoute（20128）** 执行（Ollama 已退役，见 `rules/ollama-retired-lmstudio-takeover.md`）。弹性管道针对"本地
+    LLM 服务不可用"的测试意图不变，故障注入对象换现役端点即可。'
+  trigger:
+  - '> 📌 **2026-09-01 注记**：本计划中所有"Ollama embed/chat"的容错验收语境，随本地模型迁移改按 **LM Studio（1234）+
+    OmniRoute（20128）** 执行（Ollama 已退役，见 `rules/ollama-retired-lmstudio-takeover.md`）。弹性管道针对"本地
+    LLM 服务不可用"的测试意图不变，故障注入对象换现役端点即可。'
+  - t1-plan
+  - star-distill
+  - polly
+  - kicad
+  - bevy
+  - blueprint-validation
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: t15-improvement-backlog
+  slot: dedicated
+  scope: memory-hub
+  invoke: user
+  description_model: T15 改进待办清单（8项）
+  description_human: T15 改进待办清单（8项）
+  trigger:
+  - T15 改进待办清单（8项）
+  - improvement
+  - backlog
+  - skillhub
+  - memory-hub
+  - patrol
+  - t15
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0
+- name: tencentdb-agent-memory
+  slot: dedicated
+  scope: memory-hub
+  invoke: user
+  description_model: TencentDB Agent Memory 工具档案
+  description_human: TencentDB Agent Memory 工具档案
+  trigger:
+  - TencentDB Agent Memory 工具档案
+  - tencentdb
+  - agent-memory
+  - memory-hub
+  - external-tool
+  forgot:
+  - 自动执行外部脚本
+  - push 到远程
+  - 改写全局 git config
+  weight: 1.0

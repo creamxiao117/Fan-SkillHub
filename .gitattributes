@@ -1,0 +1,7 @@
+# 行尾/编码策略（2026-10-05，与 Fan-Agent-Momory / AgentMemoryHub 同口径）
+# 本仓曾无 .gitattributes 且 core.autocrlf=true ⇒ 检出写 CRLF，而 yamllint 的
+# new-lines 规则期望 LF ⇒ 实测 router.yaml 被报 "wrong new line character: expected \n"。
+# .bat/.cmd 按纪律保留 CRLF，其余文本 LF。
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf

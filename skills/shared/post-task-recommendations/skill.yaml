@@ -1,0 +1,39 @@
+# skill.yaml —— post-task-recommendations（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\post-task-recommendations.md
+name: post-task-recommendations
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 5
+  last_verified: ''
+invoke: user
+description_model: 任务收尾建议清单（post-task recommendations）
+description_human: 任务收尾建议清单（post-task recommendations）
+trigger:
+- 任务收尾建议清单（post-task recommendations）
+- workflow
+- methodology
+- todo
+- review
+- context-preservation
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/post-task-recommendations.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

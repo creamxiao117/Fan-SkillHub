@@ -1,0 +1,40 @@
+# skill.yaml —— 2026-08-17-dsh-worktable-cordis-plugin（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\2026-08-17-dsh-worktable-cordis-plugin.md
+name: 2026-08-17-dsh-worktable-cordis-plugin
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 4
+  last_verified: ''
+invoke: user
+description_model: 经验卡：dsh-worktable Cordis 插件项目（context-engineering-v1）
+description_human: 经验卡：dsh-worktable Cordis 插件项目（context-engineering-v1）
+trigger:
+- 经验卡：dsh-worktable Cordis 插件项目（context-engineering-v1）
+- context-engineering-v1
+- cordis
+- dsh
+- plugin-development
+- boundary-recognition
+- lm-studio
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/2026-08-17-dsh-worktable-cordis-plugin.md
+__reconcile_batch__:
+  batch_size: 1
+  batch_index: 0
+  total_batches: 68
+  total_candidates: 68

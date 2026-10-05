@@ -589,10 +589,10 @@ def reconcile(
         try:
             dest_dir.mkdir(parents=True, exist_ok=True)
             (dest_dir / SKILL_YAML_NAME).write_text(
-                render_skill_yaml(card, batch_meta=batch_meta), encoding="utf-8"
+                render_skill_yaml(card, batch_meta=batch_meta), encoding="utf-8", newline="\n",
             )
             (dest_dir / SKILL_MD_NAME).write_text(
-                render_skill_md(card), encoding="utf-8"
+                render_skill_md(card), encoding="utf-8", newline="\n",
             )
             pending_registrations.append(card)
             actions.append(
@@ -680,6 +680,7 @@ def _register_router(router_path: str | Path, card: CardInfo) -> bool:
     p.write_text(
         yaml.safe_dump(data, allow_unicode=True, sort_keys=False),
         encoding="utf-8",
+        newline="\n",
     )
     return True
 
@@ -702,7 +703,7 @@ def _save_candidate_cards(cards: list[CardInfo], path: str | Path, hub_root: str
         },
         "cards": [c.to_dict() for c in cards],
     }
-    p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    p.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
 
 
 def _load_candidate_cards(path: str | Path, hub_root: str | Path) -> list[CardInfo]:

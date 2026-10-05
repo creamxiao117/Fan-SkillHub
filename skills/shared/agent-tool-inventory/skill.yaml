@@ -1,0 +1,40 @@
+# skill.yaml —— agent-tool-inventory（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\agent-tool-inventory.md
+name: agent-tool-inventory
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 9
+  last_verified: ''
+invoke: user
+description_model: 【盘点】统一各 Agent 平台的 skill / MCP 清单与使用频率，作为轻量工具路由表（借鉴 gh-cap-router
+  L1/L2）的地基。数据为 2026-08-18 实采，改动客户端配置前需用户批准。
+description_human: 【盘点】统一各 Agent 平台的 skill / MCP 清单与使用频率，作为轻量工具路由表（借鉴 gh-cap-router
+  L1/L2）的地基。数据为 2026-08-18 实采，改动客户端配置前需用户批准。
+trigger:
+- 【盘点】统一各 Agent 平台的 skill / MCP 清单与使用频率，作为轻量工具路由表（借鉴 gh-cap-router L1/L2）的地基。数据为 2026-08-18
+  实采，改动客户端配置前需用户批准。
+- agent-routing
+- tool-governance
+- tool-inventory
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/agent-tool-inventory.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

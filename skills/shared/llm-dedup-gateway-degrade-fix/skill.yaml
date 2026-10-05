@@ -1,0 +1,38 @@
+# skill.yaml —— llm-dedup-gateway-degrade-fix（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\llm-dedup-gateway-degrade-fix.md
+name: llm-dedup-gateway-degrade-fix
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 6
+  last_verified: ''
+invoke: user
+description_model: LLM 去重网关降级 conflicts 的根因诊断与修复
+description_human: LLM 去重网关降级 conflicts 的根因诊断与修复
+trigger:
+- LLM 去重网关降级 conflicts 的根因诊断与修复
+- llm网关
+- dedup
+- 降级
+- lmstudio
+- 上下文超限
+- 排障方法论
+forgot:
+- 非LLM网关类问题的通用排障
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/llm-dedup-gateway-degrade-fix.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

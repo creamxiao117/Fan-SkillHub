@@ -1,0 +1,40 @@
+# skill.yaml —— dsh-patch-driven-plugin（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\dsh-patch-driven-plugin.md
+name: dsh-patch-driven-plugin
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 4
+  last_verified: ''
+invoke: user
+description_model: DSH 插件开发原则：补丁优先 vs 代码优先
+description_human: DSH 插件开发原则：补丁优先 vs 代码优先
+trigger:
+- DSH 插件开发原则：补丁优先 vs 代码优先
+- dsh
+- dsh-plugin
+- cordis
+- patch-driven
+- dsh专属
+- 不跨平台sync
+forgot:
+- code 平台插件开发
+- trae 平台插件开发
+- 非 DSH monorepo 内部开发
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/dsh-patch-driven-plugin.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

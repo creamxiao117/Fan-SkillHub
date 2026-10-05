@@ -1,0 +1,40 @@
+# skill.yaml —— cad-automation-command-template（dedicated库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\cad-automation-command-template.md
+name: cad-automation-command-template
+version: 0.1.0
+slot: dedicated
+scope: autocad
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 7
+  last_verified: ''
+invoke: user
+description_model: CAD 插件命令自动化模板：XxxCore(useUi) + 非交互变体 + 可 grep 输出
+description_human: CAD 插件命令自动化模板：XxxCore(useUi) + 非交互变体 + 可 grep 输出
+trigger:
+- CAD 插件命令自动化模板：XxxCore(useUi) + 非交互变体 + 可 grep 输出
+- autocad
+- dotnet
+- automation
+- command-template
+- modality
+- cross-project
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/cad-automation-command-template.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

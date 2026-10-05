@@ -1,0 +1,40 @@
+# skill.yaml —— mcp-hub-mount-guaranteed-retrieval（dedicated库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\mcp-hub-mount-guaranteed-retrieval.md
+name: mcp-hub-mount-guaranteed-retrieval
+version: 0.1.0
+slot: dedicated
+scope: memory-hub
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 5
+  last_verified: ''
+invoke: user
+description_model: MCP 挂载范式：保证对中枢 100% 检索命中
+description_human: MCP 挂载范式：保证对中枢 100% 检索命中
+trigger:
+- MCP 挂载范式：保证对中枢 100% 检索命中
+- cross-platform
+- mcp
+- memory-hub
+- retrieval
+- onboarding
+- agent
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/mcp-hub-mount-guaranteed-retrieval.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

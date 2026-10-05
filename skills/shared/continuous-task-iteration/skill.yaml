@@ -1,0 +1,41 @@
+# skill.yaml —— continuous-task-iteration（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\continuous-task-iteration.md
+name: continuous-task-iteration
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: 持续任务迭代门禁（5 档量化分析模型）
+description_human: 持续任务迭代门禁（5 档量化分析模型）
+trigger:
+- 持续任务迭代门禁（5 档量化分析模型）
+- 持续任务
+- 迭代门禁
+- 档位模型
+- token成本
+- 任务收敛
+- 量化分析
+- workflow
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/continuous-task-iteration.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

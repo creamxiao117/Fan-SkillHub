@@ -170,6 +170,7 @@ def _cmd_sync_verification(args: argparse.Namespace) -> None:
         skill_yaml.write_text(
             yaml.safe_dump(data, allow_unicode=True, sort_keys=False),
             encoding="utf-8",
+            newline="\n",
         )
         updated += 1
         source_stats[source] += 1
@@ -195,6 +196,7 @@ def _cmd_promote(args: argparse.Namespace) -> None:
         skill_yaml.write_text(
             yaml.safe_dump(data, allow_unicode=True, sort_keys=False),
             encoding="utf-8",
+            newline="\n",
         )
         print(f"promote {args.name} → {target}")
         return
@@ -269,6 +271,7 @@ def _cmd_new(args: argparse.Namespace) -> None:
     (dest / "skill.yaml").write_text(
         yaml.safe_dump(skill_yaml, allow_unicode=True, sort_keys=False),
         encoding="utf-8",
+        newline="\n",
     )
 
     # 写 SKILL.md (含 authoring 检查清单)
@@ -301,7 +304,7 @@ description: "{args.name}(新建技能, 待填写)"
 
 - 新建技能: {args.name}
 """
-    (dest / "SKILL.md").write_text(md, encoding="utf-8")
+    (dest / "SKILL.md").write_text(md, encoding="utf-8", newline="\n")
     print(f"new: skill '{args.name}' created at {dest}")
     print("下一步: 编辑 SKILL.md 填写技能描述, 编辑 skill.yaml 添加 trigger/forgot")
 
@@ -425,6 +428,7 @@ def _cmd_migrate(args: argparse.Namespace) -> None:
                 skill_yaml.write_text(
                     yaml.safe_dump(data, allow_unicode=True, sort_keys=False),
                     encoding="utf-8",
+                    newline="\n",
                 )
                 updated += 1
 
@@ -481,6 +485,7 @@ def _cmd_verify(args: argparse.Namespace) -> None:
             skill_yaml.write_text(
                 yaml.safe_dump(data, allow_unicode=True, sort_keys=False),
                 encoding="utf-8",
+                newline="\n",
             )
 
     sys.exit(0 if all_pass else 1)
@@ -524,6 +529,7 @@ def _cmd_promote_auto(args: argparse.Namespace) -> None:
             skill_yaml.write_text(
                 yaml.safe_dump(data, allow_unicode=True, sort_keys=False),
                 encoding="utf-8",
+                newline="\n",
             )
         print(f"  ✨ promote {name}: reuse_count={rc}, t1={t1[:40]}")
         promoted += 1
@@ -596,7 +602,7 @@ def _cmd_push_to_hub(args: argparse.Namespace) -> None:
         if args.dry_run:
             print(f"  [dry-run] {name}: {hub_path.name}")
         else:
-            hub_path.write_text(new_raw, encoding="utf-8")
+            hub_path.write_text(new_raw, encoding="utf-8", newline="\n")
             print(f"  [push] {name}: {hub_path.name} -> status=active, reuse_count={fm['reuse_count']}")
         updated += 1
 

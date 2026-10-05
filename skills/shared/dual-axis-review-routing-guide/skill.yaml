@@ -1,0 +1,38 @@
+# skill.yaml —— dual-axis-review-routing-guide（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\dual-axis-review-routing-guide.md
+name: dual-axis-review-routing-guide
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 8
+  last_verified: ''
+invoke: user
+description_model: 双轴并行审查 × 复杂度路由 · 决策指南
+description_human: 双轴并行审查 × 复杂度路由 · 决策指南
+trigger:
+- 双轴并行审查 × 复杂度路由 · 决策指南
+- code-review
+- complexity-routing
+- decision-guide
+- skill-governance
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/dual-axis-review-routing-guide.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

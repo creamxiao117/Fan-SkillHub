@@ -1,0 +1,40 @@
+# skill.yaml —— design-control-loop（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\design-control-loop.md
+name: design-control-loop
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 6
+  last_verified: ''
+invoke: user
+description_model: Design Control Loop：控制论视角设计 Agentic 循环
+description_human: Design Control Loop：控制论视角设计 Agentic 循环
+trigger:
+- Design Control Loop：控制论视角设计 Agentic 循环
+- control-loop
+- control-theory
+- agentic
+- sensor
+- actuator
+- feedback
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/design-control-loop.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

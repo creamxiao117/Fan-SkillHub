@@ -1,0 +1,40 @@
+# skill.yaml —— cad2020-tu-fen-pipeline（dedicated库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\cad2020-tu-fen-pipeline.md
+name: cad2020-tu-fen-pipeline
+version: 0.1.0
+slot: dedicated
+scope: cad
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 16
+  last_verified: ''
+invoke: user
+description_model: CAD2020 拆图流水线（拆图 → 出图设置 → 合并校验 → 上传）
+description_human: CAD2020 拆图流水线（拆图 → 出图设置 → 合并校验 → 上传）
+trigger:
+- CAD2020 拆图流水线（拆图 → 出图设置 → 合并校验 → 上传）
+- cad2020
+- kplot
+- pdf-merge
+- tachart
+- upload
+- 拆图流水线
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/projects/cad2020-tu-fen-pipeline.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

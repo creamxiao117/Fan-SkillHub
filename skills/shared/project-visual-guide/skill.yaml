@@ -1,0 +1,36 @@
+# skill.yaml —— project-visual-guide（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\project-visual-guide.md
+name: project-visual-guide
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 7
+  last_verified: ''
+invoke: user
+description_model: 【可视化】骨架稳定后补一页项目可视化（project-visual-guide.md，Mermaid/结构化 MD）；小任务可跳过。
+description_human: 【可视化】骨架稳定后补一页项目可视化（project-visual-guide.md，Mermaid/结构化 MD）；小任务可跳过。
+trigger:
+- 【可视化】骨架稳定后补一页项目可视化（project-visual-guide.md，Mermaid/结构化 MD）；小任务可跳过。
+- context-engineering
+- visualize
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/project-visual-guide.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

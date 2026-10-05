@@ -1,0 +1,46 @@
+# skill.yaml —— t1-plan-three-blueprints（dedicated库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\projects\t1-plan-three-blueprints.md
+name: t1-plan-three-blueprints
+version: 0.1.0
+slot: dedicated
+scope: cad
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 0
+  last_verified: ''
+invoke: user
+description_model: '> 📌 **2026-09-01 注记**：本计划中所有"Ollama embed/chat"的容错验收语境，随本地模型迁移改按
+  **LM Studio（1234）+ OmniRoute（20128）** 执行（Ollama 已退役，见 `rules/ollama-retired-lmstudio-takeover.md`）。弹性管道针对"本地
+  LLM 服务不可用"的测试意图不变，故障注入对象换现役端点即可。'
+description_human: '> 📌 **2026-09-01 注记**：本计划中所有"Ollama embed/chat"的容错验收语境，随本地模型迁移改按
+  **LM Studio（1234）+ OmniRoute（20128）** 执行（Ollama 已退役，见 `rules/ollama-retired-lmstudio-takeover.md`）。弹性管道针对"本地
+  LLM 服务不可用"的测试意图不变，故障注入对象换现役端点即可。'
+trigger:
+- '> 📌 **2026-09-01 注记**：本计划中所有"Ollama embed/chat"的容错验收语境，随本地模型迁移改按 **LM Studio（1234）+
+  OmniRoute（20128）** 执行（Ollama 已退役，见 `rules/ollama-retired-lmstudio-takeover.md`）。弹性管道针对"本地
+  LLM 服务不可用"的测试意图不变，故障注入对象换现役端点即可。'
+- t1-plan
+- star-distill
+- polly
+- kicad
+- bevy
+- blueprint-validation
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/projects/t1-plan-three-blueprints.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68

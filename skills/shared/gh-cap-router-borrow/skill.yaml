@@ -1,0 +1,39 @@
+# skill.yaml —— gh-cap-router-borrow（shared库）
+# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\gh-cap-router-borrow.md
+name: gh-cap-router-borrow
+version: 0.1.0
+slot: shared
+scope: ''
+status: reference
+reuse_count: 0
+updated: '2026-10-05'
+evidence:
+  gate: required
+  grade: pending
+verification:
+  status: reference
+  t1_record: ''
+  reuse_count: 10
+  last_verified: ''
+invoke: user
+description_model: 【借鉴】同类仓库 Table-GitHub-Capability-Router（Agent 记忆/能力路由基建）可借鉴的 6
+  个治理层设计，按 ROI 排序。暂只沉淀结论，未改代码。
+description_human: 【借鉴】同类仓库 Table-GitHub-Capability-Router（Agent 记忆/能力路由基建）可借鉴的 6
+  个治理层设计，按 ROI 排序。暂只沉淀结论，未改代码。
+trigger:
+- 【借鉴】同类仓库 Table-GitHub-Capability-Router（Agent 记忆/能力路由基建）可借鉴的 6 个治理层设计，按 ROI 排序。暂只沉淀结论，未改代码。
+- research
+- agent-routing
+- memory-governance
+forgot:
+- 自动执行外部脚本
+- push 到远程
+- 改写全局 git config
+instructions: SKILL.md
+references:
+- C:/Users/Fan-SJSS/.trae-cn/worktrees/20260817-Fan-Agent-Momory/feat-implement-plan-ZilBmv/AgentMemoryHub/methodology/gh-cap-router-borrow.md
+__reconcile_batch__:
+  batch_size: 68
+  batch_index: 0
+  total_batches: 1
+  total_candidates: 68
