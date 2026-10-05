@@ -269,36 +269,6 @@ skills:
   - 纯设计任务
   - 不需要检查
   deploy_scope: always
-- name: chrome
-  slot: shared
-  scope: browser
-  invoke: model
-  weight: 0.7
-  status: active
-  description_model: 浏览器自动化/网页爬取/网页测试
-  description_human: '由 router_sync 从中枢路由表同步（来源: Skill 插件）'
-  trigger:
-  - chrome
-  forgot:
-  - 不需要浏览器
-  - 纯本地文件操作
-  - CLI 脚本任务
-  deploy_scope: on-demand
-- name: dynamic-ui
-  slot: shared
-  scope: visual
-  invoke: model
-  weight: 0.7
-  status: active
-  description_model: 仅需要可视化/图纸时
-  description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
-  trigger:
-  - dynamic-ui
-  forgot:
-  - 不需要内联视觉
-  - 纯文本输出
-  - API 调用
-  deploy_scope: on-demand
 - name: github
   slot: shared
   scope: github
@@ -331,51 +301,6 @@ skills:
   - CLI 工具
   deploy_scope: on-demand
   kind: mcp
-- name: integrated_code_mode
-  slot: shared
-  scope: core
-  invoke: model
-  weight: 0.7
-  status: active
-  description_model: 需要脚本编排工具调用时用
-  description_human: '由 router_sync 从中枢路由表同步（来源: MCP）'
-  trigger:
-  - integrated_code_mode
-  forgot:
-  - 不需要代码质量检查
-  - 只做产品讨论
-  - 纯设计任务
-  deploy_scope: on-demand
-- name: integrated_goal
-  slot: shared
-  scope: core
-  invoke: model
-  weight: 0.5
-  status: active
-  description_model: 长任务目标跟踪时用
-  description_human: '由 router_sync 从中枢路由表同步（来源: MCP）'
-  trigger:
-  - integrated_goal
-  forgot:
-  - 不需要 JavaScript 运行时
-  - Python/Go 后端
-  - CLI 工具
-  deploy_scope: on-demand
-- name: lark
-  slot: shared
-  scope: lark
-  invoke: model
-  weight: 0.5
-  status: active
-  description_model: 仅用户给 /docs/ /sheets/ /wiki/ 等飞书 URL 或点名
-  description_human: '由 router_sync 从中枢路由表同步（来源: Skill 插件）'
-  trigger:
-  - lark
-  forgot:
-  - 不涉及飞书
-  - 本地文件操作
-  - GitHub 相关
-  deploy_scope: on-demand
 - name: mcp_Computer_Use
   slot: shared
   scope: desktop
@@ -470,21 +395,6 @@ skills:
   - 纯代码任务
   - 飞书文档操作
   deploy_scope: always
-- name: pdf-monster
-  slot: shared
-  scope: document
-  invoke: model
-  weight: 0.7
-  status: active
-  description_model: 仅处理 PDF 时
-  description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
-  trigger:
-  - pdf-monster
-  forgot:
-  - 不涉及 PDF 文件
-  - 纯代码任务
-  - 飞书文档操作
-  deploy_scope: on-demand
 - name: pdf-reader
   slot: shared
   scope: document
@@ -514,21 +424,6 @@ skills:
   - 不相关场景
   - 与本技能无关的任务
   deploy_scope: always
-- name: vercel-react-best-practices
-  slot: shared
-  scope: web
-  invoke: user
-  weight: 0.5
-  status: active
-  description_model: 仅 React/Next.js 优化场景
-  description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
-  trigger:
-  - vercel-react-best-practices
-  forgot:
-  - 不涉及 React/Next.js
-  - 后端/基础设施任务
-  - 纯设计
-  deploy_scope: on-demand
 - name: excel-author
   slot: shared
   scope: productivity
