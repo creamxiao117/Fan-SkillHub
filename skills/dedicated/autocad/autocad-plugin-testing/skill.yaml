@@ -1,5 +1,3 @@
-# skill.yaml —— autocad-plugin-testing（dedicated库）
-# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\autocad-plugin-testing.md
 name: autocad-plugin-testing
 deploy_scope: task
 version: 0.1.0
@@ -15,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 11
-  last_verified: ''
+  last_verified: '2026-10-06'
 invoke: user
 description_model: Tag 覆盖（防 hook 漂移）
 description_human: Tag 覆盖（防 hook 漂移）
