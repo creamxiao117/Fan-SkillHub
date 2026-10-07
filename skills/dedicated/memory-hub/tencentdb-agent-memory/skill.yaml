@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 8
-  last_verified: '2026-10-06'
+  last_verified: '2026-10-07'
 invoke: user
 description_model: TencentDB Agent Memory 工具档案
 description_human: TencentDB Agent Memory 工具档案

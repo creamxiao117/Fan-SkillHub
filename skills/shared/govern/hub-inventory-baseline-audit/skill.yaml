@@ -63,7 +63,7 @@ capabilities:
 auto_capped: '2026-08-25'
 verification:
   t1_record: 静态检查全部通过
-  last_verified: '2026-10-06'
+  last_verified: '2026-10-07'
   reuse_count: 8
 __reconcile_batch__:
   migrated: true

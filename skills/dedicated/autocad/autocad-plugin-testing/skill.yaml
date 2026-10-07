@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 11
-  last_verified: '2026-10-06'
+  last_verified: '2026-10-07'
 invoke: user
 description_model: Tag 覆盖（防 hook 漂移）
 description_human: Tag 覆盖（防 hook 漂移）

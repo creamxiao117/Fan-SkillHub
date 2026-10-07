@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 9
-  last_verified: '2026-10-06'
+  last_verified: '2026-10-07'
 invoke: user
 description_model: Improve CLAUDE.md：`<important if>` 区块提升指令遵循率
 description_human: Improve CLAUDE.md：`<important if>` 区块提升指令遵循率

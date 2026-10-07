@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 6
-  last_verified: '2026-10-06'
+  last_verified: '2026-10-07'
 invoke: user
 description_model: LLM 去重网关降级 conflicts 的根因诊断与修复
 description_human: LLM 去重网关降级 conflicts 的根因诊断与修复

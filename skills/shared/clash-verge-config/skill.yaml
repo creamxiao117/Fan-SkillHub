@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 5
-  last_verified: '2026-10-06'
+  last_verified: '2026-10-07'
 invoke: user
 description_model: Clash Verge=%AppData%\cashrev，mixed 7897，API 127.0.0.1:9097，secret=运行时
   caserg.yaml（常 set-your-secret）。

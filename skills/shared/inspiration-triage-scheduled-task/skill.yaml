@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 6
-  last_verified: '2026-10-06'
+  last_verified: '2026-10-07'
 invoke: user
 description_model: 增强灵感整理定时任务：筛选待办-认知-急需
 description_human: 增强灵感整理定时任务：筛选待办-认知-急需
