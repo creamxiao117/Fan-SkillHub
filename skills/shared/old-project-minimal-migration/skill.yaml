@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 7
-  last_verified: '2026-10-07'
+  last_verified: '2026-10-08'
 invoke: user
 description_model: 旧项目接入 context-engineering-v1 最小迁移方法论：
 description_human: 旧项目接入 context-engineering-v1 最小迁移方法论：
