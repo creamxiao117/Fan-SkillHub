@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 16
-  last_verified: '2026-10-08'
+  last_verified: '2026-10-09'
 invoke: user
 description_model: CAD2020 拆图流水线（拆图 → 出图设置 → 合并校验 → 上传）
 description_human: CAD2020 拆图流水线（拆图 → 出图设置 → 合并校验 → 上传）

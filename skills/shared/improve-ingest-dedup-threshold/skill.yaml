@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 8
-  last_verified: '2026-10-08'
+  last_verified: '2026-10-09'
 invoke: user
 description_model: 改进候选：ingest 去重误判真新卡（跨独立仓库命令行提交经验被收进冲突区）
 description_human: 改进候选：ingest 去重误判真新卡（跨独立仓库命令行提交经验被收进冲突区）

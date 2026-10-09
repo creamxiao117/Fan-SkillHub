@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 8
-  last_verified: '2026-10-08'
+  last_verified: '2026-10-09'
 invoke: user
 description_model: 【裁剪】TRAE 与 workbuddy 工具裁剪候选统一清单，按 ROI 排序（ROI = 省常驻上下文/少误触发 ÷ 改动风险与恢复成本）。改客户端可见性/配置前必须先获用户批准（L0
   治理）。

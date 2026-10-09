@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 8
-  last_verified: '2026-10-08'
+  last_verified: '2026-10-09'
 invoke: user
 description_model: 仓库选择前置过滤规则（star-distill 入口门禁）
 description_human: 仓库选择前置过滤规则（star-distill 入口门禁）
