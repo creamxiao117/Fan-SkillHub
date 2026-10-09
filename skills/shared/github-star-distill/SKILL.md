@@ -57,8 +57,11 @@ Step 2: build-vectors 养索引
   python hub-engine/engine.py build-vectors --root AgentMemoryHub
   → Ollama bge-m3 嵌入，全量重建向量
 
-Step 3: INDEX.md 登记
-  → 在对应目录清单追加一行：status=reference, reuse_count=0（还没真跑过）
+Step 3: INDEX 渲染（**禁止手改**）
+  cd hub-engine && python -m scripts.render_index --write
+  → 生成 INDEX.md / INDEX-full.md / INDEX-experience.md（均为渲染产物）；
+    ingest 自带的 post_ingest_hook 也会做同样的事
+  → 新卡在对应分册里的登记行形如：status=reference, reuse_count=0（还没真跑过）
 ```
 
 ### 3. 分流沉淀（方法价值）
@@ -68,7 +71,22 @@ Step 3: INDEX.md 登记
 - **技术路径型**（可给同类新项目立项做选型导航的，如整类项目的分工/架构/路由范式）→ 用 `blueprint` 卡型，落入 `blueprints/` 目录，供 `hub_bootstrap(kind=ideation)` 立项时命中。
 - **其余** → `exp / methodology / rule`（落到对应权威区）。
 
-**Draft 卡位置**：候选卡必须放 `.sync/drafts/trae_draft/` **根目录**（不要放 candidates/ 子目录），因为 ingest 用 `glob("*.md")` 只扫根目录。UTF-8 无 BOM。
+**Draft 卡位置**：候选卡必须放 `.sync/drafts/<平台>_draft/` **根目录**（不要放 candidates/ 子目录），
+因为 ingest 用 `glob("*.md")` 只扫根目录。UTF-8 无 BOM。
+
+**frontmatter 必填**：`type` / **`grade`** / `tags` / `updated` / `status` / `reuse_count` / `anti_trigger`。
+其中 `grade` 是 **P0 门禁项**（`scripts/hub_audit.py` 的「缺 grade」维度），且**必须与目录匹配**
+（单源：`hub-engine/common/frontmatter.py::GRADES_BY_DIR`）：
+
+| 目录 | 允许的 grade | 本流程默认取值 |
+|---|---|---|
+| `blueprints/` | `domain` / `proven` | 静态提炼 → `domain`；已在本 hub T1 亲跑通过 → `proven` |
+| `experience/`（含归档型 exp 草稿） | `task` / `pitfall` / `proven` | 单次任务结论 → `task` |
+| `methodology/` | `iron` / `proven` / `domain` / `pitfall` | `domain` |
+| `rules/` | `iron` / `proven` / `domain` / `task` / `pitfall` | `proven`（非铁律）/ `iron`（附可执行门禁） |
+
+（2026-10-07/08 两天的 star-distill 产物就是因为规格里没写 `grade`，在 `hub_audit` 里
+一次性积了 9 张 P0「缺 grade」。）
 
 ### 4. 试用内化（可执行价值，可选）
 
@@ -109,7 +127,9 @@ rm -rf F:/AgentMemoryT1/<slug>-<date>/
 
 - retro/log.md 追加时间线条目（来源仓库、canonical ID、判级、静态 T0 结论、候选卡文件名）。
 - 每个 canonical ID 追加到 retro/log.md 去重表（防重复内化）。
-- B+ 自动提升完成后，INDEX.md 对应目录手动补登记行。
+- B+ 自动提升完成后，**不要手改** `INDEX.md`：跑 `cd hub-engine && python -m scripts.render_index --write`
+  （或让 `engine.py ingest` 的 `post_ingest_hook` 自动同步）。
+  手改会被渲染一致性门禁打红，也会在下次渲染时丢失。
 - 语义引用挂接后，检索即可命中该卡（检索命中后按 `适用/不适用` 决定是否引用）。
 
 ### 7. 清理
@@ -137,7 +157,7 @@ rm -rf F:/AgentMemoryT1/<slug>-<date>/
 - [x] 隔离克隆（--depth 1，work/star/ 下）
 - [x] 只读盘点骨架 + 静态 T0（不执行、不安装、不编译）
 - [x] 评审判级 + draft 卡写入 trae_draft 根（UTF-8 无 BOM）
-- [x] B+ 自动提升三步（ingest + build-vectors + INDEX 登记）
+- B+ 自动提升三步（ingest + build-vectors + **INDEX 渲染**，后者禁手改）
 - [x] retro/log.md 追加留痕 + canonical IDs 去重表
 - [x] 清理 work/star 临时克隆
 
@@ -153,6 +173,7 @@ rm -rf F:/AgentMemoryT1/<slug>-<date>/
 
 - canonical ID 唯一且可溯源；来源 URL 与卡一致。
 - 每张沉淀卡含 `提炼自 / 核心要点 / 适用场景 / 不适用 / 负路由边界`。
+- 每张沉淀卡 frontmatter 含 **`grade`**（与目录匹配，见 §3 表）——`hub_audit` 的 P0 维度会查。
 - 判级、静态 T0、B+ 自动提升 / 维持 reference 均有留痕。
 - 已有卡校验通过（`lint` 无孤儿/失效），语义检索可命中。
 - B+ 卡：status=reference, reuse_count=0（未过 T1）；A 卡：status=active, reuse_count≥1。
