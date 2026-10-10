@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 5
-  last_verified: '2026-10-09'
+  last_verified: '2026-10-10'
 invoke: user
 description_model: 任务收尾建议清单（post-task recommendations）
 description_human: 任务收尾建议清单（post-task recommendations）

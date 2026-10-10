@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 4
-  last_verified: '2026-10-09'
+  last_verified: '2026-10-10'
 invoke: user
 description_model: 检查器/守门器必须能被负样本打红 —— 否则它只是"假绿制造机"
 description_human: 检查器/守门器必须能被负样本打红 —— 否则它只是"假绿制造机"
