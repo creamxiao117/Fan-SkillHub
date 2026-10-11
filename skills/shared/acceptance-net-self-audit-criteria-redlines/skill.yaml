@@ -1,5 +1,3 @@
-# skill.yaml —— acceptance-net-self-audit-criteria-redlines（shared库）
-# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\acceptance-net-self-audit-criteria-redlines.md
 name: acceptance-net-self-audit-criteria-redlines
 deploy_scope: task
 version: 0.1.0
@@ -14,8 +12,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 0
-  last_verified: ''
+  reuse_count: 1
+  last_verified: '2026-10-11'
 invoke: user
 description_model: 方法论卡：验收网自审 —— 判据红线八条 + 「能红证明」制度
 description_human: 方法论卡：验收网自审 —— 判据红线八条 + 「能红证明」制度
