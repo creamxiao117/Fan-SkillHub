@@ -13,7 +13,7 @@ verification:
   status: reference
   t1_record: ''
   reuse_count: 1
-  last_verified: '2026-10-14'
+  last_verified: '2026-10-15'
 invoke: user
 description_model: 重构判据：看「运行时依赖扇出 + 可测性」，不看行数
 description_human: 重构判据：看「运行时依赖扇出 + 可测性」，不看行数
