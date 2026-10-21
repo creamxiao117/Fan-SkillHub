@@ -395,21 +395,6 @@ skills:
   - 纯代码任务
   - 飞书文档操作
   deploy_scope: always
-- name: pdf-reader
-  slot: shared
-  scope: document
-  invoke: model
-  weight: 0.7
-  status: active
-  description_model: 仅处理 PDF 时
-  description_human: '由 router_sync 从中枢路由表同步（来源: Skill）'
-  trigger:
-  - pdf-reader
-  forgot:
-  - 不涉及 PDF 文件
-  - 纯代码任务
-  - 飞书文档操作
-  deploy_scope: always
 - name: skill-creator
   slot: shared
   scope: dev
