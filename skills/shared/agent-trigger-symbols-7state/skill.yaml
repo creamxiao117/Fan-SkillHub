@@ -1,5 +1,3 @@
-# skill.yaml —— agent-trigger-symbols-7state（shared库）
-# 由中枢卡升级生成: C:\Users\Fan-SJSS\.trae-cn\worktrees\20260817-Fan-Agent-Momory\feat-implement-plan-ZilBmv\AgentMemoryHub\methodology\agent-trigger-symbols-7state.md
 name: agent-trigger-symbols-7state
 deploy_scope: task
 version: 0.1.0
@@ -14,8 +12,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 0
-  last_verified: ''
+  reuse_count: 1
+  last_verified: '2026-10-22'
 invoke: user
 description_model: Agent 任务触发符号：7 状态 1-2 字符（v2 最终版）
 description_human: Agent 任务触发符号：7 状态 1-2 字符（v2 最终版）

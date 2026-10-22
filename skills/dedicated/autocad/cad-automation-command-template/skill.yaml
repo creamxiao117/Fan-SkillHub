@@ -12,8 +12,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 8
-  last_verified: '2026-10-21'
+  reuse_count: 9
+  last_verified: '2026-10-22'
 invoke: user
 description_model: CAD 插件命令自动化模板：XxxCore(useUi) + 非交互变体 + 可 grep 输出
 description_human: CAD 插件命令自动化模板：XxxCore(useUi) + 非交互变体 + 可 grep 输出
