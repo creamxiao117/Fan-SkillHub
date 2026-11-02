@@ -12,8 +12,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 1
-  last_verified: '2026-11-01'
+  reuse_count: 5
+  last_verified: '2026-11-02'
 invoke: user
 description_model: Hermes 定时任务（2026-09-26 精简后现状）
 description_human: Hermes 定时任务（2026-09-26 精简后现状）
