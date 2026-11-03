@@ -12,8 +12,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 8
-  last_verified: '2026-11-02'
+  reuse_count: 9
+  last_verified: '2026-11-03'
 invoke: user
 description_model: 开发一个CAD插件集中管理平台
 description_human: 开发一个CAD插件集中管理平台

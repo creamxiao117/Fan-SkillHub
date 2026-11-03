@@ -47,7 +47,7 @@ capabilities:
 auto_capped: '2026-08-25'
 verification:
   reuse_count: 10
-  last_verified: '2026-11-02'
+  last_verified: '2026-11-03'
 __reconcile_batch__:
   migrated: true
   from_references:

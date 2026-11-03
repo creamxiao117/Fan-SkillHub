@@ -12,8 +12,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 12
-  last_verified: '2026-11-02'
+  reuse_count: 13
+  last_verified: '2026-11-03'
 invoke: user
 description_model: 仓库选择前置过滤规则（star-distill 入口门禁）
 description_human: 仓库选择前置过滤规则（star-distill 入口门禁）

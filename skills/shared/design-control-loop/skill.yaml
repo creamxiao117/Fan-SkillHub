@@ -12,8 +12,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 6
-  last_verified: '2026-11-02'
+  reuse_count: 7
+  last_verified: '2026-11-03'
 invoke: user
 description_model: Design Control Loop：控制论视角设计 Agentic 循环
 description_human: Design Control Loop：控制论视角设计 Agentic 循环
