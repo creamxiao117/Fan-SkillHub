@@ -12,8 +12,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 9
-  last_verified: '2026-11-05'
+  reuse_count: 10
+  last_verified: '2026-11-06'
 invoke: user
 description_model: 双轴并行审查 × 复杂度路由 · 决策指南
 description_human: 双轴并行审查 × 复杂度路由 · 决策指南

@@ -12,8 +12,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 6
-  last_verified: '2026-11-05'
+  reuse_count: 7
+  last_verified: '2026-11-06'
 invoke: user
 description_model: 任务收尾建议清单（post-task recommendations）
 description_human: 任务收尾建议清单（post-task recommendations）
