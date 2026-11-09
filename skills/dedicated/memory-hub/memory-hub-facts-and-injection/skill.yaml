@@ -12,8 +12,8 @@ evidence:
 verification:
   status: reference
   t1_record: ''
-  reuse_count: 11
-  last_verified: '2026-11-08'
+  reuse_count: 12
+  last_verified: '2026-11-09'
 invoke: user
 description_model: 统一记忆中枢 · 事实与注入目标
 description_human: 统一记忆中枢 · 事实与注入目标
